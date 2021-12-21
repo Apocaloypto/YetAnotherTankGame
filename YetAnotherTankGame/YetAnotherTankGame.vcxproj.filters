@@ -30,6 +30,12 @@
     <ClCompile Include="Logging.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Const.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -39,6 +45,12 @@
       <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="Logging.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
   </ItemGroup>
