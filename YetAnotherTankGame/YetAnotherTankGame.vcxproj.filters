@@ -36,6 +36,9 @@
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="Settings.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
   </ItemGroup>
