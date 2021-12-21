@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
    InitializeWindow();
 
-
+   // TODO: Main-Loop!
 
    DestroyWindow();
 
