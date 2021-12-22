@@ -3,6 +3,7 @@
 #include "ExitCodes.h"
 #include "Logging.h"
 #include "Window.h"
+#include "InputStates.h"
 
 #ifdef DEBUG_MODE
 #define _CRTDBG_MAP_ALLOC
@@ -25,7 +26,25 @@ int main(int argc, char **argv)
 
    InitializeWindow();
 
-   // TODO: Main-Loop!
+   while (Window().isOpen())
+   {
+      sf::Event event;
+      while (Window().pollEvent(event))
+      {
+         if (event.type == sf::Event::Closed)
+         {
+            Window().close();
+         }
+      }
+
+      Input().Update();
+
+      Window().clear();
+
+      // Draw the frame:
+
+      Window().display();
+   }
 
    DestroyWindow();
 
