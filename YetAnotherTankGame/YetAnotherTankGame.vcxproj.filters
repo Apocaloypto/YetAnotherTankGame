@@ -48,6 +48,9 @@
     <ClCompile Include="InputStates.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="InputStates.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>

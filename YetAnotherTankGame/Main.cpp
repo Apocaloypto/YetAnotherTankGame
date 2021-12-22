@@ -4,6 +4,7 @@
 #include "Logging.h"
 #include "Window.h"
 #include "InputStates.h"
+#include "Game.h"
 
 #ifdef DEBUG_MODE
 #define _CRTDBG_MAP_ALLOC
@@ -26,7 +27,15 @@ int main(int argc, char **argv)
 
    InitializeWindow();
 
-   while (Window().isOpen())
+   if (!Game().Initialize())
+   {
+      GENERAL_LOG.Log(LogType::Error, "Failed to initialize game");
+      Game().ShutDown();
+      DestroyWindow();
+      return EXIT(ExitCode::FailedToInitializeGame);
+   }
+
+   while (Window().isOpen() && !Game().IsEnding())
    {
       sf::Event event;
       while (Window().pollEvent(event))
@@ -41,11 +50,12 @@ int main(int argc, char **argv)
 
       Window().clear();
 
-      // Draw the frame:
+      Game().Frame();
 
       Window().display();
    }
 
+   Game().ShutDown();
    DestroyWindow();
 
    GENERAL_LOG.Log(LogType::Message, "Game ended normally");
