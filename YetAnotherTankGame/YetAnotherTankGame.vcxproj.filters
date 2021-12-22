@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Base">
       <UniqueIdentifier>{234946aa-bae7-4107-b109-27e6713fcca8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{aa7ac48f-059c-4b73-95a8-bf84996f698d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{70c2eaaf-86fe-4de4-a2de-2a934c3ffe8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
