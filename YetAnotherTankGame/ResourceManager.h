@@ -1,25 +1,18 @@
 #pragma once
-#include "Paths.h"
-#include "Logging.h"
+#include "Typedefs.h"
 
 
 // ************************************************************************************************
-class CGame
+class CResourceManager
 {
-   friend CGame &Game();
+   friend CResourceManager &Resources();
 
 private:
-   CGame();
-
-   CLogger m_Logger;
-   CPaths m_Paths;
+   CResourceManager() = default;
 
 public:
-   bool Initialize();
-   void Frame();
-   bool IsEnding() const;
-   void ShutDown();
+   bool Load(const String &reslist);
 };
 
 // ************************************************************************************************
-CGame &Game();
+CResourceManager &Resources();

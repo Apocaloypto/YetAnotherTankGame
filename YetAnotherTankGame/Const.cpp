@@ -7,4 +7,6 @@ namespace Const
    const String APP_TITLE = "Tank Game Of The Master Tank Games Most Important Game Of Extreme Tank Games To The Max";
    const String APP_AUTHOR = "Marius Otto";
    const String APP_VERSION = "1.0";
+
+   const String PATHS_FILE = "common/paths";
 }
