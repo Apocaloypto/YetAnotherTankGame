@@ -91,6 +91,7 @@
     <ClCompile Include="Const.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="IDLParser.cpp" />
     <ClCompile Include="InputStates.cpp" />
     <ClCompile Include="Logging.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -105,7 +106,9 @@
     <ClInclude Include="ExitCodes.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="IDLParser.h" />
     <ClInclude Include="InputStates.h" />
+    <ClInclude Include="IResourceHolder.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Paths.h" />

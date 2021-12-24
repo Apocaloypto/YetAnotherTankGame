@@ -66,6 +66,9 @@
     <ClCompile Include="Functions.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
+    <ClCompile Include="IDLParser.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -99,6 +102,12 @@
       <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="IResourceHolder.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="IDLParser.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
   </ItemGroup>

@@ -58,4 +58,17 @@ namespace StringFun
       TrimLeft(in);
       TrimRight(in);
    }
+
+   void ReplaceAll(String &str, const String &search, const String &replace)
+   {
+      if (search.empty())
+         return;
+
+      size_t start_pos = 0;
+      while ((start_pos = str.find(search, start_pos)) != String::npos)
+      {
+         str.replace(start_pos, search.length(), replace);
+         start_pos += replace.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
+      }
+   }
 }

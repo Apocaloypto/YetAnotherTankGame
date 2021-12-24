@@ -12,4 +12,6 @@ namespace StringFun
    void TrimLeft(String &in);
    void TrimRight(String &in);
    void Trim(String &in);
+
+   void ReplaceAll(String &str, const String &search, const String &replace);
 }
