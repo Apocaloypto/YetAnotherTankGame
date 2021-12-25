@@ -80,7 +80,6 @@ CImage *CImageArray::GetAt(Int32 index)
 }
 
 // ************************************************************************************************
-#ifdef RESBUILD_INCLUDE
 bool CImageArray::StreamSave(ofstream &dest)
 {
    if (!dest.is_open() || !dest.good())
@@ -100,7 +99,6 @@ bool CImageArray::StreamSave(ofstream &dest)
 
    return true;
 }
-#endif
 
 // ************************************************************************************************
 bool CImageArray::StreamLoad(std::ifstream &src)

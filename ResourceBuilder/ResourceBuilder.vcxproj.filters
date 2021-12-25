@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\External">
+      <UniqueIdentifier>{19233aca-e83a-4165-aa30-1c3d40eeb491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\External">
+      <UniqueIdentifier>{1585eef6-e75d-4535-9b30-809c9c37cb5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -27,6 +33,36 @@
     <ClCompile Include="Messages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileMapCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Functions.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Image.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\ImageArray.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Tilemap.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Logging.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Memory.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Settings.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Window.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Const.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFileWriter.h">
@@ -40,6 +76,48 @@
     </ClInclude>
     <ClInclude Include="Messages.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapCreator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Dim2D.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Point2D.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Typedefs.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Vector2D.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Functions.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Image.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\ImageArray.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Tilemap.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Logging.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Memory.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Settings.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Window.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Const.h">
+      <Filter>Header Files\External</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

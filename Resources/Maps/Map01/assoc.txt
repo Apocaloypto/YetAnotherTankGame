@@ -1,0 +1,6 @@
+# color, tileid, coll
+FF267F00, 0, 0
+FF537C42, 1, 0
+FFFFD800, 2, 0
+FF808080, 3, 0
+FF0094FF, 4, 0

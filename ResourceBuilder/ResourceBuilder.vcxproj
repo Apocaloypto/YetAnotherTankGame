@@ -52,44 +52,76 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);TARGET_DIRECTORY=R"($(TargetDir))"</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>SFML_STATIC;DEBUG_MODE;%(PreprocessorDefinitions);TARGET_DIRECTORY=R"($(TargetDir))"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Vendor\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\Vendor\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:LIBCMT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);TARGET_DIRECTORY=R"($(TargetDir))"</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions);TARGET_DIRECTORY=R"($(TargetDir))"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Vendor\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\Vendor\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:LIBCMT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\YetAnotherTankGame\Const.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Functions.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Image.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\ImageArray.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Logging.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Memory.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Settings.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Tilemap.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Window.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Messages.cpp" />
     <ClCompile Include="TextFileWriter.cpp" />
+    <ClCompile Include="TileMapCreator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\YetAnotherTankGame\Const.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Dim2D.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Functions.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Image.h" />
+    <ClInclude Include="..\YetAnotherTankGame\ImageArray.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Logging.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Memory.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Point2D.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Settings.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Tilemap.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Typedefs.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Vector2D.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Window.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Messages.h" />
     <ClInclude Include="TextFileWriter.h" />
+    <ClInclude Include="TileMapCreator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

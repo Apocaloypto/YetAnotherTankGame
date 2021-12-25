@@ -40,7 +40,6 @@ CTileSet::~CTileSet()
 }
 
 // ************************************************************************************************
-#ifdef RESBUILD_INCLUDE
 bool CTileSet::StreamSave(std::ofstream &dest)
 {
    if (!dest.is_open() || !dest.good())
@@ -53,7 +52,6 @@ bool CTileSet::StreamSave(std::ofstream &dest)
 
    return m_pTiles->StreamSave(dest);
 }
-#endif
 
 // ************************************************************************************************
 bool CTileSet::StreamLoad(std::ifstream &src)
@@ -118,7 +116,6 @@ CTileInfo::CTileInfo(Int32 id, bool collision)
 }
 
 // ************************************************************************************************
-#ifdef RESBUILD_INCLUDE
 bool CTileInfo::StreamSave(std::ofstream &dest)
 {
    if (!dest.is_open() || !dest.good())
@@ -129,7 +126,6 @@ bool CTileInfo::StreamSave(std::ofstream &dest)
 
    return true;
 }
-#endif
 
 // ************************************************************************************************
 bool CTileInfo::StreamLoad(std::ifstream &src)
@@ -174,7 +170,6 @@ CTileArray::~CTileArray()
 }
 
 // ************************************************************************************************
-#ifdef RESBUILD_INCLUDE
 bool CTileArray::StreamSave(std::ofstream &dest)
 {
    if (!dest.is_open() || !dest.good())
@@ -190,7 +185,6 @@ bool CTileArray::StreamSave(std::ofstream &dest)
 
    return true;
 }
-#endif
 
 // ************************************************************************************************
 bool CTileArray::StreamLoad(std::ifstream &src)
@@ -229,7 +223,6 @@ CTileMap::CTileMap(CTileSet &tileset, CTileArray &tilearray)
 }
 
 // ************************************************************************************************
-#ifdef RESBUILD_INCLUDE
 bool CTileMap::StreamSave(std::ofstream &dest)
 {
    if (!dest.is_open() || !dest.good())
@@ -242,7 +235,6 @@ bool CTileMap::StreamSave(std::ofstream &dest)
 
    return true;
 }
-#endif
 
 // ************************************************************************************************
 bool CTileMap::StreamLoad(std::ifstream &src)
