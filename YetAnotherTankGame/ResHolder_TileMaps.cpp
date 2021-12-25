@@ -32,7 +32,7 @@ bool CResHolderTileMaps::Load(const String &id, const String &filename)
 
    if (!loadSucc)
    {
-      delete pMap;
+      Memory().m_Maps.Delete(pMap);
       logger.Log(LogType::Error, "unable to read '" + filename + "'");
       return false;
    }
