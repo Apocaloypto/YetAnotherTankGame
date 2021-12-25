@@ -102,6 +102,20 @@ public:
       }
    }
 
+   void ForEach(const std::function<void(Int32, Int32, const T &)> &fnEach) const
+   {
+      if (!m_pData)
+         return;
+
+      for (Int32 y = 0; y < m_Height; y++)
+      {
+         for (Int32 x = 0; x < m_Width; x++)
+         {
+            fnEach(x, y, m_pData[GetIndex(x, y)]);
+         }
+      }
+   }
+
    void ForEach(const std::function<void(Int32, Int32, T &)> &fnEach)
    {
       if (!m_pData)

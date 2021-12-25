@@ -22,6 +22,6 @@ public:
    Int32 GetCount() const;
    CImage *GetAt(Int32 index);
 
-   bool StreamSave(std::ofstream &dest);
+   bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
 };

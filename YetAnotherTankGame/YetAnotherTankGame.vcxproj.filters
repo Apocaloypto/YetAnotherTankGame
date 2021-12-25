@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Resources\Holder">
       <UniqueIdentifier>{d30bf283-c282-47ea-b330-b4572b268444}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Data">
+      <UniqueIdentifier>{569359fb-8a0c-4b8c-bb68-f23d5779bb10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data">
+      <UniqueIdentifier>{8ee6ace1-74fb-4cf2-b200-4c23b9932dfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -98,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="Context.cpp">
       <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Tanks.cpp">
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="Context.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Tanks.h">
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

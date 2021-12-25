@@ -80,7 +80,7 @@ CImage *CImageArray::GetAt(Int32 index)
 }
 
 // ************************************************************************************************
-bool CImageArray::StreamSave(ofstream &dest)
+bool CImageArray::StreamSave(ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
       return false;

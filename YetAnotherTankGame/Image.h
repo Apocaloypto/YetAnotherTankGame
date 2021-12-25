@@ -28,7 +28,7 @@ public:
    void Draw(const CPixelPos &origin, const CPixelPos &screen, Degrees rot, const CPixelPos &rotorigin = CPixelPos(), sf::Color drawingColor = DEFAULT_SPRITE_COLOR, const CShader *pUseShader = nullptr);
    void DrawViewPort(const CPixelPos &screen, const CPixelDim &dim, const CPixelPos &origin, Degrees rot);
 
-   bool StreamSave(std::ofstream &dest);
+   bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
 
 private:

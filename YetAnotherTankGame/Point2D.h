@@ -5,16 +5,12 @@
 template <class T>
 class CPoint2D
 {
-private:
-   T m_XInternal;
-   T m_YInternal;
-
 public:
-   const T &m_X = m_XInternal;
-   const T &m_Y = m_YInternal;
+   T m_X;
+   T m_Y;
 
    CPoint2D(T x, T y)
-      : m_XInternal(x), m_YInternal(y)
+      : m_X(x), m_Y(y)
    {
    }
 
@@ -45,8 +41,8 @@ public:
 
    CPoint2D &operator+=(const CPoint2D<T> &rhs)
    {
-      m_XInternal += rhs.m_X;
-      m_YInternal += rhs.m_Y;
+      m_X += rhs.m_X;
+      m_Y += rhs.m_Y;
       return *this;
    }
 

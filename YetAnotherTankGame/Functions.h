@@ -48,6 +48,18 @@ namespace StreamFun
       return dest.good();
    }
 
+   template<class T>
+   inline bool StreamWritePoint2D(std::ofstream &dest, const CPoint2D<T> &val)
+   {
+      if (!StreamWriteT(dest, val.m_X))
+         return false;
+
+      if (!StreamWriteT(dest, val.m_Y))
+         return false;
+
+      return dest.good();
+   }
+
    bool StreamWriteHeader(std::ofstream &dest, const std::string &header);
 
    bool StreamReadBytes(std::ifstream &src, char *&val, UInt32 valsize);
@@ -81,6 +93,18 @@ namespace StreamFun
 
       val = buf;
       delete[] buf;
+
+      return src.good();
+   }
+
+   template<class T>
+   inline bool StreamReadPoint2D(std::ifstream &src, CPoint2D<T> &val)
+   {
+      if (!StreamReadT(src, val.m_X))
+         return false;
+
+      if (!StreamReadT(src, val.m_Y))
+         return false;
 
       return src.good();
    }

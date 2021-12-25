@@ -103,6 +103,7 @@
     <ClCompile Include="ResHolder_TileMaps.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Tanks.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -128,6 +129,7 @@
     <ClInclude Include="ResHolder_TileMaps.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="Tanks.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Window.h" />

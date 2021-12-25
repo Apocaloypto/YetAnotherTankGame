@@ -27,7 +27,7 @@ public:
    void Draw(const CTileInfo &info, const CPixelPos &at, const CShader *pUseShader = nullptr);
    Int32 GetTileSize() const;
 
-  bool StreamSave(std::ofstream &dest);
+  bool StreamSave(std::ofstream &dest) const;
   bool StreamLoad(std::ifstream &src);
 };
 
@@ -45,7 +45,7 @@ public:
 
    Int32 GetId() const { return m_Id; }
 
-   bool StreamSave(std::ofstream &dest);
+   bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
 };
 
@@ -63,7 +63,7 @@ public:
 
    const CTileInfo *GetAt(Int32 x, Int32 y) const;
 
-   bool StreamSave(std::ofstream &dest);
+   bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
 };
 
@@ -99,6 +99,6 @@ public:
    void Update(const CTilePos &pos);
    void UpdateFocused(const std::string &mapobjid);
 
-   bool StreamSave(std::ofstream &dest);
+   bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
 };

@@ -40,7 +40,7 @@ CTileSet::~CTileSet()
 }
 
 // ************************************************************************************************
-bool CTileSet::StreamSave(std::ofstream &dest)
+bool CTileSet::StreamSave(std::ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
       return false;
@@ -116,7 +116,7 @@ CTileInfo::CTileInfo(Int32 id, bool collision)
 }
 
 // ************************************************************************************************
-bool CTileInfo::StreamSave(std::ofstream &dest)
+bool CTileInfo::StreamSave(std::ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
       return false;
@@ -170,7 +170,7 @@ CTileArray::~CTileArray()
 }
 
 // ************************************************************************************************
-bool CTileArray::StreamSave(std::ofstream &dest)
+bool CTileArray::StreamSave(std::ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
       return false;
@@ -178,7 +178,7 @@ bool CTileArray::StreamSave(std::ofstream &dest)
    StreamFun::StreamWriteT(dest, m_Data.GetWidth());
    StreamFun::StreamWriteT(dest, m_Data.GetHeight());
 
-   m_Data.ForEach([&](Int32, Int32, CTileInfo *&pElem) -> void
+   m_Data.ForEach([&](Int32, Int32, const CTileInfo * const &pElem) -> void
       {
          pElem->StreamSave(dest);
       });
@@ -223,7 +223,7 @@ CTileMap::CTileMap(CTileSet &tileset, CTileArray &tilearray)
 }
 
 // ************************************************************************************************
-bool CTileMap::StreamSave(std::ofstream &dest)
+bool CTileMap::StreamSave(std::ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
       return false;

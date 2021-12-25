@@ -141,7 +141,7 @@ CPixelPos CImage::GetCenter() const
 }
 
 // ************************************************************************************************
-bool CImage::StreamSave(ofstream &dest)
+bool CImage::StreamSave(ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
       return false;
