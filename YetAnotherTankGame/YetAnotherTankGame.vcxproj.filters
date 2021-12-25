@@ -31,6 +31,15 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{c2b92af8-ae38-4088-bd00-ad9f5033f414}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tilemap">
+      <UniqueIdentifier>{c808bf16-3626-47ec-9f2d-59946e02842f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tilemap">
+      <UniqueIdentifier>{362bd903-7367-4b1f-b7e4-033be546a506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base\Math">
+      <UniqueIdentifier>{ba6bb425-ba2c-40ec-9a20-5778740178b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -67,6 +76,12 @@
       <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="IDLParser.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Source Files\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -109,6 +124,24 @@
     </ClInclude>
     <ClInclude Include="IDLParser.h">
       <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="Array2D.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Dim2D.h">
+      <Filter>Header Files\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2D.h">
+      <Filter>Header Files\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Header Files\Base\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

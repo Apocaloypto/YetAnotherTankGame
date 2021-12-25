@@ -92,6 +92,7 @@
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IDLParser.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="InputStates.cpp" />
     <ClCompile Include="Logging.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -99,21 +100,28 @@
     <ClCompile Include="Paths.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Array2D.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="Dim2D.h" />
     <ClInclude Include="ExitCodes.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="IDLParser.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="InputStates.h" />
     <ClInclude Include="IResourceHolder.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Paths.h" />
+    <ClInclude Include="Point2D.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

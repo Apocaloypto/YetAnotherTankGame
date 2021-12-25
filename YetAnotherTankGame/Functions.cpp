@@ -4,6 +4,9 @@
 #include <iomanip>
 
 
+typedef void stbi_write_func(void *context, void *data, int size);
+extern "C" int stbi_write_png_to_func(stbi_write_func *func, void *context, int w, int h, int comp, const void  *data, int stride_in_bytes);
+
 // ################################################################################################
 namespace StringFun
 {
@@ -70,5 +73,75 @@ namespace StringFun
          str.replace(start_pos, search.length(), replace);
          start_pos += replace.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
       }
+   }
+}
+
+// ################################################################################################
+namespace StreamFun
+{
+   bool StreamWriteBytes(std::ofstream &dest, char *val, size_t valsize)
+   {
+      if (!dest.is_open() || !dest.good())
+         return false;
+
+      dest.write((char *) val, valsize);
+      return dest.good();
+   }
+
+   // ************************************************************************************************
+   bool StreamWriteHeader(std::ofstream &dest, const std::string &header)
+   {
+      if (!dest.is_open() || !dest.good())
+         return false;
+
+      dest.write(header.c_str(), header.length());
+      return dest.good();
+   }
+
+   // ************************************************************************************************
+   bool StreamReadBytes(std::ifstream &src, char *&val, UInt32 valsize)
+   {
+      if (!src.is_open() || !src.good())
+         return false;
+
+      src.read((char *&)val, valsize);
+      return src.good();
+   }
+
+   // ************************************************************************************************
+   bool StreamCheckHeader(std::ifstream &src, const std::string &header)
+   {
+      if (!src.is_open() || !src.good())
+         return false;
+      
+      for (size_t ch = 0; ch < header.length(); ch++)
+      {
+         if (char read; !StreamReadT(src, read) || header[ch] != read)
+         {
+            return false;
+         }
+      }
+
+      return true;
+   }
+
+   // ************************************************************************************************
+   void SaveImageToStreamHelper(void *pContext, void *pData, int size)
+   {
+      std::ofstream *pStream = (std::ofstream *)pContext;
+      if (!pStream || !pStream->is_open() || !pStream->good())
+         return;
+
+      StreamFun::StreamWriteT(*pStream, size);
+      StreamFun::StreamWriteBytes(*pStream, (char *)pData, size);
+   }
+
+   // ************************************************************************************************
+   bool SaveImageToStream(const sf::Image &img, std::ofstream &stream)
+   {
+      if (!stream.is_open() || !stream.good())
+         return false;
+
+      return stbi_write_png_to_func(&SaveImageToStreamHelper, &stream, img.getSize().x, img.getSize().y, 4, img.getPixelsPtr(), 0) != 0;
    }
 }
