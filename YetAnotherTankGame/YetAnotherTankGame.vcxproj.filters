@@ -84,6 +84,9 @@
     <ClCompile Include="Image.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
+    <ClCompile Include="ImageArray.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="Vector2D.h">
       <Filter>Header Files\Base\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageArray.h">
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
