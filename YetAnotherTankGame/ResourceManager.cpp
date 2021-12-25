@@ -27,6 +27,28 @@ bool CResourceManager::Load(const String &reslist)
       return false;
    }
 
+   for (const IDL::CIDLDataSet &dataset : datasets)
+   {
+      if (m_AllHolders.count(dataset[RESLIST_COL_TYPE]) <= 0)
+      {
+         m_Logger.Log(LogType::Error, "unknown type '" + dataset[RESLIST_COL_TYPE] + "'");
+         continue;
+      }
+
+      IResourceHolder *pHolder = m_AllHolders.at(dataset[RESLIST_COL_TYPE]);
+      if (!pHolder)
+      {
+         m_Logger.Log(LogType::Error, "invalid state in manager!");
+         continue;
+      }
+
+      if (!pHolder->Load(dataset[RESLIST_COL_ID], dataset[RESLIST_COL_FILE]))
+      {
+         m_Logger.Log(LogType::Error, "failed to load resource '" + dataset[RESLIST_COL_ID] + "' (type: " + dataset[RESLIST_COL_TYPE] + ")");
+         continue;
+      }
+   }
+
    return true;
 }
 
