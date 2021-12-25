@@ -116,6 +116,7 @@
     <ClInclude Include="ImageArray.h" />
     <ClInclude Include="InputStates.h" />
     <ClInclude Include="IResourceHolder.h" />
+    <ClInclude Include="ITileMapObject.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Paths.h" />

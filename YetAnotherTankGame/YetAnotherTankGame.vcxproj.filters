@@ -149,5 +149,8 @@
     <ClInclude Include="ImageArray.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
+    <ClInclude Include="ITileMapObject.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

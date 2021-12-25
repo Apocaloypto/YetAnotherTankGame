@@ -77,6 +77,16 @@ namespace StringFun
 }
 
 // ################################################################################################
+namespace MathFun
+{
+   Real GetFraction(Real whole)
+   {
+      Real dontCare;
+      return modf(whole, &dontCare);
+   }
+}
+
+// ################################################################################################
 namespace StreamFun
 {
    bool StreamWriteBytes(std::ofstream &dest, char *val, size_t valsize)

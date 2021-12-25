@@ -19,6 +19,12 @@ namespace StringFun
 }
 
 // ************************************************************************************************
+namespace MathFun
+{
+   Real GetFraction(Real whole);
+}
+
+// ************************************************************************************************
 namespace StreamFun
 {
    constexpr UInt32 MAX_STREAM_STRING_LENGTH = 255;

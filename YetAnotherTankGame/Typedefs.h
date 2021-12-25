@@ -19,6 +19,9 @@ typedef std::string String;
 using CPixelPos = CPoint2D<Real>;
 using CPixelDim = CDim2D<Real>;
 
+using CTilePos = CPoint2D<Real>;
+using CTileDim = CDim2D<Real>;
+
 // misc
 namespace sf
 {
