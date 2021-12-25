@@ -13,6 +13,9 @@ typedef __int64 Int64;
 typedef float Real;
 typedef Real Degrees;
 
+typedef Real KmPerH;
+typedef Real Seconds;
+
 typedef std::string String;
 
 // usings

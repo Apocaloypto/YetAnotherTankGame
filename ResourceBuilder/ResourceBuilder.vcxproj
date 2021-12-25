@@ -95,11 +95,13 @@
     <ClCompile Include="..\YetAnotherTankGame\Logging.cpp" />
     <ClCompile Include="..\YetAnotherTankGame\Memory.cpp" />
     <ClCompile Include="..\YetAnotherTankGame\Settings.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\Tanks.cpp" />
     <ClCompile Include="..\YetAnotherTankGame\Tilemap.cpp" />
     <ClCompile Include="..\YetAnotherTankGame\Window.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Messages.cpp" />
+    <ClCompile Include="TankBuilder.cpp" />
     <ClCompile Include="TextFileWriter.cpp" />
     <ClCompile Include="TileMapCreator.cpp" />
   </ItemGroup>
@@ -113,6 +115,7 @@
     <ClInclude Include="..\YetAnotherTankGame\Memory.h" />
     <ClInclude Include="..\YetAnotherTankGame\Point2D.h" />
     <ClInclude Include="..\YetAnotherTankGame\Settings.h" />
+    <ClInclude Include="..\YetAnotherTankGame\Tanks.h" />
     <ClInclude Include="..\YetAnotherTankGame\Tilemap.h" />
     <ClInclude Include="..\YetAnotherTankGame\Typedefs.h" />
     <ClInclude Include="..\YetAnotherTankGame\Vector2D.h" />
@@ -120,6 +123,7 @@
     <ClInclude Include="Const.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Messages.h" />
+    <ClInclude Include="TankBuilder.h" />
     <ClInclude Include="TextFileWriter.h" />
     <ClInclude Include="TileMapCreator.h" />
   </ItemGroup>

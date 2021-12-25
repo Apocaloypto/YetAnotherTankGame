@@ -1,0 +1,14 @@
+# the tanks
+
+# contents:
+# A - ID
+# B - Name
+# C - Maxspeed (km/h)
+# D - Seconds til maxspeed reached
+# E - Stability (0.0 <= this <= 1.0)
+# F - Model filename
+
+
+# THE DATA
+# A		B		C		D		E		F
+TANK01	Tank01	60.0	5.0		0.8		data/tanks/tank01.mdl

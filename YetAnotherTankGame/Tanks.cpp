@@ -7,13 +7,13 @@
 const String STREAM_HEADER = "tnk";
 
 // ################################################################################################
-CTankBlueprint::CTankBlueprint()
-   : CTankBlueprint(nullptr, CPixelPos(), CPixelPos(), nullptr, CPixelPos())
+CTankModelBlueprint::CTankModelBlueprint()
+   : CTankModelBlueprint(nullptr, CPixelPos(), CPixelPos(), nullptr, CPixelPos())
 {
 }
 
 // ************************************************************************************************
-CTankBlueprint::CTankBlueprint(CImage *pWanne, const CPixelPos &turnpointWanne, const CPixelPos &turmPosAufWanne, CImage *pTurm, const CPixelPos &turnpointTurm)
+CTankModelBlueprint::CTankModelBlueprint(CImage *pWanne, const CPixelPos &turnpointWanne, const CPixelPos &turmPosAufWanne, CImage *pTurm, const CPixelPos &turnpointTurm)
    : m_pWanne(pWanne),
    m_TurnpointWanne(turnpointWanne),
    m_TurmPosAufWanne(turmPosAufWanne),
@@ -23,7 +23,17 @@ CTankBlueprint::CTankBlueprint(CImage *pWanne, const CPixelPos &turnpointWanne, 
 }
 
 // ************************************************************************************************
-bool CTankBlueprint::StreamSave(std::ofstream &dest) const
+CTankModelBlueprint::~CTankModelBlueprint()
+{
+   if (m_pWanne)
+      delete m_pWanne;
+
+   if (m_pTurm)
+      delete m_pTurm;
+}
+
+// ************************************************************************************************
+bool CTankModelBlueprint::StreamSave(std::ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
       return false;
@@ -43,7 +53,7 @@ bool CTankBlueprint::StreamSave(std::ofstream &dest) const
 }
 
 // ************************************************************************************************
-bool CTankBlueprint::StreamLoad(std::ifstream &src)
+bool CTankModelBlueprint::StreamLoad(std::ifstream &src)
 {
    if (m_pWanne)
    {
@@ -75,4 +85,29 @@ bool CTankBlueprint::StreamLoad(std::ifstream &src)
    StreamFun::StreamReadPoint2D(src, m_TurnpointTurm);
 
    return true;
+}
+
+// ################################################################################################
+CTankSpecsBlueprint::CTankSpecsBlueprint(const CTankSpecsBlueprint &right)
+   : CTankSpecsBlueprint(right.m_Name, right.m_MaxSpeed, right.m_SecsTilMaxSpeed, right.m_Stability)
+{
+}
+
+// ************************************************************************************************
+CTankSpecsBlueprint::CTankSpecsBlueprint(const String &name, KmPerH maxspeed, Seconds secstilmaxspeed, Real stability)
+   : m_Name(name), m_MaxSpeed(maxspeed), m_SecsTilMaxSpeed(secstilmaxspeed), m_Stability(stability)
+{
+}
+
+// ################################################################################################
+CTankBlueprint::CTankBlueprint(CTankModelBlueprint *pModel, const CTankSpecsBlueprint &specs)
+   : m_pModel(pModel), m_Specs(specs)
+{
+}
+
+// ************************************************************************************************
+CTankBlueprint::~CTankBlueprint()
+{
+   if (m_pModel)
+      delete m_pModel;
 }

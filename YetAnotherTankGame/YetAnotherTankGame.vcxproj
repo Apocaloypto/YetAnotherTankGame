@@ -100,6 +100,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Paths.cpp" />
+    <ClCompile Include="ResHolder_TankBlueprint.cpp" />
     <ClCompile Include="ResHolder_TileMaps.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="Paths.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="ResHolderMapBaseT.h" />
+    <ClInclude Include="ResHolder_TankBlueprint.h" />
     <ClInclude Include="ResHolder_TileMaps.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Settings.h" />

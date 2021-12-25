@@ -63,6 +63,12 @@
     <ClCompile Include="..\YetAnotherTankGame\Const.cpp">
       <Filter>Source Files\External</Filter>
     </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\Tanks.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
+    <ClCompile Include="TankBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFileWriter.h">
@@ -118,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="..\YetAnotherTankGame\Const.h">
       <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\Tanks.h">
+      <Filter>Header Files\External</Filter>
+    </ClInclude>
+    <ClInclude Include="TankBuilder.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

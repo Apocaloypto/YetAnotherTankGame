@@ -2,6 +2,7 @@
 #include <set>
 #include "Tilemap.h"
 #include "ITileMapObject.h"
+#include "Tanks.h"
 
 
 // ************************************************************************************************
@@ -72,6 +73,7 @@ public:
 
    CMemoryPool<CTileMap *> m_Maps;
    CMemoryPool<ITileMapObject *> m_MapObjects;
+   CMemoryPool<CTankBlueprint *> m_TankBlueprints;
 };
 
 // ************************************************************************************************
