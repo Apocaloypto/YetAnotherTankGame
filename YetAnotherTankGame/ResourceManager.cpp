@@ -61,6 +61,16 @@ void CResourceManager::AddHolder(const String &type, IResourceHolder *pHolder)
 // ************************************************************************************************
 void CResourceManager::AddHolders()
 {
+   AddHolder("TMAP", &m_TileMapHolder);
+}
+
+// ************************************************************************************************
+void CResourceManager::ShutDown()
+{
+   for (const auto &[type, pHolder] : m_AllHolders)
+   {
+      pHolder->DeleteAll();
+   }
 }
 
 // ################################################################################################

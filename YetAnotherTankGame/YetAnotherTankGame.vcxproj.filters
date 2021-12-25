@@ -40,6 +40,12 @@
     <Filter Include="Header Files\Base\Math">
       <UniqueIdentifier>{ba6bb425-ba2c-40ec-9a20-5778740178b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Resources\Holder">
+      <UniqueIdentifier>{d0b2d040-23e7-4c02-adca-ff12bed66d97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources\Holder">
+      <UniqueIdentifier>{d30bf283-c282-47ea-b330-b4572b268444}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -86,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="ImageArray.cpp">
       <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ResHolder_TileMaps.cpp">
+      <Filter>Source Files\Resources\Holder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="ITileMapObject.h">
       <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="ResHolder_TileMaps.h">
+      <Filter>Header Files\Resources\Holder</Filter>
+    </ClInclude>
+    <ClInclude Include="ResHolderMapBaseT.h">
+      <Filter>Header Files\Resources\Holder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

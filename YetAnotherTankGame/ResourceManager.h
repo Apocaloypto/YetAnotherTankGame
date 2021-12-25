@@ -3,8 +3,11 @@
 #include <vector>
 #include "Typedefs.h"
 #include "Logging.h"
-#include "IResourceHolder.h"
+#include "ResHolder_TileMaps.h"
 
+
+// ************************************************************************************************
+class IResourceHolder;
 
 // ************************************************************************************************
 class CResourceManager
@@ -30,8 +33,14 @@ private:
    void AddHolder(const String &type, IResourceHolder *pHolder);
    void AddHolders();
 
+   CResHolderTileMaps m_TileMapHolder;
+
 public:
    bool Load(const String &reslist);
+
+   void ShutDown();
+
+   const CResHolderTileMaps &TileMaps = m_TileMapHolder;
 };
 
 // ************************************************************************************************
