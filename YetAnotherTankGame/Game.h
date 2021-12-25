@@ -4,6 +4,13 @@
 
 
 // ************************************************************************************************
+enum class GameState
+{
+   InitializeContext,
+   InGame,
+};
+
+// ************************************************************************************************
 class CGame
 {
    friend CGame &Game();
@@ -13,6 +20,10 @@ private:
 
    CLogger m_Logger;
    CPaths m_Paths;
+   GameState m_State;
+
+   void DoInitializeContext();
+   void DoInGameFrame();
 
 public:
    bool Initialize();

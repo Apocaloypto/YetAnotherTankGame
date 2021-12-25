@@ -14,7 +14,7 @@ public:
    const T &m_Y = m_YInternal;
 
    CPoint2D(T x, T y)
-      : m_X(x), m_Y(y)
+      : m_XInternal(x), m_YInternal(y)
    {
    }
 
