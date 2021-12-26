@@ -7,3 +7,5 @@
 
 # A				B					C
 MAP01			TMAP				data/maps/map01.map
+
+TANKS			TANK				data/tanks.idl

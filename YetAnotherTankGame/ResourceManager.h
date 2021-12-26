@@ -4,6 +4,7 @@
 #include "Typedefs.h"
 #include "Logging.h"
 #include "ResHolder_TileMaps.h"
+#include "ResHolder_TankBlueprint.h"
 
 
 // ************************************************************************************************
@@ -34,6 +35,7 @@ private:
    void AddHolders();
 
    CResHolderTileMaps m_TileMapHolder;
+   CResHolderTankBlueprints m_TankBlueprintHolder;
 
 public:
    bool Load(const String &reslist);
@@ -41,6 +43,7 @@ public:
    void ShutDown();
 
    const CResHolderTileMaps &TileMaps = m_TileMapHolder;
+   const CResHolderTankBlueprints &TankBlueprints = m_TankBlueprintHolder;
 };
 
 // ************************************************************************************************

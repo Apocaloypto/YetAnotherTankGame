@@ -16,6 +16,9 @@ namespace StringFun
    void Trim(String &in);
 
    void ReplaceAll(String &str, const String &search, const String &replace);
+
+   bool TryParseReal(const String &in, Real &result);
+   bool TryParseInt32(const String &in, Int32 &result);
 }
 
 // ************************************************************************************************

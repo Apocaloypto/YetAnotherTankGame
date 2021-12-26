@@ -62,6 +62,7 @@ void CResourceManager::AddHolder(const String &type, IResourceHolder *pHolder)
 void CResourceManager::AddHolders()
 {
    AddHolder("TMAP", &m_TileMapHolder);
+   AddHolder("TANK", &m_TankBlueprintHolder);
 }
 
 // ************************************************************************************************

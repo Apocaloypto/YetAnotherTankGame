@@ -26,6 +26,11 @@ protected:
       }
    }
 
+   bool CheckId(const String &id) const
+   {
+      return m_Data.count(id) == 0;
+   }
+
    virtual void DeleteElement(T pObj) = 0;
 
 public:

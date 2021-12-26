@@ -74,6 +74,32 @@ namespace StringFun
          start_pos += replace.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
       }
    }
+
+   bool TryParseReal(const String &in, Real &result)
+   {
+      try
+      {
+         result = std::stof(in);
+         return true;
+      }
+      catch (...)
+      {
+         return false;
+      }
+   }
+   
+   bool TryParseInt32(const String &in, Int32 &result)
+   {
+      try
+      {
+         result = std::stoi(in);
+         return true;
+      }
+      catch (...)
+      {
+         return false;
+      }
+   }
 }
 
 // ################################################################################################

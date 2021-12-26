@@ -18,6 +18,8 @@ public:
    CTankModelBlueprint(CImage *pWanne, const CPixelPos &turnpointWanne, const CPixelPos &turmPosAufWanne, CImage *pTurm, const CPixelPos &turnpointTurm);
    virtual ~CTankModelBlueprint();
 
+   static CTankModelBlueprint *LoadFrom(const String &filename);
+
    bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
 };

@@ -33,6 +33,31 @@ CTankModelBlueprint::~CTankModelBlueprint()
 }
 
 // ************************************************************************************************
+CTankModelBlueprint *CTankModelBlueprint::LoadFrom(const String &filename)
+{
+   std::ifstream src(filename, std::ios::binary);
+   if (!src.is_open() || !src.good())
+   {
+      return nullptr;
+   }
+
+   CTankModelBlueprint *pModel = new CTankModelBlueprint();
+   bool bSuccess = pModel->StreamLoad(src);
+
+   src.close();
+
+   if (bSuccess)
+   {
+      return pModel;
+   }
+   else
+   {
+      delete pModel;
+      return nullptr;
+   }
+}
+
+// ************************************************************************************************
 bool CTankModelBlueprint::StreamSave(std::ofstream &dest) const
 {
    if (!dest.is_open() || !dest.good())
