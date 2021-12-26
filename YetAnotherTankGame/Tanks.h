@@ -16,6 +16,10 @@ private:
    CPixelPos m_TurnpointTurm;
 
 public:
+   const CPixelPos &TurnpointWanne = m_TurnpointWanne;
+   const CPixelPos &TurnpointTurm = m_TurnpointTurm;
+   const CPixelPos &TurmPosAufWanne = m_TurmPosAufWanne;
+
    CTankModelBlueprint();
    CTankModelBlueprint(CImage *pWanne, const CPixelPos &turnpointWanne, const CPixelPos &turmPosAufWanne, CImage *pTurm, const CPixelPos &turnpointTurm);
    virtual ~CTankModelBlueprint();
@@ -60,12 +64,14 @@ private:
    void DestroyDmgModels();
    void InitDmgModels();
 
-   CTankBlueprint *m_pBlueprint;
+   const CTankBlueprint *m_pBlueprint;
 
    CDynamicDamageModel *m_pDamageModelTurm;
    CDynamicDamageModel *m_pDamageModelWanne;
 
 public:
-   CTankUsing(CTankBlueprint *pBlueprint);
+   CTankUsing(const CTankBlueprint *pBlueprint);
    virtual ~CTankUsing();
+
+   void Draw(const CPixelPos &screen, Degrees rot);
 };

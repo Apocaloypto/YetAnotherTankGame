@@ -161,7 +161,7 @@ CTankBlueprint::~CTankBlueprint()
 }
 
 // ################################################################################################
-CTankUsing::CTankUsing(CTankBlueprint *pBlueprint)
+CTankUsing::CTankUsing(const CTankBlueprint *pBlueprint)
    : m_pBlueprint(pBlueprint),
    m_pDamageModelTurm(nullptr),
    m_pDamageModelWanne(nullptr)
@@ -200,5 +200,26 @@ void CTankUsing::InitDmgModels()
    {
       m_pDamageModelTurm = m_pBlueprint->m_pModel->CreateDDMTower(m_pBlueprint->m_Specs.m_Stability);
       m_pDamageModelWanne = m_pBlueprint->m_pModel->CreateDDMWanne(m_pBlueprint->m_Specs.m_Stability);
+   }
+}
+
+// ************************************************************************************************
+void CTankUsing::Draw(const CPixelPos &screen, Degrees rot)
+{
+   if (Memory().m_TankBlueprints.IsValid(m_pBlueprint))
+   {
+      if (m_pDamageModelWanne)
+      {
+         m_pDamageModelWanne->Draw(screen, m_pBlueprint->m_pModel->TurnpointWanne, rot, m_pBlueprint->m_pModel->TurnpointWanne, nullptr);
+      }
+   
+      if (m_pDamageModelTurm)
+      {
+         Real dist = m_pBlueprint->m_pModel->TurmPosAufWanne.GetDistanceTo(m_pBlueprint->m_pModel->TurnpointWanne);
+
+         CPixelPos towerpos = MathFun::Move(screen, rot, dist);
+
+         m_pDamageModelTurm->Draw(towerpos, m_pBlueprint->m_pModel->TurnpointTurm, 0, m_pBlueprint->m_pModel->TurmPosAufWanne, nullptr);
+      }
    }
 }

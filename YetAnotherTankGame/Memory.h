@@ -1,5 +1,6 @@
 #pragma once
 #include <set>
+#include "Typedefs.h"
 #include "Tilemap.h"
 #include "ITileMapObject.h"
 #include "Tanks.h"
@@ -10,7 +11,7 @@ template<class T>
 class CMemoryPool
 {
 private:
-   std::set<T> m_Data;
+   ptr_set<T> m_Data;
 
 public:
    virtual ~CMemoryPool()
@@ -18,7 +19,7 @@ public:
       DeleteAll();
    }
 
-   T Add(T obj)
+   T *Add(T *obj)
    {
       if (obj != nullptr && m_Data.count(obj) == 0)
       {
@@ -34,12 +35,12 @@ public:
       }
    }
 
-   bool IsValid(T obj) const
+   bool IsValid(const T *obj) const
    {
       return obj != nullptr && m_Data.count(obj) != 0;
    }
 
-   void Delete(T obj)
+   void Delete(T *obj)
    {
       if (IsValid(obj))
       {
@@ -50,7 +51,7 @@ public:
 
    void DeleteAll()
    {
-      for (T obj : m_Data)
+      for (T *obj : m_Data)
       {
          delete obj;
       }
@@ -71,10 +72,10 @@ private:
 public:
    void DeleteAll();
 
-   CMemoryPool<CTileMap *> m_Maps;
-   CMemoryPool<ITileMapObject *> m_MapObjects;
-   CMemoryPool<CTankBlueprint *> m_TankBlueprints;
-   CMemoryPool<CTankUsing *> m_TankUsings;
+   CMemoryPool<CTileMap> m_Maps;
+   CMemoryPool<ITileMapObject> m_MapObjects;
+   CMemoryPool<CTankBlueprint> m_TankBlueprints;
+   CMemoryPool<CTankUsing> m_TankUsings;
 };
 
 // ************************************************************************************************
