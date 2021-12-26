@@ -35,5 +35,5 @@ void CMapObjectTank::Draw(const CPixelPos &screen)
 void CMapObjectTank::Update()
 {
    m_pUsing->m_Rot += 0.5f;
-   m_pUsing->m_TowerRot += -0.5f;
+   m_pUsing->m_TowerRot += -1.0f;
 }

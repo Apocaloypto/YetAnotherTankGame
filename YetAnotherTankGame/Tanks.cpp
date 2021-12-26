@@ -218,9 +218,15 @@ void CTankUsing::Draw(const CPixelPos &screen, Degrees rot)
    
       if (m_pDamageModelTurm)
       {
-         CPixelPos towerpos = MathFun::RotateAround(m_pBlueprint->m_pModel->TurnpointWanne, m_pBlueprint->m_pModel->TurnpointTurm, m_Rot);
+         CPixelPos diff = m_pBlueprint->m_pModel->TurmPosAufWanne - m_pBlueprint->m_pModel->TurnpointWanne;
+         CPixelPos towerpos = MathFun::RotateAround(diff, CPixelPos(0, 0), m_Rot);
 
-         m_pDamageModelTurm->Draw((screen + towerpos) - m_pBlueprint->m_pModel->TurnpointTurm, m_pBlueprint->m_pModel->TurmPosAufWanne, MathFun::NormalizeAngle(m_Rot + m_TowerRot), m_pBlueprint->m_pModel->TurmPosAufWanne, nullptr);
+         m_pDamageModelTurm->Draw(
+            towerpos + screen, 
+            m_pBlueprint->m_pModel->TurnpointTurm, 
+            MathFun::NormalizeAngle(m_Rot + m_TowerRot), 
+            m_pBlueprint->m_pModel->TurnpointTurm, 
+            nullptr);
       }
    }
 }
