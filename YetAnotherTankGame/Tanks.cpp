@@ -161,10 +161,13 @@ CTankBlueprint::~CTankBlueprint()
 }
 
 // ################################################################################################
-CTankUsing::CTankUsing(const CTankBlueprint *pBlueprint)
+CTankUsing::CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, Degrees rot, Degrees towerrot)
    : m_pBlueprint(pBlueprint),
    m_pDamageModelTurm(nullptr),
-   m_pDamageModelWanne(nullptr)
+   m_pDamageModelWanne(nullptr),
+   m_Pos(pos),
+   m_Rot(rot),
+   m_TowerRot(towerrot)
 {
    InitDmgModels();
 }
@@ -210,16 +213,14 @@ void CTankUsing::Draw(const CPixelPos &screen, Degrees rot)
    {
       if (m_pDamageModelWanne)
       {
-         m_pDamageModelWanne->Draw(screen, m_pBlueprint->m_pModel->TurnpointWanne, rot, m_pBlueprint->m_pModel->TurnpointWanne, nullptr);
+         m_pDamageModelWanne->Draw(screen, m_pBlueprint->m_pModel->TurnpointWanne, MathFun::NormalizeAngle(rot), m_pBlueprint->m_pModel->TurnpointWanne, nullptr);
       }
    
       if (m_pDamageModelTurm)
       {
-         Real dist = m_pBlueprint->m_pModel->TurmPosAufWanne.GetDistanceTo(m_pBlueprint->m_pModel->TurnpointWanne);
+         CPixelPos towerpos = MathFun::RotateAround(m_pBlueprint->m_pModel->TurnpointWanne, m_pBlueprint->m_pModel->TurnpointTurm, m_Rot);
 
-         CPixelPos towerpos = MathFun::Move(screen, rot, dist);
-
-         m_pDamageModelTurm->Draw(towerpos, m_pBlueprint->m_pModel->TurnpointTurm, 0, m_pBlueprint->m_pModel->TurmPosAufWanne, nullptr);
+         m_pDamageModelTurm->Draw((screen + towerpos) - m_pBlueprint->m_pModel->TurnpointTurm, m_pBlueprint->m_pModel->TurmPosAufWanne, MathFun::NormalizeAngle(m_Rot + m_TowerRot), m_pBlueprint->m_pModel->TurmPosAufWanne, nullptr);
       }
    }
 }

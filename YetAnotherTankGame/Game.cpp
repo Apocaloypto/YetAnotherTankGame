@@ -36,6 +36,7 @@ bool CGame::Initialize()
 void CGame::DoInitializeContext()
 {
    Context().m_pCurrentMap = Resources().TileMaps.Get("MAP01");
+   Context().SpawnPlayerOnMap();
 
    m_State = GameState::InGame;
 }
@@ -45,7 +46,8 @@ void CGame::DoInGameFrame()
 {
    if (Memory().m_Maps.IsValid(Context().m_pCurrentMap))
    {
-      Context().m_pCurrentMap->Draw(CTilePos(0, 0));
+      Context().m_pCurrentMap->UpdateFocused(Context().PLAYER_ID);
+      Context().m_pCurrentMap->DrawFocused(Context().PLAYER_ID);
    }
 }
 

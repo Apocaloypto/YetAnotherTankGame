@@ -14,7 +14,11 @@ private:
    CContext() = default;
 
 public:
+   static const String PLAYER_ID;
+
    CTileMap *m_pCurrentMap;
+
+   bool SpawnPlayerOnMap();
 
    void Reset();
 };

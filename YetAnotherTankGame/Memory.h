@@ -35,6 +35,12 @@ public:
       }
    }
 
+   template<class T2>
+   T2 *AddTyped(T2 *pObj)
+   {
+      return (T2 *)Add(pObj);
+   }
+
    bool IsValid(const T *obj) const
    {
       return obj != nullptr && m_Data.count(obj) != 0;

@@ -70,7 +70,11 @@ private:
    CDynamicDamageModel *m_pDamageModelWanne;
 
 public:
-   CTankUsing(const CTankBlueprint *pBlueprint);
+   CTilePos m_Pos;
+   Degrees m_Rot;
+   Degrees m_TowerRot;
+
+   CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, Degrees rot, Degrees towerrot);
    virtual ~CTankUsing();
 
    void Draw(const CPixelPos &screen, Degrees rot);

@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Data">
       <UniqueIdentifier>{8ee6ace1-74fb-4cf2-b200-4c23b9932dfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Tilemap\MapObjects">
+      <UniqueIdentifier>{f5f4fac0-9f87-4773-9f49-7b33776197be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tilemap\MapObjects">
+      <UniqueIdentifier>{c990edef-5781-47c6-82f3-71a0cb8434ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -113,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="DDM2D.cpp">
       <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject_Tank.cpp">
+      <Filter>Source Files\Tilemap\MapObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="TemplateUsings.h">
       <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject_Tank.h">
+      <Filter>Header Files\Tilemap\MapObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -319,7 +319,7 @@ ITileMapObject *CTileMap::GetMapObject(const std::string &id) const
 // ************************************************************************************************
 bool CTileMap::AddMapObject(const std::string &id, ITileMapObject *pMapObj)
 {
-   if (m_MapObjects.count(id) <= 0)
+   if (m_MapObjects.count(id) <= 0 && pMapObj)
    {
       m_MapObjects.insert(pair<string, ITileMapObject *>(id, pMapObj));
       return true;
