@@ -13,7 +13,7 @@ const CTilePos &CMapObjectTank::GetPosition() const
 {
    if (Memory().m_TankUsings.IsValid(m_pUsing))
    {
-      return m_pUsing->m_Pos;
+      return m_pUsing->Position;
    }
    else
    {
@@ -27,13 +27,15 @@ void CMapObjectTank::Draw(const CPixelPos &screen)
 {
    if (Memory().m_TankUsings.IsValid(m_pUsing))
    {
-      m_pUsing->Draw(screen, m_pUsing->m_Rot);
+      m_pUsing->Draw(screen);
    }
 }
 
 // ************************************************************************************************
 void CMapObjectTank::Update()
 {
-   m_pUsing->m_Rot += 0.5f;
-   m_pUsing->m_TowerRot += -1.0f;
+   if (Memory().m_TankUsings.IsValid(m_pUsing))
+   {
+      m_pUsing->Update();
+   }
 }

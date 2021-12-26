@@ -207,13 +207,13 @@ void CTankUsing::InitDmgModels()
 }
 
 // ************************************************************************************************
-void CTankUsing::Draw(const CPixelPos &screen, Degrees rot)
+void CTankUsing::Draw(const CPixelPos &screen)
 {
    if (Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
       if (m_pDamageModelWanne)
       {
-         m_pDamageModelWanne->Draw(screen, m_pBlueprint->m_pModel->TurnpointWanne, MathFun::NormalizeAngle(rot), m_pBlueprint->m_pModel->TurnpointWanne, nullptr);
+         m_pDamageModelWanne->Draw(screen, m_pBlueprint->m_pModel->TurnpointWanne, MathFun::NormalizeAngle(m_Rot), m_pBlueprint->m_pModel->TurnpointWanne, nullptr);
       }
    
       if (m_pDamageModelTurm)
@@ -229,4 +229,9 @@ void CTankUsing::Draw(const CPixelPos &screen, Degrees rot)
             nullptr);
       }
    }
+}
+
+// ************************************************************************************************
+void CTankUsing::Update()
+{
 }
