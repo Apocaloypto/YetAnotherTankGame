@@ -89,6 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\YetAnotherTankGame\Const.cpp" />
+    <ClCompile Include="..\YetAnotherTankGame\DDM2D.cpp" />
     <ClCompile Include="..\YetAnotherTankGame\Functions.cpp" />
     <ClCompile Include="..\YetAnotherTankGame\Image.cpp" />
     <ClCompile Include="..\YetAnotherTankGame\ImageArray.cpp" />
@@ -107,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\YetAnotherTankGame\Const.h" />
+    <ClInclude Include="..\YetAnotherTankGame\DDM2D.h" />
     <ClInclude Include="..\YetAnotherTankGame\Dim2D.h" />
     <ClInclude Include="..\YetAnotherTankGame\Functions.h" />
     <ClInclude Include="..\YetAnotherTankGame\Image.h" />

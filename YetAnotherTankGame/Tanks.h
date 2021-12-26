@@ -3,6 +3,8 @@
 #include "Typedefs.h"
 
 
+class CDynamicDamageModel;
+
 // ************************************************************************************************
 class CTankModelBlueprint
 {
@@ -22,6 +24,9 @@ public:
 
    bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
+
+   CDynamicDamageModel *CreateDDMTower(Real stability) const;
+   CDynamicDamageModel *CreateDDMWanne(Real stability) const;
 };
 
 // ************************************************************************************************
@@ -46,4 +51,21 @@ public:
 
    CTankBlueprint(CTankModelBlueprint *pModel, const CTankSpecsBlueprint &specs);
    ~CTankBlueprint();
+};
+
+// ************************************************************************************************
+class CTankUsing
+{
+private:
+   void DestroyDmgModels();
+   void InitDmgModels();
+
+   CTankBlueprint *m_pBlueprint;
+
+   CDynamicDamageModel *m_pDamageModelTurm;
+   CDynamicDamageModel *m_pDamageModelWanne;
+
+public:
+   CTankUsing(CTankBlueprint *pBlueprint);
+   virtual ~CTankUsing();
 };

@@ -1,6 +1,7 @@
 #include "Tanks.h"
 #include "Functions.h"
 #include "Memory.h"
+#include "DDM2D.h"
 
 
 // ################################################################################################
@@ -112,6 +113,28 @@ bool CTankModelBlueprint::StreamLoad(std::ifstream &src)
    return true;
 }
 
+// ************************************************************************************************
+CDynamicDamageModel *CTankModelBlueprint::CreateDDMTower(Real stability) const
+{
+   if (m_pTurm)
+   {
+      return new CDynamicDamageModel(m_pTurm, stability);
+   }
+   else
+      return nullptr;
+}
+
+// ************************************************************************************************
+CDynamicDamageModel *CTankModelBlueprint::CreateDDMWanne(Real stability) const
+{
+   if (m_pWanne)
+   {
+      return new CDynamicDamageModel(m_pWanne, stability);
+   }
+   else
+      return nullptr;
+}
+
 // ################################################################################################
 CTankSpecsBlueprint::CTankSpecsBlueprint(const CTankSpecsBlueprint &right)
    : CTankSpecsBlueprint(right.m_Name, right.m_MaxSpeed, right.m_SecsTilMaxSpeed, right.m_Stability)
@@ -135,4 +158,47 @@ CTankBlueprint::~CTankBlueprint()
 {
    if (m_pModel)
       delete m_pModel;
+}
+
+// ################################################################################################
+CTankUsing::CTankUsing(CTankBlueprint *pBlueprint)
+   : m_pBlueprint(pBlueprint),
+   m_pDamageModelTurm(nullptr),
+   m_pDamageModelWanne(nullptr)
+{
+   InitDmgModels();
+}
+
+// ************************************************************************************************
+CTankUsing::~CTankUsing()
+{
+   DestroyDmgModels();
+}
+
+// ************************************************************************************************
+void CTankUsing::DestroyDmgModels()
+{
+   if (m_pDamageModelTurm)
+   {
+      delete m_pDamageModelTurm;
+      m_pDamageModelTurm = nullptr;
+   }
+
+   if (m_pDamageModelWanne)
+   {
+      delete m_pDamageModelWanne;
+      m_pDamageModelWanne = nullptr;
+   }
+}
+
+// ************************************************************************************************
+void CTankUsing::InitDmgModels()
+{
+   DestroyDmgModels();
+
+   if (m_pBlueprint && Memory().m_TankBlueprints.IsValid(m_pBlueprint) && m_pBlueprint->m_pModel)
+   {
+      m_pDamageModelTurm = m_pBlueprint->m_pModel->CreateDDMTower(m_pBlueprint->m_Specs.m_Stability);
+      m_pDamageModelWanne = m_pBlueprint->m_pModel->CreateDDMWanne(m_pBlueprint->m_Specs.m_Stability);
+   }
 }

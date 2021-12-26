@@ -74,6 +74,7 @@ public:
    CMemoryPool<CTileMap *> m_Maps;
    CMemoryPool<ITileMapObject *> m_MapObjects;
    CMemoryPool<CTankBlueprint *> m_TankBlueprints;
+   CMemoryPool<CTankUsing *> m_TankUsings;
 };
 
 // ************************************************************************************************

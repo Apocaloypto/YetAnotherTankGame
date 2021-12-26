@@ -69,6 +69,9 @@
     <ClCompile Include="TankBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\YetAnotherTankGame\DDM2D.cpp">
+      <Filter>Source Files\External</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFileWriter.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="TankBuilder.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YetAnotherTankGame\DDM2D.h">
+      <Filter>Header Files\External</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
