@@ -9,4 +9,8 @@ namespace Const
    extern const String APP_VERSION;
 
    extern const String PATHS_FILE;
+
+   constexpr Int32 DDM2D_MODEL_RESOLUTION = 5;
+   constexpr Real DDM2D_IMPULSE_TO_DISPLACEMENT_MULT = (Real)3.0;
+   constexpr Real DDM2D_RANDOM_DISPLACEMENT = (Real)3.0;
 };

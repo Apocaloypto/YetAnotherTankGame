@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Const.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="DDM2D.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IDLParser.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="DDM2D.h" />
     <ClInclude Include="Dim2D.h" />
     <ClInclude Include="ExitCodes.h" />
     <ClInclude Include="Functions.h" />
@@ -132,7 +134,9 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Tanks.h" />
+    <ClInclude Include="TemplateUsings.h" />
     <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="Typedefs.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

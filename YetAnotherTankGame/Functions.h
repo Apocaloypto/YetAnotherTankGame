@@ -3,7 +3,10 @@
 #include <fstream>
 #include <SFML/Graphics.hpp>
 #include "Typedefs.h"
+#include "TemplateUsings.h"
 
+
+class CImage;
 
 // ************************************************************************************************
 namespace StringFun
@@ -24,7 +27,32 @@ namespace StringFun
 // ************************************************************************************************
 namespace MathFun
 {
+   constexpr Real PI = 3.14159265358979f;
+
+   Radians DegToRad(Degrees deg);
+   Degrees RadToDeg(Radians rad);
+
    Real GetFraction(Real whole);
+   Real Normalize(Real in, Real lower, Real upper);
+
+   Real ModuloFloat(Real in, int mod);
+
+   Degrees NormalizeAngle(Degrees in);
+
+   bool IsPointInTriangle(const CPoint2D<Real> &triPos1, const CPoint2D<Real> &triPos2, const CPoint2D<Real> &triPos3, const CPoint2D<Real> &ptCheck);
+
+   void  InitRand();
+   int   GetRandomNumber();
+   int   GetRandomNumber(int lower, int upper);
+   int   GetRandomNumberWithNegative(int lower, int upper);
+   Real  GetRandomReal();
+   Real  GetRandomRealBetween(Real lower, Real upper);
+   bool  Maybe();
+
+   CPoint2D<Real> RotateAround(const CPoint2D<Real> &base, const CPoint2D<Real> &origin, Degrees rot);
+   Degrees GetRotationBetween(const CPoint2D<Real> &one, const CPoint2D<Real> &two);
+
+   CPoint2D<Real> Move(const CPoint2D<Real> base, Degrees rot, Real dist);
 }
 
 // ************************************************************************************************
@@ -115,4 +143,12 @@ namespace StreamFun
    bool StreamCheckHeader(std::ifstream &src, const std::string &header);
 
    bool SaveImageToStream(const sf::Image &img, std::ofstream &stream);
+}
+
+// ************************************************************************************************
+namespace DrawFun
+{
+   void InitGL();
+
+   void DrawTexturedPolygon(const CImage &image, Real xyuv[], size_t xyuvSize, const CPixelPos &screen, const CPixelPos &handle, CPixelPos rothandle, Degrees rot, const CShader *pUseShader);
 }

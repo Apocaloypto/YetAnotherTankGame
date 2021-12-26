@@ -5,6 +5,7 @@
 #include "Array2D.h"
 #include "Point2D.h"
 #include "Dim2D.h"
+#include "TemplateUsings.h"
 
 
 class CImageArray;

@@ -1,7 +1,10 @@
 #include "Functions.h"
+#include "Window.h"
+#include "Image.h"
 #include <algorithm>
 #include <locale>
 #include <iomanip>
+#include <SFML/OpenGL.hpp>
 
 
 typedef void stbi_write_func(void *context, void *data, int size);
@@ -105,10 +108,135 @@ namespace StringFun
 // ################################################################################################
 namespace MathFun
 {
+   Radians DegToRad(Degrees deg)
+   {
+      return deg * (PI / 180.0f);
+   }
+
+   Degrees RadToDeg(Radians rad)
+   {
+      return rad * (180.0f / PI);
+   }
+
    Real GetFraction(Real whole)
    {
       Real dontCare;
       return modf(whole, &dontCare);
+   }
+
+   Real Normalize(Real in, Real lower, Real upper)
+   {
+      if (in < lower)
+         return lower;
+      else if (in > upper)
+         return upper;
+      else
+         return in;
+   }
+
+   Real ModuloFloat(Real in, int mod)
+   {
+      int inInInt  = (int)in;
+      int rest     = inInInt % mod;
+
+      return (Real)rest + (in - inInInt);
+   }
+
+   Degrees NormalizeAngle(Degrees in)
+   {
+      if (in < 0)
+      {
+         while (in < 0)
+            in += 360;
+
+         return in;
+      }
+      else if (in >= 360)
+         return ModuloFloat(in, 360);
+      else
+         return in;
+   }
+
+   Real Sign(const CPoint2D<Real> &pos1, const CPoint2D<Real> &pos2, const CPoint2D<Real> &pos3)
+   {
+      return (pos1.m_X - pos3.m_X) * (pos2.m_Y - pos3.m_Y) - (pos2.m_X - pos3.m_X) * (pos1.m_Y - pos3.m_Y);
+   }
+
+   bool IsPointInTriangle(const CPoint2D<Real> &triPos1, const CPoint2D<Real> &triPos2, const CPoint2D<Real> &triPos3, const CPoint2D<Real> &ptCheck)
+   {
+      Real d1 = Sign(ptCheck, triPos1, triPos2);
+      Real d2 = Sign(ptCheck, triPos2, triPos3);
+      Real d3 = Sign(ptCheck, triPos3, triPos1);
+
+      bool has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+      bool has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+      return !(has_neg && has_pos);
+   }
+
+   void InitRand()
+   {
+      srand((UInt32)time(nullptr));
+   }
+
+   int GetRandomNumber()
+   {
+      return rand();
+   }
+
+   int GetRandomNumber(int lower, int upper)
+   {
+      if (upper - lower == 0)
+         return 0;
+      else
+         return (GetRandomNumber() % (upper - lower)) + lower;
+   }
+
+   int GetRandomNumberWithNegative(int lower, int upper)
+   {
+      return GetRandomNumber(0, upper) - lower;
+   }
+
+   Real GetRandomReal()
+   {
+      return GetRandomNumber() / (Real)RAND_MAX;
+   }
+
+   Real GetRandomRealBetween(Real lower, Real upper)
+   {
+      return (GetRandomReal() * abs(upper - lower)) + abs(lower);
+   }
+
+   bool Maybe()
+   {
+      return GetRandomNumber(0, 2) == 1;
+   }
+
+   CPoint2D<Real> RotateAround(const CPoint2D<Real> &base, const CPoint2D<Real> &origin, Degrees rot)
+   {
+      Real sin_angle = sin(DegToRad(rot));
+      Real cos_angle = cos(DegToRad(rot));
+
+      Real basex = base.m_X;
+      Real basey = base.m_Y;
+
+      basex -= origin.m_X;
+      basey -= origin.m_Y;
+
+      Real xnew = basex * cos_angle - basey * sin_angle;
+      Real ynew = basex * sin_angle + basey * cos_angle;
+
+      return CPoint2D<Real>(xnew + origin.m_X, ynew + origin.m_Y);
+   }
+
+   Degrees GetRotationBetween(const CPoint2D<Real> &one, const CPoint2D<Real> &two)
+   {
+      return RadToDeg(atan2(two.m_Y - one.m_Y, two.m_X - one.m_X)) + 90.0f;
+   }
+
+   CPoint2D<Real> Move(const CPoint2D<Real> base, Degrees rot, Real dist)
+   {
+      return CPoint2D<Real>(base.m_X + cos(MathFun::DegToRad(rot + 90)) * dist, base.m_Y + sin(MathFun::DegToRad(rot + 90)) * dist);
    }
 }
 
@@ -179,5 +307,57 @@ namespace StreamFun
          return false;
 
       return stbi_write_png_to_func(&SaveImageToStreamHelper, &stream, img.getSize().x, img.getSize().y, 4, img.getPixelsPtr(), 0) != 0;
+   }
+}
+
+// ################################################################################################
+namespace DrawFun
+{
+   void InitGL()
+   {
+      glEnable(GL_DEPTH_TEST);
+      glDepthMask(GL_TRUE);
+      glClearDepth(1.0f);
+      glDisable(GL_LIGHTING);
+      glViewport(0, 0, Window().getSize().x, Window().getSize().y);
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+
+      GLfloat ratio = (GLfloat)(static_cast<Real>(Window().getSize().x) / Window().getSize().y);
+      glFrustum(-ratio, ratio, -1.0f, 1.0f, 1.0f, 500.0f);
+   }
+
+   // *********************************************************************************************
+   void DrawTexturedPolygon(const CImage &image, Real xyuv[], size_t xyuvSize, const CPixelPos &screen, const CPixelPos &handle, CPixelPos rothandle, Degrees rot, const CShader *pUseShader)
+   {
+      if (xyuvSize < 6)
+         return;
+
+      rothandle = MathFun::RotateAround(rothandle, handle, rot);
+
+      Window().resetGLStates();
+
+      CShader::bind(pUseShader);
+
+      glBindTexture(GL_TEXTURE_2D, image.Texture().getNativeHandle());
+      glEnable(GL_TEXTURE_2D);
+
+      glBegin(GL_POLYGON);
+         for (int i = 0; i < xyuvSize; i += 4)
+         {
+            Real u = xyuv[i + 2];
+            Real v = xyuv[i + 3];
+            glTexCoord2d(u, v);
+
+            CPoint2D<Real> xy(xyuv[i + 0], xyuv[i + 1]);
+
+            xy = MathFun::RotateAround(xy, rothandle, rot);
+            xy = xy - handle;
+
+            glVertex2d((xy.m_X + screen.m_X), (xy.m_Y + screen.m_Y));
+         }
+      glEnd();
+
+      CShader::bind(nullptr);
    }
 }

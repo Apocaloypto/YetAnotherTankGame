@@ -111,6 +111,9 @@
     <ClCompile Include="ResHolder_TankBlueprint.cpp">
       <Filter>Source Files\Resources\Holder</Filter>
     </ClCompile>
+    <ClCompile Include="DDM2D.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -190,6 +193,15 @@
     </ClInclude>
     <ClInclude Include="ResHolder_TankBlueprint.h">
       <Filter>Header Files\Resources\Holder</Filter>
+    </ClInclude>
+    <ClInclude Include="DDM2D.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Typedefs.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateUsings.h">
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

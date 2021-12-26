@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "InputStates.h"
 #include "Game.h"
+#include "Functions.h"
 
 #ifdef DEBUG_MODE
 #define _CRTDBG_MAP_ALLOC
@@ -26,6 +27,8 @@ int main(int argc, char **argv)
    GENERAL_LOG.Log(LogType::Message, "Starting game...");
 
    InitializeWindow();
+
+   DrawFun::InitGL();
 
    if (!Game().Initialize())
    {

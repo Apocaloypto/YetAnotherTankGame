@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Typedefs.h"
+#include "TemplateUsings.h"
 
 
 class CImage

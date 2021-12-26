@@ -1,5 +1,6 @@
 #pragma once
 #include "TypeDefs.h"
+#include "TemplateUsings.h"
 
 
 class ITileMapObject

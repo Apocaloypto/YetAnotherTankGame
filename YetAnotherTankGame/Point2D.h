@@ -1,5 +1,7 @@
 #pragma once
+#include <cmath>
 #include "Vector2D.h"
+#include "Typedefs.h"
 
 
 template <class T>
@@ -49,5 +51,10 @@ public:
    CPoint2D operator*(T mult) const
    {
       return CPoint2D(m_X * mult, m_Y * mult);
+   }
+
+   T GetDistanceTo(const CPoint2D &other) const
+   {
+      return (T)sqrt(((other.m_X - m_X) * (other.m_X - m_X)) + ((other.m_Y - m_Y) * (other.m_Y - m_Y)));
    }
 };
