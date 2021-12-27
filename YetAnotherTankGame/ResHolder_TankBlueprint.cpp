@@ -21,10 +21,11 @@ std::optional<CTankSpecsBlueprint> CResHolderTankBlueprints::ParseSpecs(const ID
    String tankname = dataset[TANKS_COL_NAME];
 
    PARSE_REAL_DATA(maxspeed, TANKS_COL_MAXSPEED);
-   PARSE_REAL_DATA(seconds, TANKS_COL_SECS);
+   PARSE_REAL_DATA(accel, TANKS_COL_ACCEL);
+   PARSE_REAL_DATA(tower, TANKS_COL_TOWER);
    PARSE_REAL_DATA(stability, TANKS_COL_STAB);
 
-   return CTankSpecsBlueprint(tankname, maxspeed, seconds, stability);
+   return CTankSpecsBlueprint(tankname, maxspeed, accel, tower, stability);
 
 #undef PARSE_REAL_DATA
 }

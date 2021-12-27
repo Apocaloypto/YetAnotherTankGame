@@ -2,6 +2,7 @@
 #include "Functions.h"
 #include "Memory.h"
 #include "DDM2D.h"
+#include "IController.h"
 
 
 // ################################################################################################
@@ -137,13 +138,17 @@ CDynamicDamageModel *CTankModelBlueprint::CreateDDMWanne(Real stability) const
 
 // ################################################################################################
 CTankSpecsBlueprint::CTankSpecsBlueprint(const CTankSpecsBlueprint &right)
-   : CTankSpecsBlueprint(right.m_Name, right.m_MaxSpeed, right.m_SecsTilMaxSpeed, right.m_Stability)
+   : CTankSpecsBlueprint(right.m_Name, right.m_MaxSpeed, right.m_Acceleration, right.m_TowerRotationSpeed, right.m_Stability)
 {
 }
 
 // ************************************************************************************************
-CTankSpecsBlueprint::CTankSpecsBlueprint(const String &name, KmPerH maxspeed, Seconds secstilmaxspeed, Real stability)
-   : m_Name(name), m_MaxSpeed(maxspeed), m_SecsTilMaxSpeed(secstilmaxspeed), m_Stability(stability)
+CTankSpecsBlueprint::CTankSpecsBlueprint(const String &name, KmPerH maxspeed, MPerS acceleration, DegPerS towerRotSpeed, Real stability)
+   : m_Name(name), 
+   m_MaxSpeed(maxspeed), 
+   m_Acceleration(acceleration), 
+   m_TowerRotationSpeed(towerRotSpeed),
+   m_Stability(stability)
 {
 }
 
@@ -161,13 +166,14 @@ CTankBlueprint::~CTankBlueprint()
 }
 
 // ################################################################################################
-CTankUsing::CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, Degrees rot, Degrees towerrot)
+CTankUsing::CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, Degrees rot, Degrees towerrot, const IController *pController)
    : m_pBlueprint(pBlueprint),
    m_pDamageModelTurm(nullptr),
    m_pDamageModelWanne(nullptr),
    m_Pos(pos),
    m_Rot(rot),
-   m_TowerRot(towerrot)
+   m_TowerRot(towerrot),
+   m_pController(pController)
 {
    InitDmgModels();
 }
@@ -234,4 +240,13 @@ void CTankUsing::Draw(const CPixelPos &screen)
 // ************************************************************************************************
 void CTankUsing::Update()
 {
+   if (Memory().m_Controller.IsValid(m_pController))
+   {
+      Real lefttrack, righttrack, tower;
+      m_pController->Update(lefttrack, righttrack, tower);
+
+      lefttrack = MathFun::Normalize(lefttrack, -1.0, 1.0);
+      righttrack = MathFun::Normalize(righttrack, -1.0, 1.0);
+      tower = MathFun::Normalize(tower, -1.0, 1.0);
+   }
 }

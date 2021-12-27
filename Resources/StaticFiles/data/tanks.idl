@@ -1,14 +1,15 @@
 # the tanks
 
 # contents:
-# A - ID
-# B - Name
-# C - Maxspeed (km/h)
-# D - Seconds til maxspeed reached
-# E - Stability (0.0 <= this <= 1.0)
-# F - Model filename
+# a - id
+# b - name
+# c - maxspeed (km/h)
+# d - acceleration(m/s2) [conversion: maxspeed / (3.6 * secs til maxspeed reached)]
+# e - tower rotation speed (degrees/sec)
+# f - stability (0.0 <= this <= 1.0)
+# g - model filename
 
 
 # THE DATA
-# A		B		C		D		E		F
-TANK01	Tank01	60.0	5.0		0.8		data/tanks/tank01.mdl
+# a		b		c		d		e		f		g
+TANK01	Tank01	60.0	33.33	60.0	0.8		data/tanks/tank01.mdl

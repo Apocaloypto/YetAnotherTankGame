@@ -27,7 +27,7 @@ bool CContext::SpawnPlayerOnMap()
          return false;
       }
 
-      CTankUsing *pUsing = Memory().m_TankUsings.Add(new CTankUsing(pBlueprint, CTilePos(15, 15), 30, 0));
+      CTankUsing *pUsing = Memory().m_TankUsings.Add(new CTankUsing(pBlueprint, CTilePos(15, 15), 30, 0, nullptr));
       if (!Memory().m_TankUsings.IsValid(pUsing))
       {
          return false;

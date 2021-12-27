@@ -4,6 +4,7 @@
 
 
 class CDynamicDamageModel;
+class IController;
 
 // ************************************************************************************************
 class CTankModelBlueprint
@@ -39,11 +40,12 @@ class CTankSpecsBlueprint
 public:
    const String m_Name;
    const KmPerH m_MaxSpeed;
-   const Seconds m_SecsTilMaxSpeed;
+   const MPerS m_Acceleration;
+   const DegPerS m_TowerRotationSpeed;
    const Real m_Stability;
 
    CTankSpecsBlueprint(const CTankSpecsBlueprint &right);
-   CTankSpecsBlueprint(const String &name, KmPerH maxspeed, Seconds secstilmaxspeed, Real stability);
+   CTankSpecsBlueprint(const String &name, KmPerH maxspeed, MPerS acceleration, DegPerS towerRotSpeed, Real stability);
 };
 
 // ************************************************************************************************
@@ -66,6 +68,8 @@ private:
 
    const CTankBlueprint *m_pBlueprint;
 
+   const IController *m_pController;
+
    CDynamicDamageModel *m_pDamageModelTurm;
    CDynamicDamageModel *m_pDamageModelWanne;
 
@@ -76,7 +80,7 @@ private:
 public:
    const CTilePos &Position = m_Pos;
 
-   CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, Degrees rot, Degrees towerrot);
+   CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, Degrees rot, Degrees towerrot, const IController *pController);
    virtual ~CTankUsing();
 
    void Draw(const CPixelPos &screen);

@@ -58,6 +58,12 @@
     <Filter Include="Source Files\Tilemap\MapObjects">
       <UniqueIdentifier>{c990edef-5781-47c6-82f3-71a0cb8434ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Controls">
+      <UniqueIdentifier>{d6869628-b537-4c3b-ac7c-4262c195fa83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controls">
+      <UniqueIdentifier>{e6bb02ea-7b99-4d96-bb46-3b9d57251219}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -214,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="MapObject_Tank.h">
       <Filter>Header Files\Tilemap\MapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="IController.h">
+      <Filter>Header Files\Controls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

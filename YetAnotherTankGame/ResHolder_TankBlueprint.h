@@ -18,15 +18,17 @@ private:
    const int TANKS_COL_ID = 0;
    const int TANKS_COL_NAME = 1;
    const int TANKS_COL_MAXSPEED = 2;
-   const int TANKS_COL_SECS = 3;
-   const int TANKS_COL_STAB = 4;
-   const int TANKS_COL_FILE = 5;
+   const int TANKS_COL_ACCEL = 3;
+   const int TANKS_COL_TOWER = 4;
+   const int TANKS_COL_STAB = 5;
+   const int TANKS_COL_FILE = 6;
 
    const std::vector<int> TANK_COLUMNS = {
       TANKS_COL_ID,
       TANKS_COL_NAME,
       TANKS_COL_MAXSPEED,
-      TANKS_COL_SECS,
+      TANKS_COL_ACCEL,
+      TANKS_COL_TOWER,
       TANKS_COL_STAB,
       TANKS_COL_FILE
    };
