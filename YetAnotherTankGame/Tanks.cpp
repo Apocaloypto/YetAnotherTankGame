@@ -3,6 +3,7 @@
 #include "Memory.h"
 #include "DDM2D.h"
 #include "IController.h"
+#include "Settings.h"
 
 
 // ################################################################################################
@@ -240,13 +241,16 @@ void CTankUsing::Draw(const CPixelPos &screen)
 // ************************************************************************************************
 void CTankUsing::Update()
 {
-   if (Memory().m_Controller.IsValid(m_pController))
+   if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
-      Real lefttrack, righttrack, tower;
+      Real lefttrack = 0.0;
+      Real righttrack = 0.0;
+      Real tower = 0.0;
       m_pController->Update(lefttrack, righttrack, tower);
 
       lefttrack = MathFun::Normalize(lefttrack, -1.0, 1.0);
       righttrack = MathFun::Normalize(righttrack, -1.0, 1.0);
-      tower = MathFun::Normalize(tower, -1.0, 1.0);
+
+      m_TowerRot += MathFun::Normalize(tower, -1.0, 1.0) * (m_pBlueprint->m_Specs.m_TowerRotationSpeed / (Real)Settings().FrameLimit);
    }
 }

@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Const.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="Control_Player.cpp" />
     <ClCompile Include="DDM2D.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="MapObject_Tank.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Paths.h" />
+    <ClInclude Include="Control_Player.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="ResHolderMapBaseT.h" />
     <ClInclude Include="ResHolder_TankBlueprint.h" />

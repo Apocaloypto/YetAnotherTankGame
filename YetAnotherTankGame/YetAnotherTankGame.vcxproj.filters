@@ -129,6 +129,9 @@
     <ClCompile Include="MapObject_Tank.cpp">
       <Filter>Source Files\Tilemap\MapObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Control_Player.cpp">
+      <Filter>Source Files\Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -222,6 +225,9 @@
       <Filter>Header Files\Tilemap\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="IController.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Control_Player.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
   </ItemGroup>

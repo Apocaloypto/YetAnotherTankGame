@@ -5,6 +5,7 @@
 #include "Tanks.h"
 #include "MapObject_Tank.h"
 #include "ResourceManager.h"
+#include "Control_Player.h"
 
 
 // ################################################################################################
@@ -21,13 +22,19 @@ bool CContext::SpawnPlayerOnMap()
 {
    if (m_pCurrentMap)
    {
+      CControllerPlayer *pPlayerCtrl = Memory().m_Controller.AddTyped(new CControllerPlayer());
+      if (!Memory().m_Controller.IsValid(pPlayerCtrl))
+      {
+         return false;
+      }
+
       CTankBlueprint *pBlueprint = Resources().TankBlueprints.Get("TANK01");
       if (!Memory().m_TankBlueprints.IsValid(pBlueprint))
       {
          return false;
       }
 
-      CTankUsing *pUsing = Memory().m_TankUsings.Add(new CTankUsing(pBlueprint, CTilePos(15, 15), 30, 0, nullptr));
+      CTankUsing *pUsing = Memory().m_TankUsings.Add(new CTankUsing(pBlueprint, CTilePos(15, 15), 30, 0, pPlayerCtrl));
       if (!Memory().m_TankUsings.IsValid(pUsing))
       {
          return false;
