@@ -108,6 +108,11 @@ namespace StringFun
 // ################################################################################################
 namespace MathFun
 {
+   MPerS KmPerH2MPerS(KmPerH val)
+   {
+      return (MPerS)(val / 3.6);
+   }
+
    Radians DegToRad(Degrees deg)
    {
       return deg * (PI / 180.0f);

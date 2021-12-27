@@ -8,6 +8,7 @@ public:
    CControllerPlayer() = default;
 
    virtual Real GetTowerMod() const override;
-   virtual void GetTrackMod(Real &lefttrack, Real &righttrack) const override;
+   virtual Real GetLeftTrackMod() const override;
+   virtual Real GetRightTrackMod() const override;
    virtual bool Shoot() const override;
 };

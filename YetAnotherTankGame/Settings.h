@@ -61,6 +61,12 @@ public:
    const UInt32 FrameLimit = 60;
 
    const CInputConfig &InputConfig = m_InputConfig;
+
+   template<class T>
+   inline T ToPerFrameValue(T base)
+   {
+      return base / (T)FrameLimit;
+   }
 };
 
 // ************************************************************************************************

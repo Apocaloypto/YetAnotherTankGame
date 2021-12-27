@@ -22,8 +22,10 @@ Real CControllerPlayer::GetTowerMod() const
 }
 
 // ************************************************************************************************
-void CControllerPlayer::GetTrackMod(Real &lefttrack, Real &righttrack) const
+Real CControllerPlayer::GetLeftTrackMod() const
 {
+   Real lefttrack = 0.0;
+
    if (Input().IsPressed(InputCommand::LeftTrackForward))
    {
       lefttrack = 1.0;
@@ -34,6 +36,14 @@ void CControllerPlayer::GetTrackMod(Real &lefttrack, Real &righttrack) const
       lefttrack -= 1.0;
    }
 
+   return lefttrack;
+}
+
+// ************************************************************************************************
+Real CControllerPlayer::GetRightTrackMod() const
+{
+   Real righttrack = 0.0;
+
    if (Input().IsPressed(InputCommand::RightTrackForward))
    {
       righttrack = 1.0;
@@ -43,6 +53,8 @@ void CControllerPlayer::GetTrackMod(Real &lefttrack, Real &righttrack) const
    {
       righttrack -= 1.0;
    }
+
+   return righttrack;
 }
 
 // ************************************************************************************************

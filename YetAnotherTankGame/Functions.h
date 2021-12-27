@@ -29,6 +29,8 @@ namespace MathFun
 {
    constexpr Real PI = 3.14159265358979f;
 
+   MPerS KmPerH2MPerS(KmPerH val);
+
    Radians DegToRad(Degrees deg);
    Degrees RadToDeg(Radians rad);
 

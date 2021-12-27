@@ -175,7 +175,8 @@ CTankUsing::CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, De
    m_Rot(rot),
    m_TowerRot(towerrot),
    m_pController(pController),
-   m_CurrentSpeed(0.0)
+   m_CurrentSpeedLT(0.0),
+   m_CurrentSpeedRT(0.0)
 {
    InitDmgModels();
 }
@@ -243,18 +244,22 @@ void CTankUsing::Draw(const CPixelPos &screen)
 void CTankUsing::DoTowerUpdate()
 {
    Real tower = m_pController->GetTowerMod();
-   m_TowerRot += MathFun::Normalize(tower, -1.0, 1.0) * (m_pBlueprint->m_Specs.m_TowerRotationSpeed / (Real)Settings().FrameLimit);
+   m_TowerRot += MathFun::Normalize(tower, -1.0, 1.0) * Settings().ToPerFrameValue(m_pBlueprint->m_Specs.m_TowerRotationSpeed);
 }
 
 // ************************************************************************************************
-void CTankUsing::DoMovingUpdate()
+void CTankUsing::DoMovingUpdate(MPerS &side, Real mod)
 {
-   Real lefttrack = 0.0;
-   Real righttrack = 0.0;
-   m_pController->GetTrackMod(lefttrack, righttrack);
+   const Real maxspeedperframe = Settings().ToPerFrameValue(MathFun::KmPerH2MPerS(m_pBlueprint->m_Specs.m_MaxSpeed)); 
 
-   lefttrack = MathFun::Normalize(lefttrack, -1.0, 1.0);
-   righttrack = MathFun::Normalize(righttrack, -1.0, 1.0);
+   side += MathFun::Normalize(mod, -1.0, 1.0) * Settings().ToPerFrameValue(m_pBlueprint->m_Specs.m_Acceleration);
+   side = MathFun::Normalize(side, -maxspeedperframe, maxspeedperframe);
+}
+
+// ************************************************************************************************
+void CTankUsing::ApplyUpdates()
+{
+
 }
 
 // ************************************************************************************************
@@ -263,6 +268,9 @@ void CTankUsing::Update()
    if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
       DoTowerUpdate();
-      DoMovingUpdate();
+      DoMovingUpdate(m_CurrentSpeedLT, m_pController->GetLeftTrackMod());
+      DoMovingUpdate(m_CurrentSpeedRT, m_pController->GetRightTrackMod());
+
+      ApplyUpdates();
    }
 }

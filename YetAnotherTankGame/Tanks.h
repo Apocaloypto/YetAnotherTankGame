@@ -78,10 +78,13 @@ private:
 
    Degrees m_TowerRot;
 
-   MPerS m_CurrentSpeed;
+   MPerS m_CurrentSpeedLT;
+   MPerS m_CurrentSpeedRT;
 
    void DoTowerUpdate();
-   void DoMovingUpdate();
+   void DoMovingUpdate(MPerS &side, Real mod);
+
+   void ApplyUpdates();
 
 public:
    const CTilePos &Position = m_Pos;
