@@ -75,7 +75,13 @@ private:
 
    CTilePos m_Pos;
    Degrees m_Rot;
+
    Degrees m_TowerRot;
+
+   MPerS m_CurrentSpeed;
+
+   void DoTowerUpdate();
+   void DoMovingUpdate();
 
 public:
    const CTilePos &Position = m_Pos;

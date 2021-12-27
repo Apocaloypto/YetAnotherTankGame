@@ -145,9 +145,9 @@ CTankSpecsBlueprint::CTankSpecsBlueprint(const CTankSpecsBlueprint &right)
 
 // ************************************************************************************************
 CTankSpecsBlueprint::CTankSpecsBlueprint(const String &name, KmPerH maxspeed, MPerS acceleration, DegPerS towerRotSpeed, Real stability)
-   : m_Name(name), 
-   m_MaxSpeed(maxspeed), 
-   m_Acceleration(acceleration), 
+   : m_Name(name),
+   m_MaxSpeed(maxspeed),
+   m_Acceleration(acceleration),
    m_TowerRotationSpeed(towerRotSpeed),
    m_Stability(stability)
 {
@@ -174,7 +174,8 @@ CTankUsing::CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, De
    m_Pos(pos),
    m_Rot(rot),
    m_TowerRot(towerrot),
-   m_pController(pController)
+   m_pController(pController),
+   m_CurrentSpeed(0.0)
 {
    InitDmgModels();
 }
@@ -222,20 +223,38 @@ void CTankUsing::Draw(const CPixelPos &screen)
       {
          m_pDamageModelWanne->Draw(screen, m_pBlueprint->m_pModel->TurnpointWanne, MathFun::NormalizeAngle(m_Rot), m_pBlueprint->m_pModel->TurnpointWanne, nullptr);
       }
-   
+
       if (m_pDamageModelTurm)
       {
          CPixelPos diff = m_pBlueprint->m_pModel->TurmPosAufWanne - m_pBlueprint->m_pModel->TurnpointWanne;
          CPixelPos towerpos = MathFun::RotateAround(diff, CPixelPos(0, 0), m_Rot);
 
          m_pDamageModelTurm->Draw(
-            towerpos + screen, 
-            m_pBlueprint->m_pModel->TurnpointTurm, 
-            MathFun::NormalizeAngle(m_Rot + m_TowerRot), 
-            m_pBlueprint->m_pModel->TurnpointTurm, 
+            towerpos + screen,
+            m_pBlueprint->m_pModel->TurnpointTurm,
+            MathFun::NormalizeAngle(m_Rot + m_TowerRot),
+            m_pBlueprint->m_pModel->TurnpointTurm,
             nullptr);
       }
    }
+}
+
+// ************************************************************************************************
+void CTankUsing::DoTowerUpdate()
+{
+   Real tower = m_pController->GetTowerMod();
+   m_TowerRot += MathFun::Normalize(tower, -1.0, 1.0) * (m_pBlueprint->m_Specs.m_TowerRotationSpeed / (Real)Settings().FrameLimit);
+}
+
+// ************************************************************************************************
+void CTankUsing::DoMovingUpdate()
+{
+   Real lefttrack = 0.0;
+   Real righttrack = 0.0;
+   m_pController->GetTrackMod(lefttrack, righttrack);
+
+   lefttrack = MathFun::Normalize(lefttrack, -1.0, 1.0);
+   righttrack = MathFun::Normalize(righttrack, -1.0, 1.0);
 }
 
 // ************************************************************************************************
@@ -243,14 +262,7 @@ void CTankUsing::Update()
 {
    if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
-      Real lefttrack = 0.0;
-      Real righttrack = 0.0;
-      Real tower = 0.0;
-      m_pController->Update(lefttrack, righttrack, tower);
-
-      lefttrack = MathFun::Normalize(lefttrack, -1.0, 1.0);
-      righttrack = MathFun::Normalize(righttrack, -1.0, 1.0);
-
-      m_TowerRot += MathFun::Normalize(tower, -1.0, 1.0) * (m_pBlueprint->m_Specs.m_TowerRotationSpeed / (Real)Settings().FrameLimit);
+      DoTowerUpdate();
+      DoMovingUpdate();
    }
 }

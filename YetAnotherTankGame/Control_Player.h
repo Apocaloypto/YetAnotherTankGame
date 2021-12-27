@@ -7,5 +7,7 @@ class CControllerPlayer : public IController
 public:
    CControllerPlayer() = default;
 
-   virtual void Update(Real &lefttrack, Real &righttrack, Real &tower) const override;
+   virtual Real GetTowerMod() const override;
+   virtual void GetTrackMod(Real &lefttrack, Real &righttrack) const override;
+   virtual bool Shoot() const override;
 };

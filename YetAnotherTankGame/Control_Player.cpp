@@ -4,8 +4,10 @@
 
 
 // ################################################################################################
-void CControllerPlayer::Update(Real &lefttrack, Real &righttrack, Real &tower) const
+Real CControllerPlayer::GetTowerMod() const
 {
+   Real tower = 0.0;
+
    if (Input().IsPressed(InputCommand::TowerRotateRight))
    {
       tower = 1.0;
@@ -15,4 +17,36 @@ void CControllerPlayer::Update(Real &lefttrack, Real &righttrack, Real &tower) c
    {
       tower -= 1.0;
    }
+
+   return tower;
+}
+
+// ************************************************************************************************
+void CControllerPlayer::GetTrackMod(Real &lefttrack, Real &righttrack) const
+{
+   if (Input().IsPressed(InputCommand::LeftTrackForward))
+   {
+      lefttrack = 1.0;
+   }
+
+   if (Input().IsPressed(InputCommand::LeftTrackBackward))
+   {
+      lefttrack -= 1.0;
+   }
+
+   if (Input().IsPressed(InputCommand::RightTrackForward))
+   {
+      righttrack = 1.0;
+   }
+
+   if (Input().IsPressed(InputCommand::RightTrackBackward))
+   {
+      righttrack -= 1.0;
+   }
+}
+
+// ************************************************************************************************
+bool CControllerPlayer::Shoot() const
+{
+   return false;
 }
