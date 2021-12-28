@@ -83,7 +83,8 @@ private:
    MPerS m_CurrentSpeedLT;
    MPerS m_CurrentSpeedRT;
 
-   Real GetMaxSpeedAsPerFrame() const;
+   MPerS GetMaxTrackSpeed() const;
+   MPerS GetMaxTrackSpeedTurn() const;
 
    void DoTowerUpdate();
    void DoMovingUpdate(MPerS &side, Real mod);

@@ -15,6 +15,7 @@ typedef Real KmPerH;
 typedef Real MPerS;
 typedef Real DegPerS;
 typedef Real Seconds;
+typedef Real Frames;
 typedef Real KgTimesMPerS;
 typedef Real Pixels;
 typedef Real Meter;
