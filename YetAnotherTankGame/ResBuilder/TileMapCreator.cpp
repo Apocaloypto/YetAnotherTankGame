@@ -4,10 +4,10 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
-#include "../YetAnotherTankGame/Functions.h"
-#include "../YetAnotherTankGame/TileMap.h"
-#include "../YetAnotherTankGame/Image.h"
-#include "../YetAnotherTankGame/ImageArray.h"
+#include "../Functions.h"
+#include "../TileMap.h"
+#include "../Image.h"
+#include "../ImageArray.h"
 
 
 using namespace std;

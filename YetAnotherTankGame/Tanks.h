@@ -30,6 +30,8 @@ public:
    bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
 
+   CPixelDim GetDimensions() const;
+
    CDynamicDamageModel *CreateDDMTower(Real stability) const;
    CDynamicDamageModel *CreateDDMWanne(Real stability) const;
 };
@@ -80,6 +82,8 @@ private:
 
    MPerS m_CurrentSpeedLT;
    MPerS m_CurrentSpeedRT;
+
+   Real GetMaxSpeedAsPerFrame() const;
 
    void DoTowerUpdate();
    void DoMovingUpdate(MPerS &side, Real mod);

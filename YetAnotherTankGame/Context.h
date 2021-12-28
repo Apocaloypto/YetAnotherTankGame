@@ -21,6 +21,8 @@ public:
    bool SpawnPlayerOnMap();
 
    void Reset();
+
+   Meter ToMeter(Real what) const;
 };
 
 // ************************************************************************************************

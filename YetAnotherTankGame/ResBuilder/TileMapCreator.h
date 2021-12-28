@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "../YetAnotherTankGame/TypeDefs.h"
+#include "../TypeDefs.h"
 
 
 class CTileMap;

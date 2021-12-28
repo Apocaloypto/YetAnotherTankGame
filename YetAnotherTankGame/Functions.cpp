@@ -243,6 +243,22 @@ namespace MathFun
    {
       return CPoint2D<Real>(base.m_X + cos(MathFun::DegToRad(rot + 90)) * dist, base.m_Y + sin(MathFun::DegToRad(rot + 90)) * dist);
    }
+
+   bool HasDifferentSign(Real one, Real two)
+   {
+      if (one > 0.0 && two < 0.0)
+      {
+         return true;
+      }
+      else if (one < 0.0 && two > 0.0)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
 }
 
 // ################################################################################################

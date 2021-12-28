@@ -28,8 +28,8 @@ public:
    void Draw(const CTileInfo &info, const CPixelPos &at, const CShader *pUseShader = nullptr);
    Int32 GetTileSize() const;
 
-  bool StreamSave(std::ofstream &dest) const;
-  bool StreamLoad(std::ifstream &src);
+   bool StreamSave(std::ofstream &dest) const;
+   bool StreamLoad(std::ifstream &src);
 };
 
 // ************************************************************************************************
@@ -89,6 +89,8 @@ private:
 public:
    CTileMap() = default;
    CTileMap(CTileSet &tileset, CTileArray &tilearray);
+
+   CTileSet &TileSet = m_Set;
 
    CTileDim GetVisibleTileDim(bool makeSure) const;
 

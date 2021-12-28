@@ -64,6 +64,12 @@
     <Filter Include="Source Files\Controls">
       <UniqueIdentifier>{e6bb02ea-7b99-4d96-bb46-3b9d57251219}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ResBuilder">
+      <UniqueIdentifier>{ae85430a-ab01-48db-9e62-c01ee8ce9ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ResBuilder">
+      <UniqueIdentifier>{b20b0341-bdb2-4fcf-bca9-9c021d37cab2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -131,6 +137,24 @@
     </ClCompile>
     <ClCompile Include="Control_Player.cpp">
       <Filter>Source Files\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="ResBuilder\FileSystem.cpp">
+      <Filter>Source Files\ResBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="ResBuilder\Messages.cpp">
+      <Filter>Source Files\ResBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="ResBuilder\ResBuilder.cpp">
+      <Filter>Source Files\ResBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="ResBuilder\TankBuilder.cpp">
+      <Filter>Source Files\ResBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="ResBuilder\TextFileWriter.cpp">
+      <Filter>Source Files\ResBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="ResBuilder\TileMapCreator.cpp">
+      <Filter>Source Files\ResBuilder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +253,24 @@
     </ClInclude>
     <ClInclude Include="Control_Player.h">
       <Filter>Header Files\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="ResBuilder\FileSystem.h">
+      <Filter>Header Files\ResBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="ResBuilder\Messages.h">
+      <Filter>Header Files\ResBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="ResBuilder\TankBuilder.h">
+      <Filter>Header Files\ResBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="ResBuilder\TextFileWriter.h">
+      <Filter>Header Files\ResBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="ResBuilder\TileMapCreator.h">
+      <Filter>Header Files\ResBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="ResBuilder\ResBuilder.h">
+      <Filter>Header Files\ResBuilder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

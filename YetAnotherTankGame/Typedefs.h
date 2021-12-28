@@ -17,6 +17,7 @@ typedef Real DegPerS;
 typedef Real Seconds;
 typedef Real KgTimesMPerS;
 typedef Real Pixels;
+typedef Real Meter;
 
 typedef std::string String;
 

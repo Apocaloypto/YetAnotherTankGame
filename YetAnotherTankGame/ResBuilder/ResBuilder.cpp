@@ -1,11 +1,19 @@
 #include <iostream>
 
-#include "Const.h"
 #include "FileSystem.h"
 #include "Messages.h"
 #include "TileMapCreator.h"
 #include "TankBuilder.h"
+#include "../Typedefs.h"
+#include "../TemplateUsings.h"
 
+
+// ************************************************************************************************
+#define SRC_DIR "../../Resources/"
+#define CMB_SRC(with) SRC_DIR with
+
+#define DST_DIR TARGET_DIRECTORY
+#define CMB_DST(with) DST_DIR with
 
 // ************************************************************************************************
 void CreateDirectories()
@@ -52,7 +60,7 @@ void BuildTanks()
 }
 
 // ************************************************************************************************
-int main(int argc, char **argv)
+void BuildResources()
 {
    Msg::PrintL("Building resources to '" DST_DIR "'...");
 
@@ -69,6 +77,4 @@ int main(int argc, char **argv)
    BuildTanks();
 
    Msg::PrintL("Done.");
-
-   return 0;
 }

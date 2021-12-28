@@ -20,7 +20,7 @@ void CContext::Reset()
 // ************************************************************************************************
 bool CContext::SpawnPlayerOnMap()
 {
-   if (m_pCurrentMap)
+   if (Memory().m_Maps.IsValid(m_pCurrentMap))
    {
       CControllerPlayer *pPlayerCtrl = Memory().m_Controller.AddTyped(new CControllerPlayer());
       if (!Memory().m_Controller.IsValid(pPlayerCtrl))
@@ -52,6 +52,19 @@ bool CContext::SpawnPlayerOnMap()
    }
    else
       return false;
+}
+
+// ************************************************************************************************
+Meter CContext::ToMeter(Real what) const
+{
+   if (Memory().m_Maps.IsValid(m_pCurrentMap))
+   {
+      return what / m_pCurrentMap->TileSet.GetTileSize();
+   }
+   else
+   {
+      return 0;
+   }
 }
 
 // ################################################################################################

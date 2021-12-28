@@ -1,6 +1,6 @@
 #include "TankBuilder.h"
 
-#include "../YetAnotherTankGame/Tanks.h"
+#include "../Tanks.h"
 #include <fstream>
 
 

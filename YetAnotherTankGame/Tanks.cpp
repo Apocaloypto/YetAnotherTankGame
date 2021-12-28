@@ -4,6 +4,8 @@
 #include "DDM2D.h"
 #include "IController.h"
 #include "Settings.h"
+#include "Context.h"
+#include <limits>
 
 
 // ################################################################################################
@@ -137,6 +139,19 @@ CDynamicDamageModel *CTankModelBlueprint::CreateDDMWanne(Real stability) const
       return nullptr;
 }
 
+// ************************************************************************************************
+CPixelDim CTankModelBlueprint::GetDimensions() const
+{
+   if (m_pWanne)
+   {
+      return m_pWanne->GetDimensions();
+   }
+   else
+   {
+      return CPixelDim();
+   }
+}
+
 // ################################################################################################
 CTankSpecsBlueprint::CTankSpecsBlueprint(const CTankSpecsBlueprint &right)
    : CTankSpecsBlueprint(right.m_Name, right.m_MaxSpeed, right.m_Acceleration, right.m_TowerRotationSpeed, right.m_Stability)
@@ -248,18 +263,53 @@ void CTankUsing::DoTowerUpdate()
 }
 
 // ************************************************************************************************
+Real CTankUsing::GetMaxSpeedAsPerFrame() const
+{
+   return Settings().ToPerFrameValue(MathFun::KmPerH2MPerS(m_pBlueprint->m_Specs.m_MaxSpeed));
+}
+
+// ************************************************************************************************
 void CTankUsing::DoMovingUpdate(MPerS &side, Real mod)
 {
-   const Real maxspeedperframe = Settings().ToPerFrameValue(MathFun::KmPerH2MPerS(m_pBlueprint->m_Specs.m_MaxSpeed)); 
-
    side += MathFun::Normalize(mod, -1.0, 1.0) * Settings().ToPerFrameValue(m_pBlueprint->m_Specs.m_Acceleration);
-   side = MathFun::Normalize(side, -maxspeedperframe, maxspeedperframe);
+   side = MathFun::Normalize(side, -GetMaxSpeedAsPerFrame(), GetMaxSpeedAsPerFrame());
+
+   if (mod == 0.0)
+   {
+      side -= Settings().ToPerFrameValue(m_pBlueprint->m_Specs.m_Acceleration / (Real)100.0);
+   }
 }
 
 // ************************************************************************************************
 void CTankUsing::ApplyUpdates()
 {
+   /*
+   Int32 directionMod = 0;
+   Real curveRadius = 0.0;
 
+   if (m_CurrentSpeedLT != 0.0 || m_CurrentSpeedRT != 0.0)
+   {
+      directionMod = m_CurrentSpeedLT < 0.0 ? -1 : 1;
+
+      if (MathFun::HasDifferentSign(m_CurrentSpeedLT, m_CurrentSpeedRT))
+      {
+         // Gegenläufig:
+         Real fraction = (Real)((abs(m_CurrentSpeedLT) + abs(m_CurrentSpeedRT)) / (GetMaxSpeedAsPerFrame() * 2.0));
+         curveRadius = (Real)((1.0 - fraction) * 32.0); // TODO: Halbe Breite vom Panzer muss hier eigentlich hin -> Drehpunkt ist zwischen
+      }
+      else
+      {
+         // Gleichläufig:
+         Real fraction = (abs(m_CurrentSpeedLT) - abs(m_CurrentSpeedRT)) / GetMaxSpeedAsPerFrame();
+         curveRadius = (Real)((1.0 - fraction) * std::numeric_limits<Real>::max());
+      }
+   }
+   */
+
+   CPixelDim wanneDim = m_pBlueprint->m_pModel->GetDimensions();
+
+   Meter wanneBreite = Context().ToMeter(wanneDim.m_Width);
+   Meter wanneLaenge = Context().ToMeter(wanneDim.m_Height);
 }
 
 // ************************************************************************************************

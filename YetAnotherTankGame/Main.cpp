@@ -13,6 +13,13 @@
 #include <crtdbg.h>
 #endif
 
+// uncomment this line to build resources:
+// #define RESBUILD
+
+#ifdef RESBUILD
+#include "ResBuilder/ResBuilder.h"
+#endif
+
 
 using namespace std;
 
@@ -22,6 +29,11 @@ int main(int argc, char **argv)
 
 #ifdef DEBUG_MODE
    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
+#ifdef RESBUILD
+   BuildResources();
+   return EXIT(ExitCode::Success);
 #endif
 
    GENERAL_LOG.Log(LogType::Message, "Starting game...");

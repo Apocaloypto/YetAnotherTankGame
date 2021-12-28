@@ -51,6 +51,8 @@ namespace MathFun
    Real  GetRandomRealBetween(Real lower, Real upper);
    bool  Maybe();
 
+   bool  HasDifferentSign(Real one, Real two);
+
    CPoint2D<Real> RotateAround(const CPoint2D<Real> &base, const CPoint2D<Real> &origin, Degrees rot);
    Degrees GetRotationBetween(const CPoint2D<Real> &one, const CPoint2D<Real> &two);
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include "../YetAnotherTankGame/TypeDefs.h"
-#include "../YetAnotherTankGame/TemplateUsings.h"
+#include "../TypeDefs.h"
+#include "../TemplateUsings.h"
 
 
 namespace Tanks
