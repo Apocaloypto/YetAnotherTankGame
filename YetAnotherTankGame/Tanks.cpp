@@ -6,7 +6,6 @@
 #include "Settings.h"
 #include "Context.h"
 #include <limits>
-#include <iostream>
 
 
 // ################################################################################################
@@ -269,9 +268,22 @@ void CTankUsing::DoMovingUpdate(MPerS &side, Real mod)
    side += MathFun::Normalize(mod, -1.0, 1.0) * m_pBlueprint->m_Specs.m_Acceleration;
    side = MathFun::Normalize(side, -GetMaxTrackSpeed(), GetMaxTrackSpeed());
 
-   if (mod == 0.0)
+   if (mod == 0.0 && side != 0.0)
    {
-      side -= m_pBlueprint->m_Specs.m_Acceleration / (Real)100.0;
+      Real sideDiff = m_pBlueprint->m_Specs.m_Acceleration / (Real)100.0;
+      
+      if (sideDiff < abs(side))
+      {
+         if (side > 0.0)
+         {
+            sideDiff *= -1;
+         }
+         side += sideDiff;
+      }
+      else
+      {
+         side = 0.0;
+      }
    }
 }
 
@@ -292,12 +304,11 @@ void CTankUsing::ApplyUpdates()
 {
    if (m_CurrentSpeedLT != 0.0 || m_CurrentSpeedRT != 0.0)
    {
-      Int32 directionMod = m_CurrentSpeedLT < 0.0 ? -1 : 1;
-      Meter curveRadius = 0.0;
-
       if (MathFun::HasDifferentSign(m_CurrentSpeedLT, m_CurrentSpeedRT))
       {
          // Turn über Mitte
+         Int32 directionMod = m_CurrentSpeedLT < 0.0 ? -1 : 1;
+
          m_CurrentSpeedLT = MathFun::Normalize(m_CurrentSpeedLT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
          m_CurrentSpeedRT = MathFun::Normalize(m_CurrentSpeedRT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
 
@@ -311,6 +322,27 @@ void CTankUsing::ApplyUpdates()
       else if (m_CurrentSpeedLT == 0.0 || m_CurrentSpeedRT == 0.0)
       {
          // Turn über eine Seite
+         m_CurrentSpeedLT = MathFun::Normalize(m_CurrentSpeedLT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
+         m_CurrentSpeedRT = MathFun::Normalize(m_CurrentSpeedRT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
+
+         Meter kurvenUmfang = (Real)(Context().ToMeter(m_pBlueprint->m_pModel->GetDimensions().m_Width) * MathFun::PI);
+         MPerS diffSpeed = m_CurrentSpeedLT + m_CurrentSpeedRT;
+         Seconds turnDuration = kurvenUmfang / diffSpeed;
+
+         Int32 directionMod = 0;
+         if (diffSpeed > 0.0)
+         {
+            directionMod = m_CurrentSpeedLT > 0.0 || m_CurrentSpeedRT < 0.0 ? 1 : -1;
+         }
+         else
+         {
+            directionMod = m_CurrentSpeedLT < 0.0 || m_CurrentSpeedRT > 0.0 ? 1 : -1;
+         }
+
+         m_Rot += (Degrees)Settings().ToPerFrameValue(360.0 / turnDuration) * directionMod;
+         m_Rot = MathFun::NormalizeAngle(m_Rot);
+
+         m_Pos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(-diffSpeed));
       }
       else
       {
