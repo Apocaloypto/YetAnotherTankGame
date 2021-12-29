@@ -89,7 +89,13 @@ private:
    void DoTowerUpdate();
    void DoMovingUpdate(MPerS &side, Real mod);
 
+   void DoTrackSlowDown(MPerS &side, Real deduction);
+
    void ApplyUpdates();
+
+   void DoTurnOverSide();
+   void DoInPlaceTurn();
+   void DoNormalDrive();
 
 public:
    const CTilePos &Position = m_Pos;
