@@ -97,6 +97,8 @@ private:
    void DoInPlaceTurn();
    void DoNormalDrive();
 
+   Degrees CalcNewRotation(Real curveRadius, MPerS speed, Int32 directionMod) const;
+
 public:
    const CTilePos &Position = m_Pos;
 

@@ -6,6 +6,7 @@
 #include "Settings.h"
 #include "Context.h"
 #include <limits>
+#include <iostream>
 
 
 // ################################################################################################
@@ -329,15 +330,75 @@ void CTankUsing::ApplyUpdates()
 // ************************************************************************************************
 void CTankUsing::DoNormalDrive()
 {
-   // Erstmal Rotation:
-   Meter curveRadius = 0;
-   if (m_CurrentSpeedLT != m_CurrentSpeedRT)
-   {
-      
-   }
+   constexpr Meter MAX_CURVE_RADIUS = 100.0f;
 
    MPerS additiveSpeed = 0;
-   m_Pos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(additiveSpeed));
+   if (m_CurrentSpeedLT > 0 && m_CurrentSpeedRT > 0)
+   {
+      additiveSpeed = std::max(m_CurrentSpeedLT, m_CurrentSpeedRT);
+   }
+   else
+   {
+      additiveSpeed = std::min(m_CurrentSpeedLT, m_CurrentSpeedRT);
+   }
+
+   // Erstmal Rotation:
+   const Meter MIN_CURVE_RADIUS = Context().ToMeter((Real)(m_pBlueprint->m_pModel->GetDimensions().m_Width / 2.0));
+
+   Int32 directionMod = 0;
+   
+   if (m_CurrentSpeedLT != m_CurrentSpeedRT)
+   {
+      if (m_CurrentSpeedLT > 0 && m_CurrentSpeedRT > 0)
+      {
+         Real ratio = 1;
+         if (m_CurrentSpeedLT < m_CurrentSpeedRT)
+         {
+            // Linkskurve vorn
+            ratio = m_CurrentSpeedLT / m_CurrentSpeedRT;
+            directionMod = -1;
+         }
+         else
+         {
+            // Rechtskurve vorn
+            ratio = m_CurrentSpeedRT / m_CurrentSpeedLT;
+            directionMod = 1;
+         }
+
+         // ratio:
+         // 0 => DoTurnOverSide -> Kurvenradius = halbe Tankbreite
+         // 1 => Geradeaus -> Kurvenradius = Inf.
+         Meter curveRadius = ratio * MAX_CURVE_RADIUS;
+         if (curveRadius < MIN_CURVE_RADIUS)
+         {
+            curveRadius = MIN_CURVE_RADIUS;
+         }
+
+         m_Rot += CalcNewRotation(curveRadius, additiveSpeed, directionMod);
+      }
+      else
+      {
+         if (m_CurrentSpeedLT < m_CurrentSpeedRT)
+         {
+            // Rechtskurve hinten
+         }
+         else
+         {
+            // Linkskurve hinten
+         }
+      }
+   }
+
+   // Dann Geschwindigkeit:
+   m_Pos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(-additiveSpeed));
+}
+
+// ************************************************************************************************
+Degrees CTankUsing::CalcNewRotation(Real curveRadius, MPerS speed, Int32 directionMod) const
+{
+   Meter kurvenUmfang = (Real)(2.0 * curveRadius * MathFun::PI);
+   Seconds turnDuration = kurvenUmfang / speed;
+   return (Degrees)Settings().ToPerFrameValue(360.0 / turnDuration) * directionMod;
 }
 
 // ************************************************************************************************
@@ -347,9 +408,7 @@ void CTankUsing::DoTurnOverSide()
    m_CurrentSpeedLT = MathFun::Normalize(m_CurrentSpeedLT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
    m_CurrentSpeedRT = MathFun::Normalize(m_CurrentSpeedRT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
 
-   Meter kurvenUmfang = (Real)(Context().ToMeter(m_pBlueprint->m_pModel->GetDimensions().m_Width) * MathFun::PI);
    MPerS diffSpeed = m_CurrentSpeedLT + m_CurrentSpeedRT;
-   Seconds turnDuration = kurvenUmfang / diffSpeed;
 
    Int32 directionMod = 0;
    if (diffSpeed > 0.0)
@@ -361,7 +420,7 @@ void CTankUsing::DoTurnOverSide()
       directionMod = m_CurrentSpeedLT < 0.0 || m_CurrentSpeedRT > 0.0 ? 1 : -1;
    }
 
-   m_Rot += (Degrees)Settings().ToPerFrameValue(360.0 / turnDuration) * directionMod;
+   m_Rot += CalcNewRotation((Real)(Context().ToMeter(m_pBlueprint->m_pModel->GetDimensions().m_Width) / 2.0), diffSpeed, directionMod);
    m_Rot = MathFun::NormalizeAngle(m_Rot);
 
    m_Pos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(-diffSpeed));
