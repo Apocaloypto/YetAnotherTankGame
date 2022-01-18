@@ -129,7 +129,9 @@ namespace TileMap
          return nullptr;
       }
 
-      CTileMap *pRetVal = new CTileMap(*pSet, *pTiles);
+      CImage *pTilemap = CImage::CreateFrom(minimap);
+
+      CTileMap *pRetVal = new CTileMap(*pSet, *pTiles, pTilemap);
 
       delete pSet;
       delete pTiles;

@@ -1,5 +1,7 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "Typedefs.h"
+#include "TemplateUsings.h"
 
 
 // ************************************************************************************************
@@ -18,12 +20,14 @@ private:
    Real GetFactY() const;
 
 protected:
+   static constexpr Real GUI_BORDER_WIDTH = 2;
+   static const sf::Color GUI_BACKGROUND_COLOR;
+   static const sf::Color GUI_FOREGROUND_COLOR;
+
    CGUIControl(Int32 vx, Int32 vy, Int32 vw, Int32 vh);
 
-   Int32 GetX() const;
-   Int32 GetY() const;
-   Int32 GetW() const;
-   Int32 GetH() const;
+   CPixelPos GetPos() const;
+   CPixelDim GetDim() const;
 
 public:
    virtual ~CGUIControl();

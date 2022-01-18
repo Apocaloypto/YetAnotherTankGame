@@ -152,7 +152,11 @@ namespace StreamFun
 // ************************************************************************************************
 namespace DrawFun
 {
+   const sf::Color INVISIBLE_COLOR = sf::Color(0x00000000);
+
    void InitGL();
 
    void DrawTexturedPolygon(const CImage &image, Real xyuv[], size_t xyuvSize, const CPixelPos &screen, const CPixelPos &handle, CPixelPos rothandle, Degrees rot, const CShader *pUseShader);
+
+   void DrawRect(const CPixelPos &pos, const CPixelDim &dim, sf::Color fill, Real borderwidth, sf::Color bordercolor = INVISIBLE_COLOR);
 }

@@ -8,6 +8,7 @@
 #include "TemplateUsings.h"
 
 
+class CImage;
 class CImageArray;
 class CTileInfo;
 class ITileMapObject;
@@ -76,6 +77,7 @@ private:
 
    CTileSet m_Set;
    CTileArray m_Tiles;
+   CImage *m_pMinimap = nullptr;
 
    std::map<std::string, ITileMapObject *> m_MapObjects;
 
@@ -88,9 +90,11 @@ private:
 
 public:
    CTileMap() = default;
-   CTileMap(CTileSet &tileset, CTileArray &tilearray);
+   CTileMap(CTileSet &tileset, CTileArray &tilearray, CImage *pMinimap);
+   virtual ~CTileMap();
 
    const CTileSet &TileSet = m_Set;
+   const CImage *TileMap() const { return m_pMinimap; }
 
    CTileDim GetVisibleTileDim(bool makeSure) const;
 

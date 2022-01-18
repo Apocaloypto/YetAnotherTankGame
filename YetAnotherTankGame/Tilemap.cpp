@@ -217,14 +217,26 @@ const CTileInfo *CTileArray::GetAt(Int32 x, Int32 y) const
 const string CTileMap::STREAM_HEADER = "tmap";
 
 // ************************************************************************************************
-CTileMap::CTileMap(CTileSet &tileset, CTileArray &tilearray)
-   : m_Set(tileset), m_Tiles(tilearray)
+CTileMap::CTileMap(CTileSet &tileset, CTileArray &tilearray, CImage *pMinimap)
+   : m_Set(tileset), m_Tiles(tilearray), m_pMinimap(pMinimap)
 {
+}
+
+// ************************************************************************************************
+CTileMap::~CTileMap()
+{
+   if (m_pMinimap)
+   {
+      delete m_pMinimap;
+   }
 }
 
 // ************************************************************************************************
 bool CTileMap::StreamSave(std::ofstream &dest) const
 {
+   if (!m_pMinimap)
+      return false;
+
    if (!dest.is_open() || !dest.good())
       return false;
 
@@ -232,6 +244,7 @@ bool CTileMap::StreamSave(std::ofstream &dest) const
 
    m_Set.StreamSave(dest);
    m_Tiles.StreamSave(dest);
+   m_pMinimap->StreamSave(dest);
 
    return true;
 }
@@ -239,6 +252,11 @@ bool CTileMap::StreamSave(std::ofstream &dest) const
 // ************************************************************************************************
 bool CTileMap::StreamLoad(std::ifstream &src)
 {
+   if (m_pMinimap)
+   {
+      delete m_pMinimap;
+   }
+
    CLogger logger("tmaploader");
 
    if (!src.is_open() || !src.good())
@@ -262,6 +280,15 @@ bool CTileMap::StreamLoad(std::ifstream &src)
    if (!m_Tiles.StreamLoad(src))
    {
       logger.Log(LogType::Error, "unable to read tileinfo");
+      return false;
+   }
+
+   m_pMinimap = new CImage;
+   if (!m_pMinimap->StreamLoad(src))
+   {
+      logger.Log(LogType::Error, "unable to read minimap");
+      delete m_pMinimap;
+      m_pMinimap = nullptr;
       return false;
    }
 

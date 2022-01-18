@@ -380,5 +380,26 @@ namespace DrawFun
       glEnd();
 
       CShader::bind(nullptr);
+
+      Window().resetGLStates();
+   }
+
+   // *********************************************************************************************
+   void DrawRect(const CPixelPos &pos, const CPixelDim &dim, sf::Color fill, Real borderwidth, sf::Color bordercolor)
+   {
+      sf::RectangleShape shape(sf::Vector2f(dim.m_Width, dim.m_Height));
+      shape.setPosition(pos.m_X, pos.m_Y);
+      shape.setFillColor(fill);
+      shape.setOutlineThickness(borderwidth);
+
+      if (borderwidth != 0)
+      {
+         if (bordercolor != INVISIBLE_COLOR)
+            shape.setOutlineColor(bordercolor);
+         else
+            shape.setOutlineColor(fill);
+      }
+
+      Window().draw(shape);
    }
 }

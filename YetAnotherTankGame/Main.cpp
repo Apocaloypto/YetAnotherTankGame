@@ -41,6 +41,7 @@ int main(int argc, char **argv)
    InitializeWindow();
 
    DrawFun::InitGL();
+   MathFun::InitRand();
 
    if (!Game().Initialize())
    {

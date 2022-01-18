@@ -29,7 +29,7 @@ void CGUIManager::InitPages()
 #define END_PAGE() })));
 
    BEGIN_PAGE(GUIPage::HUD)
-      new CGUICtrl_Minimap(0, 500, 100, 100)
+      new CGUICtrl_Minimap(0, 450, 200, 150)
    END_PAGE()
 
 #undef END_PAGE

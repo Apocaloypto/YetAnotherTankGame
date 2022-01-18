@@ -4,6 +4,10 @@
 
 
 // ################################################################################################
+const sf::Color CGUIControl::GUI_BACKGROUND_COLOR = sf::Color(0x00000080);
+const sf::Color CGUIControl::GUI_FOREGROUND_COLOR = sf::Color(0x267F00FF);
+
+// ************************************************************************************************
 CGUIControl::CGUIControl(Int32 vx, Int32 vy, Int32 vw, Int32 vh)
    : m_VX(vx),
    m_VY(vy),
@@ -30,25 +34,13 @@ Real CGUIControl::GetFactY() const
 }
 
 // ************************************************************************************************
-Int32 CGUIControl::GetX() const
+CPixelPos CGUIControl::GetPos() const
 {
-   return (Int32)(m_VX * GetFactX());
+   return CPixelPos(m_VX * GetFactX(), m_VY * GetFactY());
 }
 
 // ************************************************************************************************
-Int32 CGUIControl::GetY() const
+CPixelDim CGUIControl::GetDim() const
 {
-   return (Int32)(m_VY * GetFactY());
-}
-
-// ************************************************************************************************
-Int32 CGUIControl::GetW() const
-{
-   return (Int32)(m_VW * GetFactX());
-}
-
-// ************************************************************************************************
-Int32 CGUIControl::GetH() const
-{
-   return (Int32)(m_VH * GetFactY());
+   return CPixelDim(m_VW * GetFactX(), m_VH * GetFactY());
 }
