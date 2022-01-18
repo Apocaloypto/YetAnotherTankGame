@@ -39,5 +39,5 @@ protected:
    virtual void DeleteElement(CTankBlueprint *pObj) override;
 
 public:
-   virtual bool Load(const String &id, const String &filename) override;
+   virtual bool Load(const String &id, const String &filename, const String &fileextra) override;
 };

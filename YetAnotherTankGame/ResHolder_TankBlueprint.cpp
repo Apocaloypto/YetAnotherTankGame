@@ -31,7 +31,7 @@ std::optional<CTankSpecsBlueprint> CResHolderTankBlueprints::ParseSpecs(const ID
 }
 
 // ************************************************************************************************
-bool CResHolderTankBlueprints::Load(const String &id, const String &filename)
+bool CResHolderTankBlueprints::Load(const String &id, const String &filename, const String &fileextra)
 {
    CLogger logger("TankLoader");
 

@@ -3,9 +3,14 @@
 # A: ID
 # B: Type
 # C: File
+# D: Fileextra
 
 
-# A				B					C
-MAP01			TMAP				data/maps/map01.map
+# A				B					C						D
+MAP01			TMAP				data/maps/map01.map		-
 
-TANKS			TANK				data/tanks.idl
+TANKS			TANK				data/tanks.idl			-
+
+PLAYER			IMAG				PLAYER					data/hud.pck
+ENEMY			IMAG				ENEMY					data/hud.pck
+NORTH			IMAG				NORTH					data/hud.pck

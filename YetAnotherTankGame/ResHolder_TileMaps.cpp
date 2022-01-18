@@ -7,7 +7,7 @@
 
 
 // ################################################################################################
-bool CResHolderTileMaps::Load(const String &id, const String &filename)
+bool CResHolderTileMaps::Load(const String &id, const String &filename, const String &fileextra)
 {
    CLogger logger("mapholder");
 

@@ -4,6 +4,7 @@
 #include "Tilemap.h"
 #include "ITileMapObject.h"
 #include "Tanks.h"
+#include "Image.h"
 #include "IController.h"
 
 
@@ -84,6 +85,7 @@ public:
    CMemoryPool<CTankBlueprint> m_TankBlueprints;
    CMemoryPool<CTankUsing> m_TankUsings;
    CMemoryPool<IController> m_Controller;
+   CMemoryPool<CImage> m_Images;
 };
 
 // ************************************************************************************************

@@ -114,6 +114,7 @@
     <ClCompile Include="ResBuilder\TankBuilder.cpp" />
     <ClCompile Include="ResBuilder\TextFileWriter.cpp" />
     <ClCompile Include="ResBuilder\TileMapCreator.cpp" />
+    <ClCompile Include="ResHolder_Image.cpp" />
     <ClCompile Include="ResHolder_TankBlueprint.cpp" />
     <ClCompile Include="ResHolder_TileMaps.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="ResBuilder\TextFileWriter.h" />
     <ClInclude Include="ResBuilder\TileMapCreator.h" />
     <ClInclude Include="ResHolderMapBaseT.h" />
+    <ClInclude Include="ResHolder_Image.h" />
     <ClInclude Include="ResHolder_TankBlueprint.h" />
     <ClInclude Include="ResHolder_TileMaps.h" />
     <ClInclude Include="ResourceManager.h" />

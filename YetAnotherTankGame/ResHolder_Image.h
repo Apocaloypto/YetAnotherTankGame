@@ -2,12 +2,12 @@
 #include "ResHolderMapBaseT.h"
 
 
-class CTileMap;
+class CImage;
 
-class CResHolderTileMaps : public CResHolderMapBaseT<CTileMap *>
+class CResHolderImages : public CResHolderMapBaseT<CImage *>
 {
 protected:
-   virtual void DeleteElement(CTileMap *pObj) override;
+   virtual void DeleteElement(CImage *pObj) override;
 
 public:
    virtual bool Load(const String &id, const String &filename, const String &fileextra) override;

@@ -177,6 +177,9 @@
     <ClCompile Include="DataPack.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
+    <ClCompile Include="ResHolder_Image.cpp">
+      <Filter>Source Files\Resources\Holder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="IStreamable.h">
       <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ResHolder_Image.h">
+      <Filter>Header Files\Resources\Holder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

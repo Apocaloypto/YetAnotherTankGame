@@ -15,6 +15,7 @@ void CMemoryManager::DeleteAll()
    m_TankUsings.DeleteAll();
    m_TankBlueprints.DeleteAll();
    m_Controller.DeleteAll();
+   m_Images.DeleteAll();
 }
 
 // ################################################################################################

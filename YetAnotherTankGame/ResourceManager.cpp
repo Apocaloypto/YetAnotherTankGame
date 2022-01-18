@@ -42,7 +42,7 @@ bool CResourceManager::Load(const String &reslist)
          continue;
       }
 
-      if (!pHolder->Load(dataset[RESLIST_COL_ID], dataset[RESLIST_COL_FILE]))
+      if (!pHolder->Load(dataset[RESLIST_COL_ID], dataset[RESLIST_COL_FILE], dataset[RESLIST_COL_FILEEXT]))
       {
          m_Logger.Log(LogType::Error, "failed to load resource '" + dataset[RESLIST_COL_ID] + "' (type: " + dataset[RESLIST_COL_TYPE] + ")");
          continue;
@@ -63,6 +63,7 @@ void CResourceManager::AddHolders()
 {
    AddHolder("TMAP", &m_TileMapHolder);
    AddHolder("TANK", &m_TankBlueprintHolder);
+   AddHolder("IMAG", &m_ImageHolder);
 }
 
 // ************************************************************************************************
