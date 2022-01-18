@@ -6,7 +6,6 @@
 #include "Settings.h"
 #include "Context.h"
 #include <limits>
-#include <iostream>
 
 
 // ################################################################################################
@@ -378,14 +377,30 @@ void CTankUsing::DoNormalDrive()
       }
       else
       {
-         if (m_CurrentSpeedLT < m_CurrentSpeedRT)
+         Real ratio = 1;
+         if (m_CurrentSpeedLT > m_CurrentSpeedRT)
          {
-            // Rechtskurve hinten
+            // Linkskurve hinten
+            ratio = m_CurrentSpeedLT / m_CurrentSpeedRT;
+            directionMod = 1;
          }
          else
          {
-            // Linkskurve hinten
+            // Rechtskurve hinten
+            ratio = m_CurrentSpeedRT / m_CurrentSpeedLT;
+            directionMod = -1;
          }
+
+         // ratio:
+         // 0 => DoTurnOverSide -> Kurvenradius = halbe Tankbreite
+         // 1 => Geradeaus -> Kurvenradius = Inf.
+         Meter curveRadius = ratio * MAX_CURVE_RADIUS;
+         if (curveRadius < MIN_CURVE_RADIUS)
+         {
+            curveRadius = MIN_CURVE_RADIUS;
+         }
+
+         m_Rot -= CalcNewRotation(curveRadius, additiveSpeed, directionMod);
       }
    }
 
