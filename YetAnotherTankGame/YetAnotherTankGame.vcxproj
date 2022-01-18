@@ -91,6 +91,7 @@
     <ClCompile Include="Const.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="Control_Player.cpp" />
+    <ClCompile Include="DataPack.cpp" />
     <ClCompile Include="DDM2D.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="DataPack.h" />
     <ClInclude Include="DDM2D.h" />
     <ClInclude Include="Dim2D.h" />
     <ClInclude Include="ExitCodes.h" />
@@ -140,6 +142,7 @@
     <ClInclude Include="ImageArray.h" />
     <ClInclude Include="InputStates.h" />
     <ClInclude Include="IResourceHolder.h" />
+    <ClInclude Include="IStreamable.h" />
     <ClInclude Include="ITileMapObject.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="MapObject_Tank.h" />

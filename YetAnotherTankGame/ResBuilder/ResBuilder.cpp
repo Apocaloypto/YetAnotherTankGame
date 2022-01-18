@@ -4,8 +4,10 @@
 #include "Messages.h"
 #include "TileMapCreator.h"
 #include "TankBuilder.h"
+#include "../DataPack.h"
 #include "../Typedefs.h"
 #include "../TemplateUsings.h"
+#include "../Image.h"
 
 
 // ************************************************************************************************
@@ -60,6 +62,19 @@ void BuildTanks()
 }
 
 // ************************************************************************************************
+void CreatePackages()
+{
+   CDataPack::WritePackage<CImage *>(CMB_DST("data/hud.pck"),
+      {
+         CDataPack::CMetaFileTable("PLAYER", CMB_SRC("Packages/HUD/player.png")),
+         CDataPack::CMetaFileTable("NORTH",  CMB_SRC("Packages/HUD/north.png")),
+         CDataPack::CMetaFileTable("ENEMY",  CMB_SRC("Packages/HUD/enemy.png")),
+      },
+      [](const std::string &in) -> CImage * { return CImage::CreateFrom(in); },
+      [](CImage *pIn) -> void { delete pIn; });
+}
+
+// ************************************************************************************************
 void BuildResources()
 {
    Msg::PrintL("Building resources to '" DST_DIR "'...");
@@ -75,6 +90,9 @@ void BuildResources()
 
    Msg::PrintL("Building tanks...");
    BuildTanks();
+
+   Msg::PrintL("Creating packages...");
+   CreatePackages();
 
    Msg::PrintL("Done.");
 }
