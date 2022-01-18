@@ -4,6 +4,7 @@
 #include "Const.h"
 #include "Context.h"
 #include "Memory.h"
+#include "GUIManager.h"
 
 
 // ################################################################################################
@@ -39,6 +40,7 @@ void CGame::DoInitializeContext()
    Context().SpawnPlayerOnMap();
 
    m_State = GameState::InGame;
+   GUI().SetPage(GUIPage::HUD);
 }
 
 // ************************************************************************************************
@@ -48,6 +50,8 @@ void CGame::DoInGameFrame()
    {
       Context().m_pCurrentMap->UpdateFocused(Context().PLAYER_ID);
       Context().m_pCurrentMap->DrawFocused(Context().PLAYER_ID);
+
+      GUI().Draw();
    }
 }
 

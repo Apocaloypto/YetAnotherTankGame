@@ -70,6 +70,12 @@
     <Filter Include="Source Files\ResBuilder">
       <UniqueIdentifier>{b20b0341-bdb2-4fcf-bca9-9c021d37cab2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{bde99c54-d1c2-43a5-8430-cd94e34a070c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{8a9dffd3-7672-43b6-a081-c603880f96b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -155,6 +161,18 @@
     </ClCompile>
     <ClCompile Include="ResBuilder\TileMapCreator.cpp">
       <Filter>Source Files\ResBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIManager.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIPage.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUICtrl_Minimap.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIControl.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +289,18 @@
     </ClInclude>
     <ClInclude Include="ResBuilder\ResBuilder.h">
       <Filter>Header Files\ResBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIPage.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIManager.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIControl.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUICtrl_Minimap.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

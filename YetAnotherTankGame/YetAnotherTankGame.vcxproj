@@ -94,6 +94,10 @@
     <ClCompile Include="DDM2D.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GUIControl.cpp" />
+    <ClCompile Include="GUICtrl_Minimap.cpp" />
+    <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="GUIPage.cpp" />
     <ClCompile Include="IDLParser.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageArray.cpp" />
@@ -126,8 +130,12 @@
     <ClInclude Include="ExitCodes.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GUICtrl_Minimap.h" />
+    <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="GUIPage.h" />
     <ClInclude Include="IController.h" />
     <ClInclude Include="IDLParser.h" />
+    <ClInclude Include="GUIControl.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageArray.h" />
     <ClInclude Include="InputStates.h" />
