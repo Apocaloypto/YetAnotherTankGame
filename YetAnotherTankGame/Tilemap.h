@@ -90,7 +90,7 @@ public:
    CTileMap() = default;
    CTileMap(CTileSet &tileset, CTileArray &tilearray);
 
-   CTileSet &TileSet = m_Set;
+   const CTileSet &TileSet = m_Set;
 
    CTileDim GetVisibleTileDim(bool makeSure) const;
 
