@@ -186,6 +186,12 @@
     <ClCompile Include="GUICtrl_Minimap.cpp">
       <Filter>Source Files\GUI\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="GUICtrl_SpeedoMeter.cpp">
+      <Filter>Source Files\GUI\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="GUICtrl_ProgressBar.cpp">
+      <Filter>Source Files\GUI\Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -321,6 +327,12 @@
       <Filter>Header Files\Resources\Holder</Filter>
     </ClInclude>
     <ClInclude Include="GUICtrl_Minimap.h">
+      <Filter>Header Files\GUI\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="GUICtrl_SpeedoMeter.h">
+      <Filter>Header Files\GUI\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="GUICtrl_ProgressBar.h">
       <Filter>Header Files\GUI\Controls</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,8 @@
 
 #include "GUIPage.h"
 #include "GUICtrl_Minimap.h"
+#include "GUICtrl_ProgressBar.h"
+#include "GUICtrl_SpeedoMeter.h"
 
 
 // ################################################################################################
@@ -29,7 +31,9 @@ void CGUIManager::InitPages()
 #define END_PAGE() })));
 
    BEGIN_PAGE(GUIPage::HUD)
-      new CGUICtrl_Minimap(0, 400, 200, 200)
+      new CGUICtrl_Minimap(0, 400, 200, 200),
+      new CGUICtrl_SpeedOMeter(600, 560, 200, 20, CGUICtrl_SpeedOMeter::Track::Left),
+      new CGUICtrl_SpeedOMeter(600, 580, 200, 20, CGUICtrl_SpeedOMeter::Track::Right),
    END_PAGE()
 
 #undef END_PAGE

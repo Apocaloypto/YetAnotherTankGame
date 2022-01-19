@@ -97,6 +97,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GUIControl.cpp" />
     <ClCompile Include="GUICtrl_Minimap.cpp" />
+    <ClCompile Include="GUICtrl_ProgressBar.cpp" />
+    <ClCompile Include="GUICtrl_SpeedoMeter.cpp" />
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIPage.cpp" />
     <ClCompile Include="IDLParser.cpp" />
@@ -134,6 +136,8 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GUICtrl_Minimap.h" />
+    <ClInclude Include="GUICtrl_ProgressBar.h" />
+    <ClInclude Include="GUICtrl_SpeedoMeter.h" />
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIPage.h" />
     <ClInclude Include="IController.h" />

@@ -22,6 +22,12 @@ bool CContext::SpawnPlayerOnMap()
 {
    if (Memory().m_Maps.IsValid(m_pCurrentMap))
    {
+      if (Memory().m_TankUsings.IsValid(m_pPlayersTank))
+      {
+         Memory().m_TankUsings.Delete(m_pPlayersTank);
+         m_pPlayersTank = nullptr;
+      }
+
       CControllerPlayer *pPlayerCtrl = Memory().m_Controller.AddTyped(new CControllerPlayer());
       if (!Memory().m_Controller.IsValid(pPlayerCtrl))
       {
@@ -34,13 +40,13 @@ bool CContext::SpawnPlayerOnMap()
          return false;
       }
 
-      CTankUsing *pUsing = Memory().m_TankUsings.Add(new CTankUsing(pBlueprint, CTilePos(15, 15), 30, 0, pPlayerCtrl));
-      if (!Memory().m_TankUsings.IsValid(pUsing))
+      m_pPlayersTank = Memory().m_TankUsings.Add(new CTankUsing(pBlueprint, CTilePos(15, 15), 30, 0, pPlayerCtrl));
+      if (!Memory().m_TankUsings.IsValid(m_pPlayersTank))
       {
          return false;
       }
 
-      CMapObjectTank *pMapObj = Memory().m_MapObjects.AddTyped(new CMapObjectTank(pUsing));
+      CMapObjectTank *pMapObj = Memory().m_MapObjects.AddTyped(new CMapObjectTank(m_pPlayersTank));
       if (!Memory().m_MapObjects.IsValid(pMapObj))
       {
          return false;

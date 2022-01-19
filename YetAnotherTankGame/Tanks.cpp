@@ -345,7 +345,7 @@ void CTankUsing::DoNormalDrive()
    const Meter MIN_CURVE_RADIUS = Context().ToMeter((Real)(m_pBlueprint->m_pModel->GetDimensions().m_Width / 2.0));
 
    Int32 directionMod = 0;
-   
+
    if (m_CurrentSpeedLT != m_CurrentSpeedRT)
    {
       if (m_CurrentSpeedLT > 0 && m_CurrentSpeedRT > 0)
@@ -469,4 +469,16 @@ void CTankUsing::Update()
 
       ApplyUpdates();
    }
+}
+
+// ************************************************************************************************
+Real CTankUsing::GetLeftTrackSpeedPercentage() const
+{
+   return abs(m_CurrentSpeedLT) / GetMaxTrackSpeed();
+}
+
+// ************************************************************************************************
+Real CTankUsing::GetRightTrackSpeedPercentage() const
+{
+   return abs(m_CurrentSpeedRT) / GetMaxTrackSpeed();
 }
