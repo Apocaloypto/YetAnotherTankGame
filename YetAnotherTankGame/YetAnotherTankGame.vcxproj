@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Const.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="Control_Moron.cpp" />
     <ClCompile Include="Control_Player.cpp" />
     <ClCompile Include="DataPack.cpp" />
     <ClCompile Include="DDM2D.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="Control_Moron.h" />
     <ClInclude Include="DataPack.h" />
     <ClInclude Include="DDM2D.h" />
     <ClInclude Include="Dim2D.h" />

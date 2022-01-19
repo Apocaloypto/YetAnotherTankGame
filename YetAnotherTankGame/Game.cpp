@@ -39,6 +39,8 @@ void CGame::DoInitializeContext()
    Context().m_pCurrentMap = Resources().TileMaps.Get("MAP01");
    Context().SpawnPlayerOnMap();
 
+   Context().SpawnEnemyOnMap("ENEMY01", CTilePos(100, 15), 0, 0);
+
    m_State = GameState::InGame;
    GUI().SetPage(GUIPage::HUD);
 }

@@ -192,6 +192,9 @@
     <ClCompile Include="GUICtrl_ProgressBar.cpp">
       <Filter>Source Files\GUI\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="Control_Moron.cpp">
+      <Filter>Source Files\Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="GUICtrl_ProgressBar.h">
       <Filter>Header Files\GUI\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Control_Moron.h">
+      <Filter>Header Files\Controls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
