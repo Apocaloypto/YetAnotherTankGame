@@ -31,9 +31,9 @@ void CGUIManager::InitPages()
 #define END_PAGE() })));
 
    BEGIN_PAGE(GUIPage::HUD)
-      new CGUICtrl_Minimap(0, 400, 200, 200),
-      new CGUICtrl_SpeedOMeter(600, 560, 200, 20, CGUICtrl_SpeedOMeter::Track::Left),
-      new CGUICtrl_SpeedOMeter(600, 580, 200, 20, CGUICtrl_SpeedOMeter::Track::Right),
+      new CGUICtrl_Minimap(5, 395, 200, 200),
+      new CGUICtrl_SpeedOMeter(595, 555, 200, 20, CGUICtrl_SpeedOMeter::Track::Left),
+      new CGUICtrl_SpeedOMeter(595, 575, 200, 20, CGUICtrl_SpeedOMeter::Track::Right),
    END_PAGE()
 
 #undef END_PAGE
