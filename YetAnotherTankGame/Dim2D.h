@@ -42,4 +42,9 @@ public:
          chk.m_Y >= offset.m_Y &&
          chk.m_Y < offset.m_Y + m_Height;
    }
+
+   CPoint2D<T> GetCenter() const
+   {
+      return CPoint2D<T>(m_Width / 2, m_Height / 2);
+   }
 };

@@ -30,6 +30,16 @@ void CGUICtrl_Minimap::DrawNorthIndicator(Degrees playerRot) const
 }
 
 // ************************************************************************************************
+void CGUICtrl_Minimap::DrawPlayerIndicator() const
+{
+   CImage *pPlayerIcon = Resources().Images.Get(PLAYER_INDICATOR_RESID);
+   if (Memory().m_Images.IsValid(pPlayerIcon))
+   {
+      pPlayerIcon->Draw(pPlayerIcon->GetCenter(), GetPos() + GetDim().GetCenter(), 0);
+   }
+}
+
+// ************************************************************************************************
 void CGUICtrl_Minimap::Draw() const
 {
    DrawFun::DrawRect(GetPos(), GetDim(), CGUIControl::GUI_BACKGROUND_COLOR, CGUIControl::GUI_BORDER_WIDTH, CGUIControl::GUI_FOREGROUND_COLOR);
@@ -44,6 +54,7 @@ void CGUICtrl_Minimap::Draw() const
          pMinimap->DrawViewPort(GetPos(), GetDim(), playerPos, -playerRot);
 
          DrawNorthIndicator(-playerRot);
+         DrawPlayerIndicator();
       }
    }
 }

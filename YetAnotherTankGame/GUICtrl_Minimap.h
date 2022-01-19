@@ -11,6 +11,7 @@ private:
    static const String ENEMY_INDICATOR_RESID;
 
    void DrawNorthIndicator(Degrees playerRot) const;
+   void DrawPlayerIndicator() const;
 
 public:
    CGUICtrl_Minimap(Int32 vx, Int32 vy, Int32 vw, Int32 vh);
