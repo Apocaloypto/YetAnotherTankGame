@@ -20,6 +20,4 @@ private:
 
 public:
    CGUICtrl_SpeedOMeter(Int32 vx, Int32 vy, Int32 vw, Int32 vh, Track track);
-
-   virtual void Draw() const override;
 };

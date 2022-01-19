@@ -36,9 +36,3 @@ Real CGUICtrl_SpeedOMeter::GetValue()
       return 0;
    }
 }
-
-// ************************************************************************************************
-void CGUICtrl_SpeedOMeter::Draw() const 
-{
-   __super::Draw();
-}
