@@ -13,7 +13,7 @@ using namespace std;
 
 // ################################################################################################
 CTileSet::CTileSet()
-   : CTileSet(nullptr,0)
+   : CTileSet(nullptr, 0)
 {
 }
 
@@ -178,7 +178,7 @@ bool CTileArray::StreamSave(std::ofstream &dest) const
    StreamFun::StreamWriteT(dest, m_Data.GetWidth());
    StreamFun::StreamWriteT(dest, m_Data.GetHeight());
 
-   m_Data.ForEach([&](Int32, Int32, const CTileInfo * const &pElem) -> void
+   m_Data.ForEach([&](Int32, Int32, const CTileInfo *const &pElem) -> void
       {
          pElem->StreamSave(dest);
       });
@@ -412,6 +412,26 @@ CTileDim CTileMap::GetVisibleTileDim(bool makeSure) const
 {
    const int add = makeSure ? 1 : 0;
 
-   return CTileDim((Real)(Settings().ScreenWidth / m_Set.GetTileSize() + add), 
+   return CTileDim((Real)(Settings().ScreenWidth / m_Set.GetTileSize() + add),
       (Real)(Settings().ScreenHeight / m_Set.GetTileSize() + add)); // int-division wanted!
+}
+
+// ************************************************************************************************
+CTilePos CTileMap::GetMapObjectPos(const std::string &id) const
+{
+   ITileMapObject *pMapObj = GetMapObject(id);
+   if (pMapObj)
+      return pMapObj->GetPosition();
+   else
+      return CTilePos();
+}
+
+// ************************************************************************************************
+Degrees CTileMap::GetMapObjectRotation(const std::string &id) const
+{
+   ITileMapObject *pMapObj = GetMapObject(id);
+   if (pMapObj)
+      return pMapObj->GetRotation();
+   else
+      return 0;
 }

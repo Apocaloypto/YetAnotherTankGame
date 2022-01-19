@@ -94,9 +94,12 @@ public:
    virtual ~CTileMap();
 
    const CTileSet &TileSet = m_Set;
-   const CImage *TileMap() const { return m_pMinimap; }
+   CImage *MiniMap() { return m_pMinimap; }
 
    CTileDim GetVisibleTileDim(bool makeSure) const;
+
+   CTilePos GetMapObjectPos(const std::string &id) const;
+   Degrees GetMapObjectRotation(const std::string &id) const;
 
    bool AddMapObject(const std::string &id, ITileMapObject *pMapObj);
 

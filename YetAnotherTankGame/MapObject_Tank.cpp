@@ -23,6 +23,15 @@ const CTilePos &CMapObjectTank::GetPosition() const
 }
 
 // ************************************************************************************************
+Degrees CMapObjectTank::GetRotation() const
+{
+   if (Memory().m_TankUsings.IsValid(m_pUsing))
+      return m_pUsing->Rotation;
+   else
+      return 0;
+}
+
+// ************************************************************************************************
 void CMapObjectTank::Draw(const CPixelPos &screen)
 {
    if (Memory().m_TankUsings.IsValid(m_pUsing))

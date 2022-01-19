@@ -101,6 +101,7 @@ private:
 
 public:
    const CTilePos &Position = m_Pos;
+   const Degrees &Rotation = m_Rot;
 
    CTankUsing(const CTankBlueprint *pBlueprint, const CTilePos &pos, Degrees rot, Degrees towerrot, const IController *pController);
    virtual ~CTankUsing();

@@ -57,6 +57,8 @@ namespace MathFun
    Degrees GetRotationBetween(const CPoint2D<Real> &one, const CPoint2D<Real> &two);
 
    CPoint2D<Real> Move(const CPoint2D<Real> base, Degrees rot, Real dist);
+
+   CPoint2D<Real> CalcRotatedPointOnOuterEdge(const CDim2D<Real> &area, Degrees rot);
 }
 
 // ************************************************************************************************

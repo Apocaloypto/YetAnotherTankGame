@@ -5,7 +5,7 @@
 
 // ################################################################################################
 const sf::Color CGUIControl::GUI_BACKGROUND_COLOR = sf::Color(0x00000080);
-const sf::Color CGUIControl::GUI_FOREGROUND_COLOR = sf::Color(0x267F00FF);
+const sf::Color CGUIControl::GUI_FOREGROUND_COLOR = sf::Color(0x000000FF);
 
 // ************************************************************************************************
 CGUIControl::CGUIControl(Int32 vx, Int32 vy, Int32 vw, Int32 vh)

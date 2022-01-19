@@ -9,6 +9,7 @@ public:
    virtual ~ITileMapObject() {}
 
    virtual const CTilePos &GetPosition() const = 0;
+   virtual Degrees GetRotation() const = 0;
 
    virtual void Draw(const CPixelPos &screen) = 0;
 

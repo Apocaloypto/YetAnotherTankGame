@@ -259,6 +259,37 @@ namespace MathFun
          return false;
       }
    }
+
+   CPoint2D<Real> CalcRotatedPointOnOuterEdge(const CDim2D<Real> &area, Degrees rot)
+   {
+      rot = NormalizeAngle(rot);
+
+      const Degrees wi = RadToDeg(atan2(area.m_Width, area.m_Height));
+
+      const Real cosrot = cos(MathFun::DegToRad(rot));
+      const Real sinrot = sin(MathFun::DegToRad(rot));
+
+      if (rot >= wi && rot < 180 - wi)
+      {
+         return CPoint2D<Real>(area.m_Width / 2 - area.m_Height / 2 * cosrot / sinrot, 0);
+      }
+      else if (rot >= 180 - wi && rot < 180 + wi)
+      {
+         return CPoint2D<Real>(area.m_Width, area.m_Height / 2 + area.m_Width / 2 * sinrot / cosrot);
+      }
+      else if (rot >= 180 + wi && rot < 360 - wi)
+      {
+         return CPoint2D<Real>(area.m_Width / 2 + area.m_Height / 2 * cosrot / sinrot, area.m_Height);
+      }
+      else if ((rot >= 360 - wi && rot < 360) || (rot >= 0 && rot < wi))
+      {
+         return CPoint2D<Real>(0, area.m_Height - (area.m_Height / 2 + area.m_Width / 2 * sinrot / cosrot));
+      }
+      else
+      {
+         return CPoint2D<Real>();
+      }
+   }
 }
 
 // ################################################################################################

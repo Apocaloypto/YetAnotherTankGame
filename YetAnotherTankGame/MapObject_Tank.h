@@ -14,6 +14,7 @@ public:
    CMapObjectTank(CTankUsing *pTankUsing);
 
    virtual const CTilePos &GetPosition() const override;
+   virtual Degrees GetRotation() const override;
    virtual void Draw(const CPixelPos &screen) override;
    virtual void Update() override;
 };
