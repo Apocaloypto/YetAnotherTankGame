@@ -410,7 +410,7 @@ void CTileMap::UpdateFocused(const std::string &mapobjid)
 // ************************************************************************************************
 CTileDim CTileMap::GetVisibleTileDim(bool makeSure) const
 {
-   const int add = makeSure ? 1 : 0;
+   const int add = makeSure ? 2 : 0;
 
    return CTileDim((Real)(Settings().ScreenWidth / m_Set.GetTileSize() + add),
       (Real)(Settings().ScreenHeight / m_Set.GetTileSize() + add)); // int-division wanted!
