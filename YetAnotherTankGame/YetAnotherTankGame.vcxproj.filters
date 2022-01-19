@@ -76,6 +76,12 @@
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{8a9dffd3-7672-43b6-a081-c603880f96b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI\Controls">
+      <UniqueIdentifier>{83fe4b81-b30e-4d91-ab99-7de6c7bfd87c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\Controls">
+      <UniqueIdentifier>{d577ca57-d700-48c9-90bb-a4404c04fa86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -168,9 +174,6 @@
     <ClCompile Include="GUIPage.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GUICtrl_Minimap.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="GUIControl.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -179,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="ResHolder_Image.cpp">
       <Filter>Source Files\Resources\Holder</Filter>
+    </ClCompile>
+    <ClCompile Include="GUICtrl_Minimap.cpp">
+      <Filter>Source Files\GUI\Controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,9 +311,6 @@
     <ClInclude Include="GUIControl.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUICtrl_Minimap.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="DataPack.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="ResHolder_Image.h">
       <Filter>Header Files\Resources\Holder</Filter>
+    </ClInclude>
+    <ClInclude Include="GUICtrl_Minimap.h">
+      <Filter>Header Files\GUI\Controls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
