@@ -41,10 +41,21 @@ void CMapObjectTank::Draw(const CPixelPos &screen)
 }
 
 // ************************************************************************************************
-void CMapObjectTank::Update()
+CTilePosAndRot CMapObjectTank::PreUpdate() const
 {
    if (Memory().m_TankUsings.IsValid(m_pUsing))
    {
-      m_pUsing->Update();
+      return m_pUsing->PreUpdate();
+   }
+
+   return CTilePosAndRot(CTilePos(0, 0), 0);
+}
+
+// ************************************************************************************************
+void CMapObjectTank::Update(const CTilePosAndRot &values)
+{
+   if (Memory().m_TankUsings.IsValid(m_pUsing))
+   {
+      m_pUsing->DoUpdate(values);
    }
 }

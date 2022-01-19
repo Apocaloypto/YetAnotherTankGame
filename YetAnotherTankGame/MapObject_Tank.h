@@ -16,5 +16,6 @@ public:
    virtual const CTilePos &GetPosition() const override;
    virtual Degrees GetRotation() const override;
    virtual void Draw(const CPixelPos &screen) override;
-   virtual void Update() override;
+   virtual CTilePosAndRot PreUpdate() const override;
+   virtual void Update(const CTilePosAndRot &values) override;
 };

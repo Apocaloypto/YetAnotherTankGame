@@ -1,6 +1,7 @@
 #pragma once
 #include "Image.h"
 #include "Typedefs.h"
+#include "TilePosAndRot.h"
 
 
 class CDynamicDamageModel;
@@ -87,15 +88,16 @@ private:
    MPerS GetMaxTrackSpeedTurn() const;
 
    void DoTowerUpdate();
+   void DoMovingUpdate(MPerS base, MPerS &newval, Real mod) const;
    void DoMovingUpdate(MPerS &side, Real mod);
 
-   void DoTrackSlowDown(MPerS &side, Real deduction);
+   void DoTrackSlowDown(MPerS base, MPerS &newval, Real deduction) const;
 
-   void ApplyUpdates();
+   void ApplyUpdates(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTilePos &newpos, Degrees &newrot) const;
 
-   void DoTurnOverSide();
-   void DoInPlaceTurn();
-   void DoNormalDrive();
+   void DoTurnOverSide(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTilePos &newpos, Degrees &newrot) const;
+   void DoInPlaceTurn(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTilePos &newpos, Degrees &newrot) const;
+   void DoNormalDrive(CTilePos &newpos, Degrees &newrot) const;
 
    Degrees CalcNewRotation(Real curveRadius, MPerS speed, Int32 directionMod) const;
 
@@ -111,5 +113,6 @@ public:
 
    void Draw(const CPixelPos &screen);
 
-   void Update();
+   CTilePosAndRot PreUpdate() const;
+   void DoUpdate(const CTilePosAndRot &newvals);
 };

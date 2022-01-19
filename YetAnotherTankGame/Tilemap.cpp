@@ -321,7 +321,11 @@ void CTileMap::UpdateMapObjects(const CTilePos &pos, const CTileDim &dim)
    {
       if (Memory().m_MapObjects.IsValid(pMapObj) && dim.ContainsPoint(pos, pMapObj->GetPosition()))
       {
-         pMapObj->Update();
+         CTilePosAndRot values = pMapObj->PreUpdate();
+
+         // TODO: Collision
+
+         pMapObj->Update(values);
       }
    }
 }

@@ -263,35 +263,41 @@ void CTankUsing::DoTowerUpdate()
 }
 
 // ************************************************************************************************
-void CTankUsing::DoTrackSlowDown(MPerS &side, Real deduction)
+void CTankUsing::DoTrackSlowDown(MPerS base, MPerS &newval, Real deduction) const
 {
-   if (side != 0.0)
+   if (base != 0.0)
    {
-      if (deduction < abs(side))
+      if (deduction < abs(base))
       {
-         if (side > 0.0)
+         if (base > 0.0)
          {
             deduction *= -1;
          }
-         side += deduction;
+         newval += deduction;
       }
       else
       {
-         side = 0.0;
+         newval = 0.0;
       }
+   }
+}
+
+// ************************************************************************************************
+void CTankUsing::DoMovingUpdate(MPerS base, MPerS &newval, Real mod) const
+{
+   base += MathFun::Normalize(mod, -1.0, 1.0) * m_pBlueprint->m_Specs.m_Acceleration;
+   newval = MathFun::Normalize(base, -GetMaxTrackSpeed(), GetMaxTrackSpeed());
+
+   if (mod == 0.0)
+   {
+      DoTrackSlowDown(newval, newval, m_pBlueprint->m_Specs.m_Acceleration / (Real)100.0);
    }
 }
 
 // ************************************************************************************************
 void CTankUsing::DoMovingUpdate(MPerS &side, Real mod)
 {
-   side += MathFun::Normalize(mod, -1.0, 1.0) * m_pBlueprint->m_Specs.m_Acceleration;
-   side = MathFun::Normalize(side, -GetMaxTrackSpeed(), GetMaxTrackSpeed());
-
-   if (mod == 0.0)
-   {
-      DoTrackSlowDown(side, m_pBlueprint->m_Specs.m_Acceleration / (Real)100.0);
-   }
+   DoMovingUpdate(side, side, mod);
 }
 
 // ************************************************************************************************
@@ -307,27 +313,33 @@ MPerS CTankUsing::GetMaxTrackSpeedTurn() const
 }
 
 // ************************************************************************************************
-void CTankUsing::ApplyUpdates()
+void CTankUsing::ApplyUpdates(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTilePos &newpos, Degrees &newrot) const
 {
    if (m_CurrentSpeedLT != 0.0 || m_CurrentSpeedRT != 0.0)
    {
       if (MathFun::HasDifferentSign(m_CurrentSpeedLT, m_CurrentSpeedRT))
       {
-         DoInPlaceTurn();
+         DoInPlaceTurn(currentSpeedLT, currentSpeedRT, newpos, newrot);
+         return;
       }
       else if (m_CurrentSpeedLT == 0.0 || m_CurrentSpeedRT == 0.0)
       {
-         DoTurnOverSide();
+         DoTurnOverSide(currentSpeedLT, currentSpeedRT, newpos, newrot);
+         return;
       }
       else
       {
-         DoNormalDrive();
+         DoNormalDrive(newpos, newrot);
+         return;
       }
    }
+
+   newpos = m_Pos;
+   newrot = m_Rot;
 }
 
 // ************************************************************************************************
-void CTankUsing::DoNormalDrive()
+void CTankUsing::DoNormalDrive(CTilePos &newpos, Degrees &newrot) const
 {
    constexpr Meter MAX_CURVE_RADIUS = 100.0f;
 
@@ -373,7 +385,7 @@ void CTankUsing::DoNormalDrive()
             curveRadius = MIN_CURVE_RADIUS;
          }
 
-         m_Rot += CalcNewRotation(curveRadius, additiveSpeed, directionMod);
+         newrot = m_Rot + CalcNewRotation(curveRadius, additiveSpeed, directionMod);
       }
       else
       {
@@ -400,12 +412,12 @@ void CTankUsing::DoNormalDrive()
             curveRadius = MIN_CURVE_RADIUS;
          }
 
-         m_Rot -= CalcNewRotation(curveRadius, additiveSpeed, directionMod);
+         newrot = m_Rot - CalcNewRotation(curveRadius, additiveSpeed, directionMod);
       }
    }
 
    // Dann Geschwindigkeit:
-   m_Pos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(-additiveSpeed));
+   newpos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(-additiveSpeed));
 }
 
 // ************************************************************************************************
@@ -417,11 +429,11 @@ Degrees CTankUsing::CalcNewRotation(Real curveRadius, MPerS speed, Int32 directi
 }
 
 // ************************************************************************************************
-void CTankUsing::DoTurnOverSide()
+void CTankUsing::DoTurnOverSide(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTilePos &newpos, Degrees &newrot) const
 {
    // Turn über eine Seite
-   m_CurrentSpeedLT = MathFun::Normalize(m_CurrentSpeedLT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
-   m_CurrentSpeedRT = MathFun::Normalize(m_CurrentSpeedRT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
+   currentSpeedLT = MathFun::Normalize(currentSpeedLT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
+   currentSpeedRT = MathFun::Normalize(currentSpeedRT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
 
    MPerS diffSpeed = m_CurrentSpeedLT + m_CurrentSpeedRT;
 
@@ -435,39 +447,60 @@ void CTankUsing::DoTurnOverSide()
       directionMod = m_CurrentSpeedLT < 0.0 || m_CurrentSpeedRT > 0.0 ? 1 : -1;
    }
 
-   m_Rot += CalcNewRotation((Real)(Context().ToMeter(m_pBlueprint->m_pModel->GetDimensions().m_Width) / 2.0), diffSpeed, directionMod);
-   m_Rot = MathFun::NormalizeAngle(m_Rot);
+   newrot = m_Rot + CalcNewRotation((Real)(Context().ToMeter(m_pBlueprint->m_pModel->GetDimensions().m_Width) / 2.0), diffSpeed, directionMod);
+   newrot = MathFun::NormalizeAngle(newrot);
 
-   m_Pos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(-diffSpeed));
+   newpos = MathFun::Move(m_Pos, m_Rot, Settings().ToPerFrameValue(-diffSpeed));
 }
 
 // ************************************************************************************************
-void CTankUsing::DoInPlaceTurn()
+void CTankUsing::DoInPlaceTurn(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTilePos &newpos, Degrees &newrot) const
 {
    // Turn über Mitte
-   Int32 directionMod = m_CurrentSpeedLT < 0.0 ? -1 : 1;
+   Int32 directionMod = currentSpeedLT < 0.0 ? -1 : 1;
 
-   m_CurrentSpeedLT = MathFun::Normalize(m_CurrentSpeedLT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
-   m_CurrentSpeedRT = MathFun::Normalize(m_CurrentSpeedRT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
+   currentSpeedLT = MathFun::Normalize(currentSpeedLT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
+   currentSpeedRT = MathFun::Normalize(currentSpeedRT, -GetMaxTrackSpeedTurn(), GetMaxTrackSpeedTurn());
 
    Meter kurvenUmfang = (Real)(Context().ToMeter(m_pBlueprint->m_pModel->GetDimensions().m_Width) * MathFun::PI);
-   MPerS diffSpeed = abs(m_CurrentSpeedLT) + abs(m_CurrentSpeedRT);
+   MPerS diffSpeed = abs(currentSpeedLT) + abs(currentSpeedRT);
    Seconds turnDuration = kurvenUmfang / diffSpeed;
 
-   m_Rot += (Degrees)Settings().ToPerFrameValue(360.0 / turnDuration) * directionMod;
-   m_Rot = MathFun::NormalizeAngle(m_Rot);
+   newrot = m_Rot + (Degrees)Settings().ToPerFrameValue(360.0 / turnDuration) * directionMod;
+   newrot = MathFun::NormalizeAngle(newrot);
 }
 
 // ************************************************************************************************
-void CTankUsing::Update()
+CTilePosAndRot CTankUsing::PreUpdate() const
 {
    if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
-      DoTowerUpdate();
-      DoMovingUpdate(m_CurrentSpeedLT, m_pController->GetLeftTrackMod());
-      DoMovingUpdate(m_CurrentSpeedRT, m_pController->GetRightTrackMod());
+      MPerS currSpeedLT = m_CurrentSpeedLT;
+      MPerS currSpeedRT = m_CurrentSpeedRT;
 
-      ApplyUpdates();
+      DoMovingUpdate(m_CurrentSpeedLT, currSpeedLT, m_pController->GetLeftTrackMod());
+      DoMovingUpdate(m_CurrentSpeedRT, currSpeedRT, m_pController->GetRightTrackMod());
+
+      CTilePos newpos;
+      Degrees newrot;
+
+      ApplyUpdates(currSpeedLT, currSpeedRT, newpos, newrot);
+
+      return CTilePosAndRot(newpos, newrot);
+   }
+
+   return CTilePosAndRot(m_Pos, m_Rot);
+}
+
+// ************************************************************************************************
+void CTankUsing::DoUpdate(const CTilePosAndRot &newvals)
+{
+   if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
+   {
+      DoMovingUpdate(m_CurrentSpeedLT, m_CurrentSpeedLT, m_pController->GetLeftTrackMod());
+      DoMovingUpdate(m_CurrentSpeedRT, m_CurrentSpeedRT, m_pController->GetRightTrackMod());
+
+      ApplyUpdates(m_CurrentSpeedLT, m_CurrentSpeedRT, m_Pos, m_Rot);
    }
 }
 

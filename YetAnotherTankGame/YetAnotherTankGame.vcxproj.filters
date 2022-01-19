@@ -341,5 +341,8 @@
     <ClInclude Include="Control_Moron.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="TilePosAndRot.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

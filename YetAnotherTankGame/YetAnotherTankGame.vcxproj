@@ -172,6 +172,7 @@
     <ClInclude Include="Tanks.h" />
     <ClInclude Include="TemplateUsings.h" />
     <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="TilePosAndRot.h" />
     <ClInclude Include="Typedefs.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="Window.h" />
