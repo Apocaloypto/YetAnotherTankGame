@@ -314,14 +314,20 @@ CTilePos CTileMap::GetDrawTilePosCenteredMapObj(const ITileMapObject &mapobj)
 }
 
 // ************************************************************************************************
+CPixelPos CTileMap::CalcScreenPos(const CTilePos &basetilepos, const CTilePos &ref) const
+{
+   CTilePos diff = ref - basetilepos;
+   return diff * (Real)m_Set.GetTileSize();
+}
+
+// ************************************************************************************************
 void CTileMap::DrawMapObjects(const CTilePos &pos, const CTileDim &dim, const CShader *pUseShader)
 {
    for (auto &[id, pMapObj] : m_MapObjects)
    {
       if (Memory().m_MapObjects.IsValid(pMapObj) && dim.ContainsPoint(pos, pMapObj->GetPosition()))
       {
-         CTilePos resulting = pMapObj->GetPosition() - pos;
-         pMapObj->Draw(resulting * (Real)m_Set.GetTileSize());
+         pMapObj->Draw(CalcScreenPos(pos, pMapObj->GetPosition()));
       }
    }
 }
@@ -366,6 +372,15 @@ bool CTileMap::FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CT
 }
 
 // ************************************************************************************************
+bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot) const
+{
+   CCollisionRect collRect = mapobj.GetCollisionRect();
+   collRect.DebugDraw(CalcScreenPos(screenul, mapobj.GetPosition()), sf::Color(0xAD0000FF));
+
+   return false;
+}
+
+// ************************************************************************************************
 void CTileMap::UpdateMapObjects(const CTilePos &pos, const CTileDim &dim)
 {
    for (auto &[id, pMapObj] : m_MapObjects)
@@ -375,7 +390,8 @@ void CTileMap::UpdateMapObjects(const CTilePos &pos, const CTileDim &dim)
          CTilePosAndRot newvalues = pMapObj->PreUpdate();
 
          if (FireTileCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
-             FireEndOfMapCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot))
+             FireEndOfMapCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
+             FireMapObjectCollEventIfNecessary(*pMapObj, pos, newvalues.m_NewPos, newvalues.m_NewRot))
          {
             // Update klappt nicht, also alles retoure:
             pMapObj->Update(CTilePosAndRot::CreateNull());

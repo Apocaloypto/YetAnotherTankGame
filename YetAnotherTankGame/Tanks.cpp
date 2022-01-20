@@ -471,6 +471,19 @@ void CTankUsing::DoInPlaceTurn(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTi
 }
 
 // ************************************************************************************************
+CCollisionRect CTankUsing::GetCollisionRect() const
+{
+   if (Memory().m_TankBlueprints.IsValid(m_pBlueprint))
+   {
+      return CCollisionRect(m_pDamageModelWanne->GetDimensions(), m_pBlueprint->m_pModel->TurnpointWanne, MathFun::NormalizeAngle(m_Rot));
+   }
+   else
+   {
+      return CCollisionRect(CPixelDim(), CPixelPos(), 0);
+   }
+}
+
+// ************************************************************************************************
 CTilePosAndRot CTankUsing::PreUpdate() const
 {
    if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
@@ -497,6 +510,8 @@ void CTankUsing::DoUpdate(const CTilePosAndRot &newvals)
 {
    if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
+      DoTowerUpdate();
+
       DoMovingUpdate(m_CurrentSpeedLT, m_CurrentSpeedLT, m_pController->GetLeftTrackMod());
       DoMovingUpdate(m_CurrentSpeedRT, m_CurrentSpeedRT, m_pController->GetRightTrackMod());
       

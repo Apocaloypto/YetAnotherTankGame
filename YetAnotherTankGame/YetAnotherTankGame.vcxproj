@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionRect.cpp" />
     <ClCompile Include="Const.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="Control_Moron.cpp" />
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h" />
+    <ClInclude Include="CollisionRect.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="Control_Moron.h" />

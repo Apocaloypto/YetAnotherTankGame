@@ -195,6 +195,9 @@
     <ClCompile Include="Control_Moron.cpp">
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionRect.cpp">
+      <Filter>Source Files\Tilemap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -342,6 +345,9 @@
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
     <ClInclude Include="TilePosAndRot.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionRect.h">
       <Filter>Header Files\Tilemap</Filter>
     </ClInclude>
   </ItemGroup>

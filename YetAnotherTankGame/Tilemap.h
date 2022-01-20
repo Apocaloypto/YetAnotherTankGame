@@ -92,8 +92,11 @@ private:
 
    CTilePos GetDrawTilePosCenteredMapObj(const ITileMapObject &mapobj);
 
+   CPixelPos CalcScreenPos(const CTilePos &basetilepos, const CTilePos &ref) const;
+
    bool FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;
    bool FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;
+   bool FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot) const;
 
 public:
    CTileMap() = default;

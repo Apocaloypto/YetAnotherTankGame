@@ -2,6 +2,7 @@
 #include "Image.h"
 #include "Typedefs.h"
 #include "TilePosAndRot.h"
+#include "CollisionRect.h"
 
 
 class CDynamicDamageModel;
@@ -112,6 +113,8 @@ public:
    virtual ~CTankUsing();
 
    void Draw(const CPixelPos &screen);
+
+   CCollisionRect GetCollisionRect() const;
 
    CTilePosAndRot PreUpdate() const;
    void DoUpdate(const CTilePosAndRot &newvals);
