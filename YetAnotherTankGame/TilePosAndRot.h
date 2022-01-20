@@ -18,4 +18,14 @@ public:
       : CTilePosAndRot(right.m_NewPos, right.m_NewRot)
    {
    }
+
+   static CTilePosAndRot CreateNull()
+   {
+      return CTilePosAndRot(CTilePos(0, 0), 0);
+   }
+
+   bool IsNull() const
+   {
+      return m_NewPos.m_X == 0 && m_NewPos.m_Y == 0 && m_NewRot == 0;
+   }
 };

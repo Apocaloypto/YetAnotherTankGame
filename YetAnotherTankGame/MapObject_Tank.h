@@ -18,4 +18,6 @@ public:
    virtual void Draw(const CPixelPos &screen) override;
    virtual CTilePosAndRot PreUpdate() const override;
    virtual void Update(const CTilePosAndRot &values) override;
+   virtual void OnCollisionWithTileMap(bool xcoll, bool ycoll, Int32 tilesize) override;
+   virtual void OnCollisionWithEndOfMap(bool xcoll, bool ycoll, Int32 tilesize) override;
 };

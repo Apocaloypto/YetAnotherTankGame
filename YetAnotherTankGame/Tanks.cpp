@@ -499,8 +499,11 @@ void CTankUsing::DoUpdate(const CTilePosAndRot &newvals)
    {
       DoMovingUpdate(m_CurrentSpeedLT, m_CurrentSpeedLT, m_pController->GetLeftTrackMod());
       DoMovingUpdate(m_CurrentSpeedRT, m_CurrentSpeedRT, m_pController->GetRightTrackMod());
-
-      ApplyUpdates(m_CurrentSpeedLT, m_CurrentSpeedRT, m_Pos, m_Rot);
+      
+      if (!newvals.IsNull())
+      {
+         ApplyUpdates(m_CurrentSpeedLT, m_CurrentSpeedRT, m_Pos, m_Rot);
+      }
    }
 }
 

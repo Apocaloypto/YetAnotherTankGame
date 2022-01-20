@@ -208,9 +208,21 @@ bool CTileArray::StreamLoad(std::ifstream &src)
 }
 
 // ************************************************************************************************
-const CTileInfo *CTileArray::GetAt(Int32 x, Int32 y) const
+const CTileInfo *CTileArray::GetAt(const CTilePos &pos) const
 {
-   return m_Data.GetAt(x, y);
+   return m_Data.GetAt((Int32)pos.m_X, (Int32)pos.m_Y);
+}
+
+// ************************************************************************************************
+Int32 CTileArray::GetWidth() const
+{
+   return m_Data.GetWidth();
+}
+
+// ************************************************************************************************
+Int32 CTileArray::GetHeight() const
+{
+   return m_Data.GetHeight();
 }
 
 // ################################################################################################
@@ -315,17 +327,63 @@ void CTileMap::DrawMapObjects(const CTilePos &pos, const CTileDim &dim, const CS
 }
 
 // ************************************************************************************************
+bool CTileMap::FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const
+{
+   CTilePos oldpos = mapobj.GetPosition();
+
+   const CTileInfo *pCheckTileX = m_Tiles.GetAt(CTilePos(oldpos.m_X + newpos.m_X, oldpos.m_Y));
+   const CTileInfo *pCheckTileY = m_Tiles.GetAt(CTilePos(oldpos.m_X, oldpos.m_Y + newpos.m_Y));
+
+   if (!pCheckTileX || !pCheckTileY)
+   {
+      return false;
+   }
+
+   if (pCheckTileX->HasCollision() || pCheckTileY->HasCollision())
+   {
+      mapobj.OnCollisionWithTileMap(pCheckTileX->HasCollision(), pCheckTileY->HasCollision(), m_Set.GetTileSize());
+      return true;
+   }
+   else
+   {
+      return false;
+   }
+}
+
+// ************************************************************************************************
+bool CTileMap::FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const
+{
+   bool collx = newpos.m_X < 0 || newpos.m_X >= m_Tiles.GetWidth();
+   bool colly = newpos.m_Y < 0 || newpos.m_Y >= m_Tiles.GetHeight();
+
+   if (collx || colly)
+   {
+      mapobj.OnCollisionWithEndOfMap(collx, colly, m_Set.GetTileSize());
+      return true;
+   }
+   else
+      return false;
+}
+
+// ************************************************************************************************
 void CTileMap::UpdateMapObjects(const CTilePos &pos, const CTileDim &dim)
 {
    for (auto &[id, pMapObj] : m_MapObjects)
    {
       if (Memory().m_MapObjects.IsValid(pMapObj) && dim.ContainsPoint(pos, pMapObj->GetPosition()))
       {
-         CTilePosAndRot values = pMapObj->PreUpdate();
+         CTilePosAndRot newvalues = pMapObj->PreUpdate();
 
-         // TODO: Collision
-
-         pMapObj->Update(values);
+         if (FireTileCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
+             FireEndOfMapCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot))
+         {
+            // Update klappt nicht, also alles retoure:
+            pMapObj->Update(CTilePosAndRot::CreateNull());
+         }
+         else
+         {
+            pMapObj->Update(newvalues);
+         }
       }
    }
 }
@@ -370,7 +428,7 @@ void CTileMap::Draw(const CTilePos &pos, const CShader *pUseShader)
 
       for (Int32 x = 0; x < DRAWDIM.m_Width; x++)
       {
-         const CTileInfo *pTile = m_Tiles.GetAt((Int32)pos.m_X + x, (Int32)pos.m_Y + y);
+         const CTileInfo *pTile = m_Tiles.GetAt(pos + CTilePos((Real)x, (Real)y));
          if (pTile)
          {
             m_Set.Draw(*pTile, screenPos, pUseShader);

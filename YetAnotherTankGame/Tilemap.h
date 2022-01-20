@@ -46,6 +46,7 @@ public:
    CTileInfo(Int32 id, bool collision);
 
    Int32 GetId() const { return m_Id; }
+   bool HasCollision() const { return m_Collision; }
 
    bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
@@ -63,7 +64,10 @@ public:
    CTileArray(CTileArray &right);
    ~CTileArray();
 
-   const CTileInfo *GetAt(Int32 x, Int32 y) const;
+   const CTileInfo *GetAt(const CTilePos &pos) const;
+
+   Int32 GetWidth() const;
+   Int32 GetHeight() const;
 
    bool StreamSave(std::ofstream &dest) const;
    bool StreamLoad(std::ifstream &src);
@@ -87,6 +91,9 @@ private:
    ITileMapObject *GetMapObject(const std::string &id) const;
 
    CTilePos GetDrawTilePosCenteredMapObj(const ITileMapObject &mapobj);
+
+   bool FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;
+   bool FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;
 
 public:
    CTileMap() = default;

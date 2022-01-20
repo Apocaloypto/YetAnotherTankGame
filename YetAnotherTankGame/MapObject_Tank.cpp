@@ -59,3 +59,13 @@ void CMapObjectTank::Update(const CTilePosAndRot &values)
       m_pUsing->DoUpdate(values);
    }
 }
+
+// ************************************************************************************************
+void CMapObjectTank::OnCollisionWithTileMap(bool xcoll, bool ycoll, Int32 tilesize)
+{
+}
+
+// ************************************************************************************************
+void CMapObjectTank::OnCollisionWithEndOfMap(bool xcoll, bool ycoll, Int32 tilesize)
+{
+}
