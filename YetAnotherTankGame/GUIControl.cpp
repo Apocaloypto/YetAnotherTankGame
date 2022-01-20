@@ -22,25 +22,25 @@ CGUIControl::~CGUIControl()
 }
 
 // ************************************************************************************************
-Real CGUIControl::GetFactX() const
+Real CGUIControl::CalcModX(Int32 base) const
 {
-   return (Real)VIRTUAL_WIDTH / Settings().ScreenWidth;
+   return base / (Real)VIRTUAL_WIDTH * (Real)Settings().ScreenWidth;
 }
 
 // ************************************************************************************************
-Real CGUIControl::GetFactY() const
+Real CGUIControl::CalcModY(Int32 base) const
 {
-   return (Real)VIRTUAL_HEIGHT / Settings().ScreenHeight;
+   return base / (Real)VIRTUAL_HEIGHT * (Real)Settings().ScreenHeight;
 }
 
 // ************************************************************************************************
 CPixelPos CGUIControl::GetPos() const
 {
-   return CPixelPos(m_VX * GetFactX(), m_VY * GetFactY());
+   return CPixelPos(CalcModX(m_VX), CalcModY(m_VY));
 }
 
 // ************************************************************************************************
 CPixelDim CGUIControl::GetDim() const
 {
-   return CPixelDim(m_VW * GetFactX(), m_VH * GetFactY());
+   return CPixelDim(CalcModX(m_VW), CalcModY(m_VH));
 }

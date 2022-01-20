@@ -264,7 +264,7 @@ namespace MathFun
    {
       rot = NormalizeAngle(rot);
 
-      const Degrees wi = RadToDeg(atan2(area.m_Width, area.m_Height));
+      const Degrees wi = RadToDeg(atan2(area.m_Height, area.m_Width));
 
       const Real cosrot = cos(MathFun::DegToRad(rot));
       const Real sinrot = sin(MathFun::DegToRad(rot));

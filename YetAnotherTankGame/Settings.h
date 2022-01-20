@@ -56,8 +56,8 @@ private:
    CSettings() = default;
 
 public:
-   const UInt32 ScreenWidth = 800;
-   const UInt32 ScreenHeight = 600;
+   const UInt32 ScreenWidth = 1366;
+   const UInt32 ScreenHeight = 768;
    const UInt32 FrameLimit = 60;
 
    const CInputConfig &InputConfig = m_InputConfig;

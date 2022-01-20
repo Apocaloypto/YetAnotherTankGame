@@ -16,8 +16,8 @@ private:
    const Int32 m_VW;
    const Int32 m_VH;
 
-   Real GetFactX() const;
-   Real GetFactY() const;
+   Real CalcModX(Int32 base) const;
+   Real CalcModY(Int32 base) const;
 
 protected:
    static constexpr Real GUI_BORDER_WIDTH = 2;
