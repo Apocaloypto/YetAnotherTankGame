@@ -19,5 +19,6 @@ public:
    {
    }
 
-   KgTimesMPerS GetImpulse(const CPhysicalData &other) const;
+   KgTimesMPerS GetImpulse() const;
+   CPhysicalData CalcResult(const CPhysicalData &other) const;
 };

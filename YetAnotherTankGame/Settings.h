@@ -67,6 +67,12 @@ public:
    {
       return base / (T)FrameLimit;
    }
+
+   template<class T>
+   inline T ToPerSecondValue(T base)
+   {
+      return base * (T)FrameLimit;
+   }
 };
 
 // ************************************************************************************************

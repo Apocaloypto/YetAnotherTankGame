@@ -334,7 +334,7 @@ void CTileMap::DrawMapObjects(const CTilePos &pos, const CTileDim &dim, const CS
 }
 
 // ************************************************************************************************
-bool CTileMap::FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const
+bool CTileMap::FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot, bool hadcollisionlastframe) const
 {
    CTilePos oldpos = mapobj.GetPosition();
 
@@ -348,7 +348,11 @@ bool CTileMap::FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTileP
 
    if (pCheckTileX->HasCollision() || pCheckTileY->HasCollision())
    {
-      mapobj.OnCollisionWithTileMap(pCheckTileX->HasCollision(), pCheckTileY->HasCollision(), m_Set.GetTileSize());
+      if (!hadcollisionlastframe)
+      {
+         mapobj.OnCollisionWithTileMap(pCheckTileX->HasCollision(), pCheckTileY->HasCollision(), m_Set.GetTileSize());
+      }
+
       return true;
    }
    else
@@ -358,14 +362,18 @@ bool CTileMap::FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTileP
 }
 
 // ************************************************************************************************
-bool CTileMap::FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const
+bool CTileMap::FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot, bool hadcollisionlastframe) const
 {
    bool collx = newpos.m_X < 0 || newpos.m_X >= m_Tiles.GetWidth();
    bool colly = newpos.m_Y < 0 || newpos.m_Y >= m_Tiles.GetHeight();
 
    if (collx || colly)
    {
-      mapobj.OnCollisionWithEndOfMap(collx, colly, m_Set.GetTileSize());
+      if (!hadcollisionlastframe)
+      {
+         mapobj.OnCollisionWithEndOfMap(collx, colly, m_Set.GetTileSize());
+      }
+
       return true;
    }
    else
@@ -386,7 +394,7 @@ CCollisionRect CTileMap::GetCollisonRect(const ITileMapObject &mapobj, const CTi
 }
 
 // ************************************************************************************************
-bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot) const
+bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot, bool hadcollisionlastframe) const
 {
    const CCollisionRect tempRect = GetCollisonRect(mapobj, screenul);
 
@@ -408,8 +416,11 @@ bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const C
 
             if (collRect.Collides(otherRect))
             {
-               mapobj.OnCollisionWithMapObject(collRect, otherRect, pOtherMapObj->GetPhysicalData());
-               pOtherMapObj->OnCollisionWithMapObject(otherRect, collRect, mapObjsPhysicalData);
+               if (!hadcollisionlastframe)
+               {
+                  mapobj.OnCollisionWithMapObject(collRect, otherRect, pOtherMapObj->GetPhysicalData());
+                  pOtherMapObj->OnCollisionWithMapObject(otherRect, collRect, mapObjsPhysicalData);
+               }
 
                hitSomething = true;
             }
@@ -445,19 +456,21 @@ void CTileMap::UpdateMapObjects(const CTilePos &pos, const CTileDim &dim)
          bool hasCollided = false;
          if (oldvalues != newvalues)
          {
-            hasCollided = FireTileCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
-               FireEndOfMapCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
-               FireMapObjectCollEventIfNecessary(*pMapObj, pos, newvalues.m_NewPos, newvalues.m_NewRot);
+            hasCollided = FireTileCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot, m_MapObjectColl[visiblemapobj]) ||
+               FireEndOfMapCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot, m_MapObjectColl[visiblemapobj]) ||
+               FireMapObjectCollEventIfNecessary(*pMapObj, pos, newvalues.m_NewPos, newvalues.m_NewRot, m_MapObjectColl[visiblemapobj]);
          }
 
          if (hasCollided)
          {
             // Update klappt nicht, also alles retoure:
             pMapObj->Update(oldvalues, true);
+            m_MapObjectColl[visiblemapobj] = true;
          }
          else
          {
             pMapObj->Update(newvalues, false);
+            m_MapObjectColl[visiblemapobj] = false;
          }
       }
    }

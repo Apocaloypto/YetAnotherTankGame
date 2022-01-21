@@ -13,6 +13,7 @@ typedef Real Radians;
 
 typedef Real KmPerH;
 typedef Real MPerS;
+typedef Real MPerF;
 typedef Real DegPerS;
 typedef Real Seconds;
 typedef Real Frames;

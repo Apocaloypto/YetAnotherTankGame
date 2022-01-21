@@ -85,6 +85,7 @@ private:
    CImage *m_pMinimap = nullptr;
 
    std::set<std::string> m_VisibleMapObjects;
+   std::map<std::string, bool> m_MapObjectColl;
 
    std::map<std::string, ITileMapObject *> m_MapObjects;
 
@@ -101,9 +102,9 @@ private:
 
    CCollisionRect GetCollisonRect(const ITileMapObject &mapobj, const CTilePos &screenul) const;
 
-   bool FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;
-   bool FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;
-   bool FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot) const;
+   bool FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot, bool hadcollisionlastframe) const;
+   bool FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot, bool hadcollisionlastframe) const;
+   bool FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot, bool hadcollisionlastframe) const;
 
 public:
    CTileMap() = default;

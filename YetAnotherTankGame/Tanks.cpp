@@ -534,8 +534,15 @@ CPhysicalData CTankUsing::GetPhysicalData() const
 {
    if (Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
-      CTilePosAndRot afterUpdate = PreUpdate();
-      return CPhysicalData(CVector2D<Meter>(afterUpdate.m_NewPos.m_X - m_Pos.m_X, afterUpdate.m_NewPos.m_Y - m_Pos.m_Y), m_pBlueprint->m_Specs.m_Weight);
+      MPerS currSpeedLT = m_CurrentSpeedLT;
+      MPerS currSpeedRT = m_CurrentSpeedRT;
+
+      CTilePos newpos = m_Pos;
+      Degrees newrot = m_Rot;
+
+      ApplyUpdates(currSpeedLT, currSpeedRT, newpos, newrot);
+
+      return CPhysicalData(CVector2D<Meter>(newpos.m_X - m_Pos.m_X, newpos.m_Y - m_Pos.m_Y), m_pBlueprint->m_Specs.m_Weight);
    }
    else
    {
@@ -546,5 +553,8 @@ CPhysicalData CTankUsing::GetPhysicalData() const
 // ************************************************************************************************
 void CTankUsing::OnCollisionWithMapObject(const CCollisionRect &thisrect, const CCollisionRect &otherrect, const CPhysicalData &otherphysicaldata)
 {
-   m_pDamageModelWanne->Crash(thisrect.GetHandlePosition() - otherrect.GetHandlePosition(), GetPhysicalData().GetImpulse(otherphysicaldata), thisrect.GetIntersectingWidth(otherrect), m_Rot);
+   m_pDamageModelWanne->Crash(thisrect.GetHandlePosition() - otherrect.GetHandlePosition(), GetPhysicalData().GetImpulse(), thisrect.GetIntersectingWidth(otherrect), m_Rot);
+
+   m_CurrentSpeedLT = 0;
+   m_CurrentSpeedRT = 0;
 }

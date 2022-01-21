@@ -22,4 +22,9 @@ public:
       : CVector2D(right.m_X, right.m_Y)
    {
    }
+
+   T GetMagnitude() const
+   {
+      return (T)sqrt(m_X * m_X + m_Y * m_Y);
+   }
 };
