@@ -160,5 +160,6 @@ namespace DrawFun
 
    void DrawTexturedPolygon(const CImage &image, Real xyuv[], size_t xyuvSize, const CPixelPos &screen, const CPixelPos &handle, CPixelPos rothandle, Degrees rot, const CShader *pUseShader);
 
+   void DrawLine(const CPixelPos &start, const CPixelPos &end, sf::Color color);
    void DrawRect(const CPixelPos &pos, const CPixelDim &dim, sf::Color fill, Real borderwidth, sf::Color bordercolor = INVISIBLE_COLOR);
 }

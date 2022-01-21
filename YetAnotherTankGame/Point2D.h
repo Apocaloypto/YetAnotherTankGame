@@ -26,6 +26,16 @@ public:
    {
    }
 
+   bool operator==(const CPoint2D &rhs) const
+   {
+      return m_X == rhs.m_X && m_Y == rhs.m_Y;
+   }
+
+   bool operator!=(const CPoint2D &rhs) const
+   {
+      return !(*this == rhs);
+   }
+
    CPoint2D operator-(const CPoint2D &rhs) const
    {
       return CPoint2D(m_X - rhs.m_X, m_Y - rhs.m_Y);

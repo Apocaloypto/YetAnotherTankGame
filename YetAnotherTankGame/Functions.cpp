@@ -416,6 +416,17 @@ namespace DrawFun
    }
 
    // *********************************************************************************************
+   void DrawLine(const CPixelPos &start, const CPixelPos &end, sf::Color color)
+   {
+      sf::Vertex line[] = {
+         sf::Vertex(sf::Vector2f(start.m_X, start.m_Y), color),
+         sf::Vertex(sf::Vector2f(end.m_X, end.m_Y), color)
+      };
+
+      Window().draw(line, 2, sf::Lines);
+   }
+
+   // *********************************************************************************************
    void DrawRect(const CPixelPos &pos, const CPixelDim &dim, sf::Color fill, Real borderwidth, sf::Color bordercolor)
    {
       sf::RectangleShape shape(sf::Vector2f(dim.m_Width, dim.m_Height));

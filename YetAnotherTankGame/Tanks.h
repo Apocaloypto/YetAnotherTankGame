@@ -114,8 +114,8 @@ public:
 
    void Draw(const CPixelPos &screen);
 
-   CCollisionRect GetCollisionRect() const;
+   CCollisionRect GetCollisionRect(const CPixelPos &pos) const;
 
    CTilePosAndRot PreUpdate() const;
-   void DoUpdate(const CTilePosAndRot &newvals);
+   void DoUpdate(const CTilePosAndRot &newvals, bool collision);
 };

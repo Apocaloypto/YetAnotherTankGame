@@ -41,15 +41,15 @@ void CMapObjectTank::Draw(const CPixelPos &screen)
 }
 
 // ************************************************************************************************
-CCollisionRect CMapObjectTank::GetCollisionRect() const
+CCollisionRect CMapObjectTank::GetCollisionRect(const CPixelPos &pos) const
 {
    if (Memory().m_TankUsings.IsValid(m_pUsing))
    {
-      return m_pUsing->GetCollisionRect();
+      return m_pUsing->GetCollisionRect(pos);
    }
    else
    {
-      return CCollisionRect(CPixelDim(), CPixelPos(), 0);
+      return CCollisionRect();
    }
 }
 
@@ -65,11 +65,11 @@ CTilePosAndRot CMapObjectTank::PreUpdate() const
 }
 
 // ************************************************************************************************
-void CMapObjectTank::Update(const CTilePosAndRot &values)
+void CMapObjectTank::Update(const CTilePosAndRot &values, bool collision)
 {
    if (Memory().m_TankUsings.IsValid(m_pUsing))
    {
-      m_pUsing->DoUpdate(values);
+      m_pUsing->DoUpdate(values, collision);
    }
 }
 

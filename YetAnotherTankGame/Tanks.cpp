@@ -471,15 +471,15 @@ void CTankUsing::DoInPlaceTurn(MPerS &currentSpeedLT, MPerS &currentSpeedRT, CTi
 }
 
 // ************************************************************************************************
-CCollisionRect CTankUsing::GetCollisionRect() const
+CCollisionRect CTankUsing::GetCollisionRect(const CPixelPos &pos) const
 {
    if (Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
-      return CCollisionRect(m_pDamageModelWanne->GetDimensions(), m_pBlueprint->m_pModel->TurnpointWanne, MathFun::NormalizeAngle(m_Rot));
+      return CCollisionRect(m_pDamageModelWanne->GetDimensions(), pos, m_pBlueprint->m_pModel->TurnpointWanne, MathFun::NormalizeAngle(m_Rot));
    }
    else
    {
-      return CCollisionRect(CPixelDim(), CPixelPos(), 0);
+      return CCollisionRect();
    }
 }
 
@@ -494,8 +494,8 @@ CTilePosAndRot CTankUsing::PreUpdate() const
       DoMovingUpdate(m_CurrentSpeedLT, currSpeedLT, m_pController->GetLeftTrackMod());
       DoMovingUpdate(m_CurrentSpeedRT, currSpeedRT, m_pController->GetRightTrackMod());
 
-      CTilePos newpos;
-      Degrees newrot;
+      CTilePos newpos = m_Pos;
+      Degrees newrot = m_Rot;
 
       ApplyUpdates(currSpeedLT, currSpeedRT, newpos, newrot);
 
@@ -506,7 +506,7 @@ CTilePosAndRot CTankUsing::PreUpdate() const
 }
 
 // ************************************************************************************************
-void CTankUsing::DoUpdate(const CTilePosAndRot &newvals)
+void CTankUsing::DoUpdate(const CTilePosAndRot &newvals, bool collision)
 {
    if (Memory().m_Controller.IsValid(m_pController) && Memory().m_TankBlueprints.IsValid(m_pBlueprint))
    {
@@ -515,7 +515,7 @@ void CTankUsing::DoUpdate(const CTilePosAndRot &newvals)
       DoMovingUpdate(m_CurrentSpeedLT, m_CurrentSpeedLT, m_pController->GetLeftTrackMod());
       DoMovingUpdate(m_CurrentSpeedRT, m_CurrentSpeedRT, m_pController->GetRightTrackMod());
       
-      if (!newvals.IsNull())
+      if (!collision)
       {
          ApplyUpdates(m_CurrentSpeedLT, m_CurrentSpeedRT, m_Pos, m_Rot);
       }

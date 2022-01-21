@@ -6,6 +6,7 @@
 #include "Point2D.h"
 #include "Dim2D.h"
 #include "TemplateUsings.h"
+#include "CollisionRect.h"
 
 
 class CImage;
@@ -83,6 +84,8 @@ private:
    CTileArray m_Tiles;
    CImage *m_pMinimap = nullptr;
 
+   std::set<std::string> m_VisibleMapObjects;
+
    std::map<std::string, ITileMapObject *> m_MapObjects;
 
    void DrawMapObjects(const CTilePos &pos, const CTileDim &dim, const CShader *pUseShader);
@@ -93,6 +96,10 @@ private:
    CTilePos GetDrawTilePosCenteredMapObj(const ITileMapObject &mapobj);
 
    CPixelPos CalcScreenPos(const CTilePos &basetilepos, const CTilePos &ref) const;
+
+   bool HasMapObjectId(const ITileMapObject &mapobj, const std::string &id) const;
+
+   CCollisionRect GetCollisonRect(const ITileMapObject &mapobj, const CTilePos &screenul) const;
 
    bool FireTileCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;
    bool FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &newpos, Degrees newrot) const;

@@ -19,13 +19,13 @@ public:
    {
    }
 
-   static CTilePosAndRot CreateNull()
+   bool operator==(const CTilePosAndRot &rhs) const
    {
-      return CTilePosAndRot(CTilePos(0, 0), 0);
+      return m_NewPos == rhs.m_NewPos && m_NewRot == rhs.m_NewRot;
    }
 
-   bool IsNull() const
+   bool operator!=(const CTilePosAndRot &rhs) const
    {
-      return m_NewPos.m_X == 0 && m_NewPos.m_Y == 0 && m_NewRot == 0;
+      return !(*this == rhs);
    }
 };

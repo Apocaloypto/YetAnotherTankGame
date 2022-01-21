@@ -330,6 +330,14 @@ void CTileMap::DrawMapObjects(const CTilePos &pos, const CTileDim &dim, const CS
          pMapObj->Draw(CalcScreenPos(pos, pMapObj->GetPosition()));
       }
    }
+
+   // ITileMapObject *pPlayer = GetMapObject("ThePlayer1337");
+   // ITileMapObject *pEnemy = GetMapObject("ENEMY01");
+   // 
+   // CCollisionRect playerRect = GetCollisonRect(*pPlayer, pos);
+   // CCollisionRect enemyRect = GetCollisonRect(*pEnemy, pos);
+   // 
+   // playerRect.Collides(enemyRect);
 }
 
 // ************************************************************************************************
@@ -372,10 +380,42 @@ bool CTileMap::FireEndOfMapCollEventIfNecessary(ITileMapObject &mapobj, const CT
 }
 
 // ************************************************************************************************
+bool CTileMap::HasMapObjectId(const ITileMapObject &mapobj, const std::string &id) const
+{
+   return GetMapObject(id) == &mapobj;
+}
+
+// ************************************************************************************************
+CCollisionRect CTileMap::GetCollisonRect(const ITileMapObject &mapobj, const CTilePos &screenul) const
+{
+   const CPixelPos pos = CalcScreenPos(screenul, mapobj.GetPosition());
+   return mapobj.GetCollisionRect(pos);
+}
+
+// ************************************************************************************************
 bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot) const
 {
-   CCollisionRect collRect = mapobj.GetCollisionRect();
-   collRect.DebugDraw(CalcScreenPos(screenul, mapobj.GetPosition()), sf::Color(0xAD0000FF));
+   CCollisionRect tempRect = GetCollisonRect(mapobj, screenul);
+
+   // Jetzt noch die Werte von collrect anpassen (dirty):
+   const CCollisionRect collRect(tempRect.m_Dimension, CalcScreenPos(screenul, newpos), tempRect.m_Handle, newrot);
+
+   for (const std::string &otherid : m_VisibleMapObjects)
+   {
+      if (!HasMapObjectId(mapobj, otherid))
+      {
+         const ITileMapObject *pOtherMapObj = GetMapObject(otherid);
+         if (Memory().m_MapObjects.IsValid(pOtherMapObj))
+         {
+            const CCollisionRect otherRect = GetCollisonRect(*pOtherMapObj, screenul);
+
+            if (collRect.Collides(otherRect))
+            {
+               return true;
+            }
+         }
+      }
+   }
 
    return false;
 }
@@ -383,22 +423,41 @@ bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const C
 // ************************************************************************************************
 void CTileMap::UpdateMapObjects(const CTilePos &pos, const CTileDim &dim)
 {
+   m_VisibleMapObjects.clear();
+
    for (auto &[id, pMapObj] : m_MapObjects)
    {
       if (Memory().m_MapObjects.IsValid(pMapObj) && dim.ContainsPoint(pos, pMapObj->GetPosition()))
       {
+         m_VisibleMapObjects.insert(id);
+      }
+   }
+
+   for (const std::string &visiblemapobj : m_VisibleMapObjects)
+   {
+      ITileMapObject *pMapObj = GetMapObject(visiblemapobj);
+      if (Memory().m_MapObjects.IsValid(pMapObj))
+      {
+         CTilePosAndRot oldvalues(pMapObj->GetPosition(), pMapObj->GetRotation());
+
          CTilePosAndRot newvalues = pMapObj->PreUpdate();
 
-         if (FireTileCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
-             FireEndOfMapCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
-             FireMapObjectCollEventIfNecessary(*pMapObj, pos, newvalues.m_NewPos, newvalues.m_NewRot))
+         bool hasCollided = false;
+         if (oldvalues != newvalues)
+         {
+            hasCollided = FireTileCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
+               FireEndOfMapCollEventIfNecessary(*pMapObj, newvalues.m_NewPos, newvalues.m_NewRot) ||
+               FireMapObjectCollEventIfNecessary(*pMapObj, pos, newvalues.m_NewPos, newvalues.m_NewRot);
+         }
+
+         if (hasCollided)
          {
             // Update klappt nicht, also alles retoure:
-            pMapObj->Update(CTilePosAndRot::CreateNull());
+            pMapObj->Update(oldvalues, true);
          }
          else
          {
-            pMapObj->Update(newvalues);
+            pMapObj->Update(newvalues, false);
          }
       }
    }
@@ -441,7 +500,7 @@ void CTileMap::Draw(const CTilePos &pos, const CShader *pUseShader)
    for (Int32 y = 0; y < DRAWDIM.m_Height; y++)
    {
       CPixelPos screenPos(-MathFun::GetFraction(pos.m_X) * m_Set.GetTileSize(), (Real)((y - MathFun::GetFraction(pos.m_Y)) * m_Set.GetTileSize()));
-
+   
       for (Int32 x = 0; x < DRAWDIM.m_Width; x++)
       {
          const CTileInfo *pTile = m_Tiles.GetAt(pos + CTilePos((Real)x, (Real)y));
@@ -449,7 +508,7 @@ void CTileMap::Draw(const CTilePos &pos, const CShader *pUseShader)
          {
             m_Set.Draw(*pTile, screenPos, pUseShader);
          }
-
+   
          screenPos += CPixelPos((Real)m_Set.GetTileSize(), 0);
       }
    }
