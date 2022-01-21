@@ -330,14 +330,6 @@ void CTileMap::DrawMapObjects(const CTilePos &pos, const CTileDim &dim, const CS
          pMapObj->Draw(CalcScreenPos(pos, pMapObj->GetPosition()));
       }
    }
-
-   // ITileMapObject *pPlayer = GetMapObject("ThePlayer1337");
-   // ITileMapObject *pEnemy = GetMapObject("ENEMY01");
-   // 
-   // CCollisionRect playerRect = GetCollisonRect(*pPlayer, pos);
-   // CCollisionRect enemyRect = GetCollisonRect(*pEnemy, pos);
-   // 
-   // playerRect.Collides(enemyRect);
 }
 
 // ************************************************************************************************

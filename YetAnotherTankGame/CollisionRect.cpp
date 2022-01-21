@@ -20,18 +20,6 @@ CCollisionRect::CCollisionRect(const CPixelDim &dimension, const CPixelPos &pos,
 }
 
 // ************************************************************************************************
-void CCollisionRect::DebugDraw(const sf::Color &color) const
-{
-   sf::RectangleShape shape(sf::Vector2f(m_Dimension.m_Width, m_Dimension.m_Height));
-   shape.setOrigin(sf::Vector2f(m_Handle.m_X, m_Handle.m_Y));
-   shape.setRotation(m_Rotation);
-   shape.setPosition(sf::Vector2f(m_Position.m_X, m_Position.m_Y));
-   shape.setFillColor(color);
-
-   Window().draw(shape);
-}
-
-// ************************************************************************************************
 CPixelPos CCollisionRect::GetHandlePosition() const
 {
    return m_Position + m_Handle;
@@ -75,24 +63,6 @@ bool CCollisionRect::IsPointInRect(const std::map<Edge, CPixelPos> &chk, const C
 }
 
 // ************************************************************************************************
-void CCollisionRect::DrawEdge(const std::map<Edge, CPixelPos> &edges, Edge from, Edge to)
-{
-   CPixelPos pos1 = edges.at(from);
-   CPixelPos pos2 = edges.at(to);
-
-   DrawFun::DrawLine(pos1, pos2, sf::Color(0x0000FFFF));
-}
-
-// ************************************************************************************************
-void CCollisionRect::DrawEdges(const std::map<Edge, CPixelPos> &edges)
-{
-   DrawEdge(edges, Edge::UpperLeft, Edge::UpperRight);
-   DrawEdge(edges, Edge::UpperRight, Edge::BottomRight);
-   DrawEdge(edges, Edge::BottomRight, Edge::BottomLeft);
-   DrawEdge(edges, Edge::BottomLeft, Edge::UpperLeft);
-}
-
-// ************************************************************************************************
 bool CCollisionRect::CollidesInternal(const CCollisionRect &thisone, const CCollisionRect &thatone)
 {
    Degrees toZero = thisone.m_Rotation > 0 ? -thisone.m_Rotation : thisone.m_Rotation;
@@ -102,9 +72,6 @@ bool CCollisionRect::CollidesInternal(const CCollisionRect &thisone, const CColl
 
    std::map<Edge, CPixelPos> thispoints = thisrotated.GetEdges();
    std::map<Edge, CPixelPos> thatpoints = thatrotated.GetEdges();
-
-   // DrawEdges(thispoints);
-   // DrawEdges(thatpoints);
 
    for (const auto &[edge, pos] : thatpoints)
    {
