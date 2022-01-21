@@ -11,6 +11,11 @@ public:
    CPoint2D<T> m_Start;
    CPoint2D<T> m_End;
 
+   CLine2D()
+      : CLine2D(CPoint2D<T>(), CPoint2D<T>())
+   {
+   }
+
    CLine2D(const CPoint2D<T> &start, const CPoint2D<T> &end)
       : m_Start(start), m_End(end)
    {

@@ -408,8 +408,8 @@ bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const C
 
             if (collRect.Collides(otherRect))
             {
-               mapobj.OnCollisionWithMapObject(tempRect, otherRect, pOtherMapObj->GetPhysicalData());
-               pOtherMapObj->OnCollisionWithMapObject(otherRect, tempRect, mapObjsPhysicalData);
+               mapobj.OnCollisionWithMapObject(collRect, otherRect, pOtherMapObj->GetPhysicalData());
+               pOtherMapObj->OnCollisionWithMapObject(otherRect, collRect, mapObjsPhysicalData);
 
                hitSomething = true;
             }
