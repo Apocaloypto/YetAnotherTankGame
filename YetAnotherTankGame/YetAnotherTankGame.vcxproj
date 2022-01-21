@@ -112,6 +112,7 @@
     <ClCompile Include="MapObject_Tank.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Paths.cpp" />
+    <ClCompile Include="PhysicalData.cpp" />
     <ClCompile Include="ResBuilder\FileSystem.cpp" />
     <ClCompile Include="ResBuilder\Messages.cpp" />
     <ClCompile Include="ResBuilder\ResBuilder.cpp" />
@@ -153,11 +154,13 @@
     <ClInclude Include="IResourceHolder.h" />
     <ClInclude Include="IStreamable.h" />
     <ClInclude Include="ITileMapObject.h" />
+    <ClInclude Include="Line2D.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="MapObject_Tank.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Paths.h" />
     <ClInclude Include="Control_Player.h" />
+    <ClInclude Include="PhysicalData.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="ResBuilder\FileSystem.h" />
     <ClInclude Include="ResBuilder\Messages.h" />

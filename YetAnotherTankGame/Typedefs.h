@@ -19,6 +19,7 @@ typedef Real Frames;
 typedef Real KgTimesMPerS;
 typedef Real Pixels;
 typedef Real Meter;
+typedef Real KG;
 
 typedef std::string String;
 

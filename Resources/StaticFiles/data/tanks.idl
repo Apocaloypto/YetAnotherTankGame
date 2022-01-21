@@ -8,8 +8,9 @@
 # e - tower rotation speed (degrees/sec)
 # f - stability (0.0 <= this <= 1.0)
 # g - model filename
+# h - weight (kg)
 
 
 # THE DATA
-# a		b		c		d		e		f		g
-TANK01	Tank01	60.0	33.33	60.0	0.8		data/tanks/tank01.mdl
+# a		b		c		d		e		f		g						h
+TANK01	Tank01	60.0	33.33	60.0	0.8		data/tanks/tank01.mdl	60000.0

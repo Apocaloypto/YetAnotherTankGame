@@ -3,6 +3,7 @@
 #include "Typedefs.h"
 #include "TilePosAndRot.h"
 #include "CollisionRect.h"
+#include "PhysicalData.h"
 
 
 class CDynamicDamageModel;
@@ -47,9 +48,9 @@ public:
    const MPerS m_Acceleration;
    const DegPerS m_TowerRotationSpeed;
    const Real m_Stability;
+   const KG m_Weight;
 
-   CTankSpecsBlueprint(const CTankSpecsBlueprint &right);
-   CTankSpecsBlueprint(const String &name, KmPerH maxspeed, MPerS acceleration, DegPerS towerRotSpeed, Real stability);
+   CTankSpecsBlueprint(const String &name, KmPerH maxspeed, MPerS acceleration, DegPerS towerRotSpeed, Real stability, KG weight);
 };
 
 // ************************************************************************************************
@@ -115,7 +116,10 @@ public:
    void Draw(const CPixelPos &screen);
 
    CCollisionRect GetCollisionRect(const CPixelPos &pos) const;
+   CPhysicalData GetPhysicalData() const;
 
    CTilePosAndRot PreUpdate() const;
    void DoUpdate(const CTilePosAndRot &newvals, bool collision);
+
+   void OnCollisionWithMapObject(const CCollisionRect &thisrect, const CCollisionRect &otherrect, const CPhysicalData &otherphysicaldata);
 };

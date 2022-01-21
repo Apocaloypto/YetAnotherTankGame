@@ -67,4 +67,17 @@ public:
    {
       return (T)sqrt(((other.m_X - m_X) * (other.m_X - m_X)) + ((other.m_Y - m_Y) * (other.m_Y - m_Y)));
    }
+
+   T GetDeterminant(const CPoint2D &other) const
+   {
+      return m_X * other.m_Y - m_Y * other.m_X;
+   }
+   
+   bool IsOnSegment(const CPoint2D &from, const CPoint2D &to) const
+   {
+      return m_X <= std::max(from.m_X, to.m_X) && 
+         m_X >= std::min(from.m_X, to.m_X) &&
+         m_Y <= std::max(from.m_Y, to.m_Y) && 
+         m_Y >= std::min(from.m_Y, to.m_Y);
+   }
 };

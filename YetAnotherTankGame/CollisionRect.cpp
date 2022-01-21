@@ -89,3 +89,9 @@ bool CCollisionRect::Collides(const CCollisionRect &other) const
 {
    return CollidesInternal(*this, other) || CollidesInternal(other, *this);
 }
+
+// ************************************************************************************************
+Pixels CCollisionRect::GetIntersectingWidth(const CCollisionRect &other) const
+{
+   return 0;
+}

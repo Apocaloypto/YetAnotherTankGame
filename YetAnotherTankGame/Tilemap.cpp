@@ -7,6 +7,7 @@
 #include "Memory.h"
 #include "Settings.h"
 #include "ITileMapObject.h"
+#include "PhysicalData.h"
 
 
 using namespace std;
@@ -387,29 +388,36 @@ CCollisionRect CTileMap::GetCollisonRect(const ITileMapObject &mapobj, const CTi
 // ************************************************************************************************
 bool CTileMap::FireMapObjectCollEventIfNecessary(ITileMapObject &mapobj, const CTilePos &screenul, const CTilePos &newpos, Degrees newrot) const
 {
-   CCollisionRect tempRect = GetCollisonRect(mapobj, screenul);
+   const CCollisionRect tempRect = GetCollisonRect(mapobj, screenul);
 
    // Jetzt noch die Werte von collrect anpassen (dirty):
    const CCollisionRect collRect(tempRect.m_Dimension, CalcScreenPos(screenul, newpos), tempRect.m_Handle, newrot);
+
+   const CPhysicalData mapObjsPhysicalData = mapobj.GetPhysicalData();
+
+   bool hitSomething = false;
 
    for (const std::string &otherid : m_VisibleMapObjects)
    {
       if (!HasMapObjectId(mapobj, otherid))
       {
-         const ITileMapObject *pOtherMapObj = GetMapObject(otherid);
+         ITileMapObject *pOtherMapObj = GetMapObject(otherid);
          if (Memory().m_MapObjects.IsValid(pOtherMapObj))
          {
             const CCollisionRect otherRect = GetCollisonRect(*pOtherMapObj, screenul);
 
             if (collRect.Collides(otherRect))
             {
-               return true;
+               mapobj.OnCollisionWithMapObject(tempRect, otherRect, pOtherMapObj->GetPhysicalData());
+               pOtherMapObj->OnCollisionWithMapObject(otherRect, tempRect, mapObjsPhysicalData);
+
+               hitSomething = true;
             }
          }
       }
    }
 
-   return false;
+   return hitSomething;
 }
 
 // ************************************************************************************************

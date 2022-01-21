@@ -54,6 +54,19 @@ CCollisionRect CMapObjectTank::GetCollisionRect(const CPixelPos &pos) const
 }
 
 // ************************************************************************************************
+CPhysicalData CMapObjectTank::GetPhysicalData() const
+{
+   if (Memory().m_TankUsings.IsValid(m_pUsing))
+   {
+      return m_pUsing->GetPhysicalData();
+   }
+   else
+   {
+      return CPhysicalData();
+   }
+}
+
+// ************************************************************************************************
 CTilePosAndRot CMapObjectTank::PreUpdate() const
 {
    if (Memory().m_TankUsings.IsValid(m_pUsing))
@@ -81,4 +94,13 @@ void CMapObjectTank::OnCollisionWithTileMap(bool xcoll, bool ycoll, Int32 tilesi
 // ************************************************************************************************
 void CMapObjectTank::OnCollisionWithEndOfMap(bool xcoll, bool ycoll, Int32 tilesize)
 {
+}
+
+// ************************************************************************************************
+void CMapObjectTank::OnCollisionWithMapObject(const CCollisionRect &thisrect, const CCollisionRect &otherrect, const CPhysicalData &otherphysicaldata)
+{
+   if (Memory().m_TankUsings.IsValid(m_pUsing))
+   {
+      m_pUsing->OnCollisionWithMapObject(thisrect, otherrect, otherphysicaldata);
+   }
 }

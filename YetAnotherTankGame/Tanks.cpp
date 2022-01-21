@@ -153,18 +153,13 @@ CPixelDim CTankModelBlueprint::GetDimensions() const
 }
 
 // ################################################################################################
-CTankSpecsBlueprint::CTankSpecsBlueprint(const CTankSpecsBlueprint &right)
-   : CTankSpecsBlueprint(right.m_Name, right.m_MaxSpeed, right.m_Acceleration, right.m_TowerRotationSpeed, right.m_Stability)
-{
-}
-
-// ************************************************************************************************
-CTankSpecsBlueprint::CTankSpecsBlueprint(const String &name, KmPerH maxspeed, MPerS acceleration, DegPerS towerRotSpeed, Real stability)
+CTankSpecsBlueprint::CTankSpecsBlueprint(const String &name, KmPerH maxspeed, MPerS acceleration, DegPerS towerRotSpeed, Real stability, KG weight)
    : m_Name(name),
    m_MaxSpeed(maxspeed),
    m_Acceleration(acceleration),
    m_TowerRotationSpeed(towerRotSpeed),
-   m_Stability(stability)
+   m_Stability(stability),
+   m_Weight(weight)
 {
 }
 
@@ -532,4 +527,24 @@ Real CTankUsing::GetLeftTrackSpeedPercentage() const
 Real CTankUsing::GetRightTrackSpeedPercentage() const
 {
    return abs(m_CurrentSpeedRT) / GetMaxTrackSpeed();
+}
+
+// ************************************************************************************************
+CPhysicalData CTankUsing::GetPhysicalData() const
+{
+   if (Memory().m_TankBlueprints.IsValid(m_pBlueprint))
+   {
+      CTilePosAndRot afterUpdate = PreUpdate();
+      return CPhysicalData(CVector2D<Meter>(afterUpdate.m_NewPos.m_X - m_Pos.m_X, afterUpdate.m_NewPos.m_Y - m_Pos.m_Y), m_pBlueprint->m_Specs.m_Weight);
+   }
+   else
+   {
+      return CPhysicalData();
+   }
+}
+
+// ************************************************************************************************
+void CTankUsing::OnCollisionWithMapObject(const CCollisionRect &thisrect, const CCollisionRect &otherrect, const CPhysicalData &otherphysicaldata)
+{
+   m_pDamageModelWanne->Crash(thisrect.GetHandlePosition() - otherrect.GetHandlePosition(), GetPhysicalData().GetImpulse(otherphysicaldata), thisrect.GetIntersectingWidth(otherrect), m_Rot);
 }

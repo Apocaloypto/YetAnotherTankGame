@@ -1,6 +1,7 @@
 #pragma once
 #include "ITileMapObject.h"
 #include "Typedefs.h"
+#include "PhysicalData.h"
 
 
 class CTankUsing;
@@ -19,6 +20,8 @@ public:
    virtual CTilePosAndRot PreUpdate() const override;
    virtual void Update(const CTilePosAndRot &values, bool collision) override;
    virtual CCollisionRect GetCollisionRect(const CPixelPos &pos) const override;
+   virtual CPhysicalData GetPhysicalData() const override;
    virtual void OnCollisionWithTileMap(bool xcoll, bool ycoll, Int32 tilesize) override;
    virtual void OnCollisionWithEndOfMap(bool xcoll, bool ycoll, Int32 tilesize) override;
+   virtual void OnCollisionWithMapObject(const CCollisionRect &thisrect, const CCollisionRect &otherrect, const CPhysicalData &otherphysicaldata) override;
 };

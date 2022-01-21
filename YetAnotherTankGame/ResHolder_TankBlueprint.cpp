@@ -24,8 +24,9 @@ std::optional<CTankSpecsBlueprint> CResHolderTankBlueprints::ParseSpecs(const ID
    PARSE_REAL_DATA(accel, TANKS_COL_ACCEL);
    PARSE_REAL_DATA(tower, TANKS_COL_TOWER);
    PARSE_REAL_DATA(stability, TANKS_COL_STAB);
+   PARSE_REAL_DATA(weight, TANKS_COL_WEIGHT);
 
-   return CTankSpecsBlueprint(tankname, maxspeed, accel, tower, stability);
+   return CTankSpecsBlueprint(tankname, maxspeed, accel, tower, stability, weight);
 
 #undef PARSE_REAL_DATA
 }

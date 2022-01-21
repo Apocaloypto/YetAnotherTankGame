@@ -16,8 +16,6 @@ private:
       BottomRight,
    };
 
-   CPixelPos GetHandlePosition() const;
-
    std::map<Edge, CPixelPos> GetEdges() const;
    CCollisionRect CopyRotated(const CPixelPos &aroundwhat, Degrees rotation) const;
 
@@ -33,6 +31,9 @@ public:
 
    CCollisionRect();
    CCollisionRect(const CPixelDim &dimension, const CPixelPos &pos, const CPixelPos &handle, Degrees rotation);
+
+   CPixelPos GetHandlePosition() const;
+   Pixels GetIntersectingWidth(const CCollisionRect &other) const;
 
    bool Collides(const CCollisionRect &other) const;
 };

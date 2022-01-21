@@ -198,6 +198,9 @@
     <ClCompile Include="CollisionRect.cpp">
       <Filter>Source Files\Tilemap</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicalData.cpp">
+      <Filter>Source Files\Tilemap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExitCodes.h">
@@ -349,6 +352,12 @@
     </ClInclude>
     <ClInclude Include="CollisionRect.h">
       <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicalData.h">
+      <Filter>Header Files\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="Line2D.h">
+      <Filter>Header Files\Base\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

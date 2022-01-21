@@ -22,6 +22,7 @@ private:
    const int TANKS_COL_TOWER = 4;
    const int TANKS_COL_STAB = 5;
    const int TANKS_COL_FILE = 6;
+   const int TANKS_COL_WEIGHT = 7;
 
    const std::vector<int> TANK_COLUMNS = {
       TANKS_COL_ID,
@@ -30,7 +31,8 @@ private:
       TANKS_COL_ACCEL,
       TANKS_COL_TOWER,
       TANKS_COL_STAB,
-      TANKS_COL_FILE
+      TANKS_COL_FILE,
+      TANKS_COL_WEIGHT
    };
 
    std::optional<CTankSpecsBlueprint> ParseSpecs(const IDL::CIDLDataSet &dataset) const;
