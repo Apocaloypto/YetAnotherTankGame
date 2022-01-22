@@ -201,30 +201,6 @@ CLine2D<Pixels> CCollisionRect::GetIntersectingLine(const std::map<Edge, CPixelP
          : m_NeighborOne(one), m_NeighborTwo(two)
       {
       }
-
-      std::optional<Edge> GetEdgeMulti(const CEdgeNeighbor &other) const
-      {
-         if (m_NeighborOne == other.m_NeighborOne)
-         {
-            return m_NeighborOne;
-         }
-         else if (m_NeighborOne == other.m_NeighborTwo)
-         {
-            return m_NeighborOne;
-         }
-         else if (m_NeighborTwo == other.m_NeighborOne)
-         {
-            return m_NeighborTwo;
-         }
-         else if (m_NeighborTwo == other.m_NeighborTwo)
-         {
-            return m_NeighborTwo;
-         }
-         else
-         {
-            return std::nullopt;
-         }
-      }
    };
 
    // zunächst einmal die Nachbarpunkte zu einem Punkt:
@@ -261,18 +237,42 @@ CLine2D<Pixels> CCollisionRect::GetIntersectingLine(const std::map<Edge, CPixelP
       const CEdgeNeighbor &neighbor1 = NEIGHBORS.at(crossingEdges[0]);
       const CEdgeNeighbor &neighbor2 = NEIGHBORS.at(crossingEdges[1]);
 
-      std::optional<Edge> multi = neighbor1.GetEdgeMulti(neighbor2);
-      if (!multi.has_value())
+      std::optional<Edge> endpoint0 = std::nullopt;
+      std::optional<Edge> endpoint1 = std::nullopt;
+
+#define CHECK_AGAINST(edge1, edge2) (crossingEdges[0] == edge1 && crossingEdges[1] == edge2) || (crossingEdges[1] == edge1 && crossingEdges[0] == edge2)
+
+      if (CHECK_AGAINST(Edge::UpperLeft, Edge::UpperRight))
       {
-         assert(false); // Sollte nicht eintreten!
+         endpoint0 = Edge::BottomLeft;
+         endpoint1 = Edge::BottomRight;
+      }
+      else if (CHECK_AGAINST(Edge::UpperRight, Edge::BottomRight))
+      {
+         endpoint0 = Edge::UpperLeft;
+         endpoint1 = Edge::BottomLeft;
+      }
+      else if (CHECK_AGAINST(Edge::BottomRight, Edge::BottomLeft))
+      {
+         endpoint0 = Edge::UpperRight;
+         endpoint1 = Edge::UpperLeft;
+      }
+      else if (CHECK_AGAINST(Edge::BottomLeft, Edge::UpperLeft))
+      {
+         endpoint0 = Edge::BottomRight;
+         endpoint1 = Edge::UpperRight;
+      }
+
+#undef CHECK_AGAINST
+
+      if (!endpoint0.has_value() || !endpoint1.has_value())
+      {
+         assert(false);
          return CLine2D<Pixels>();
       }
 
-      Edge edge1 = neighbor1.m_NeighborOne == multi.value() ? neighbor1.m_NeighborTwo : neighbor1.m_NeighborOne;
-      Edge edge2 = neighbor2.m_NeighborOne == multi.value() ? neighbor2.m_NeighborTwo : neighbor2.m_NeighborOne;
-
-      CLine2D<Pixels> line1(checked.at(crossingEdges[0]), checked.at(edge1));
-      CLine2D<Pixels> line2(checked.at(crossingEdges[1]), checked.at(edge2));
+      CLine2D<Pixels> line1(checked.at(crossingEdges[0]), checked.at(endpoint0.value()));
+      CLine2D<Pixels> line2(checked.at(crossingEdges[1]), checked.at(endpoint1.value()));
 
       return MakeIntersectionLine(checked, line1, line2);
    }
