@@ -26,7 +26,8 @@ public:
       return m_Start.GetDistanceTo(m_End);
    }
 
-   std::optional<CPoint2D<T>> Crosses(const CLine2D &other) const
+private:
+   std::optional<CPoint2D<T>> GetCrossingPoint(const CLine2D &other) const
    {
       // https://www.geeksforgeeks.org/program-for-point-of-intersection-of-two-lines/
       // Line AB represented as a1x + b1y = c1
@@ -50,15 +51,21 @@ public:
       else
       {
          CPoint2D<T> crossingPoint((b2 * c1 - b1 * c2) / determinant, (a1 * c2 - a2 * c1) / determinant);
+         return crossingPoint;
+      }
+   }
 
-         if (crossingPoint.IsOnSegment(m_Start, m_End))
-         {
-            return crossingPoint;
-         }
-         else
-         {
-            return std::nullopt;
-         }
+public:
+   std::optional<CPoint2D<T>> Crosses(const CLine2D &other) const
+   {
+      std::optional<CPoint2D<T>> crossingPoint = GetCrossingPoint(other);
+      if (crossingPoint.has_value() && crossingPoint.value().IsOnSegment(m_Start, m_End))
+      {
+         return crossingPoint.value();
+      }
+      else
+      {
+         return std::nullopt;
       }
    }
 };

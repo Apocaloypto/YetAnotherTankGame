@@ -359,5 +359,8 @@
     <ClInclude Include="Line2D.h">
       <Filter>Header Files\Base\Math</Filter>
     </ClInclude>
+    <ClInclude Include="FourPointRect2D.h">
+      <Filter>Header Files\Base\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
